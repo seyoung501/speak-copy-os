@@ -289,42 +289,26 @@ Evaluate the given copy and respond ONLY in valid JSON:
   "revised_copy": "string (improved version if score < 7, otherwise null)"
 }`;
 
-function Evaluator(){
+function Evaluator({gk}){
   const[input,setInput]=useState("");
   const[loading,setLoading]=useState(false);
   const[result,setResult]=useState(null);
   const[error,setError]=useState(null);
   const evaluate=async()=>{
     if(!input.trim())return;
+    if(!gk){setError("🔑 먼저 상단의 'Set Key' 버튼을 눌러 Gemini API Key를 입력해주세요.");return}
     setLoading(true);setError(null);setResult(null);
-    const prompt=`Evaluate this Korean marketing copy for Speak:\n\n"${input}"`;
     try{
-      const res=await fetch("https://api.anthropic.com/v1/messages",{
+      const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${gk}`,{
         method:"POST",headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1500,system:EVAL_PROMPT,messages:[{role:"user",content:prompt}]})
+        body:JSON.stringify({system_instruction:{parts:[{text:EVAL_PROMPT}]},contents:[{parts:[{text:`Evaluate this Korean marketing copy for Speak:\n\n"${input}"`}]}],generationConfig:{temperature:0.7,maxOutputTokens:2000,responseMimeType:"application/json"}})
       });
       const data=await res.json();
-      const text=data.content?.map(b=>b.type==="text"?b.text:"").join("")||"";
-      if(!text) throw new Error("empty");
+      if(data.error) throw new Error(data.error.message||"API error");
+      const text=data.candidates?.[0]?.content?.parts?.[0]?.text||"";
+      if(!text) throw new Error("빈 응답. 다시 시도해주세요.");
       setResult(JSON.parse(text.replace(/```json|```/g,"").trim()));
-    }catch(e){
-      try{
-        const gk=localStorage.getItem("gk")||"";
-        if(!gk) throw new Error("nokey");
-        const res2=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${gk}`,{
-          method:"POST",headers:{"Content-Type":"application/json"},
-          body:JSON.stringify({system_instruction:{parts:[{text:EVAL_PROMPT}]},contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0.7,maxOutputTokens:2000,responseMimeType:"application/json"}})
-        });
-        const d2=await res2.json();
-        if(d2.error) throw new Error(d2.error.message);
-        const t2=d2.candidates?.[0]?.content?.parts?.[0]?.text||"";
-        if(!t2) throw new Error("empty");
-        setResult(JSON.parse(t2.replace(/```json|```/g,"").trim()));
-      }catch(e2){
-        if(e2.message==="nokey") setError("🔑 Gemini API Key를 입력해주세요 (상단 설정)");
-        else setError("⚠️ 생성 실패: "+(e2.message||"30초 후 다시 시도해주세요"));
-      }
-    }
+    }catch(e){setError("⚠️ "+(e.message||"생성 실패. 30초 후 다시 시도해주세요."))}
     setLoading(false);
   };
 
@@ -533,7 +517,7 @@ Respond ONLY in valid JSON. Return an array of exactly 3 objects.
 Keep ALL text values SHORT. Each object:
 {"ko":"Korean copy text","en":"English translation (max 10 words)","sub":"optional supporting copy in Korean or null","tone":"safe|balanced|bold","note":"brand strategy in 10 words max"}`;
 
-function Factory({copies}){
+function Factory({copies,gk}){
   const[channelIdx,setChannelIdx]=useState(0);
   const[formatIdx,setFormatIdx]=useState(0);
   const[angles,setAngles]=useState(["usp"]);
@@ -651,30 +635,17 @@ Keep ALL values short. Return ONLY valid JSON array.`;
     };
 
     try{
-      const res=await fetch("https://api.anthropic.com/v1/messages",{
+      if(!gk){setError("🔑 먼저 상단의 'Set Key' 버튼을 눌러 Gemini API Key를 입력해주세요.");setLoading(false);return}
+      const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${gk}`,{
         method:"POST",headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1500,system:SYSTEM_PROMPT,messages:[{role:"user",content:userMsg}]})
+        body:JSON.stringify({system_instruction:{parts:[{text:SYSTEM_PROMPT}]},contents:[{parts:[{text:userMsg}]}],generationConfig:{temperature:0.7,maxOutputTokens:4000,responseMimeType:"application/json"}})
       });
       const data=await res.json();
-      const text=data.content?.map(b=>b.type==="text"?b.text:"").join("")||"";
+      if(data.error) throw new Error(data.error.message||"API error");
+      const text=data.candidates?.[0]?.content?.parts?.[0]?.text||"";
+      if(!text) throw new Error("빈 응답. 다시 시도해주세요.");
       setResults(parseResult(text));
-    }catch(e){
-      try{
-        const gk=localStorage.getItem("gk")||"";
-        if(!gk) throw new Error("nokey");
-        const res2=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${gk}`,{
-          method:"POST",headers:{"Content-Type":"application/json"},
-          body:JSON.stringify({system_instruction:{parts:[{text:SYSTEM_PROMPT}]},contents:[{parts:[{text:userMsg}]}],generationConfig:{temperature:0.7,maxOutputTokens:4000,responseMimeType:"application/json"}})
-        });
-        const d2=await res2.json();
-        if(d2.error) throw new Error(d2.error.message);
-        const t2=d2.candidates?.[0]?.content?.parts?.[0]?.text||"";
-        setResults(parseResult(t2));
-      }catch(e2){
-        if(e2.message==="nokey") setError("🔑 Gemini API Key를 입력해주세요 (상단 설정)");
-        else setError("⚠️ 생성 실패: "+(e2.message||"30초 후 다시 시도해주세요"));
-      }
-    }
+    }catch(e){setError("⚠️ "+(e.message||"생성 실패. 30초 후 다시 시도해주세요."))}
     setLoading(false);
   };
 
@@ -799,9 +770,9 @@ return(<div style={{minHeight:"100vh",background:"#08080D",color:"#EDEDF3",fontF
 
 {view==="map"&&<div style={{padding:"28px 32px",maxWidth:860}}>{LEVELS.map((l,i)=>{const keys=D.filter(d=>d.l===l.id&&d.k);return(<div key={l.id} style={{display:"flex",gap:14,marginBottom:4}}><div style={{width:36,display:"flex",flexDirection:"column",alignItems:"center"}}><div style={{width:28,height:28,borderRadius:99,background:l.color,display:"flex",alignItems:"center",justifyContent:"center",color:"#fff",fontSize:12,fontWeight:700,fontFamily:"'Space Mono'"}}>{l.id}</div>{i<LEVELS.length-1&&<div style={{width:2,flex:1,background:"#1A1A24",marginTop:2}}/>}</div><div style={{flex:1,background:"#111118",borderRadius:10,padding:"14px 18px",marginBottom:8,borderLeft:`3px solid ${l.color}`}}><div style={{display:"flex",alignItems:"center",gap:8,marginBottom:3}}><span style={{fontSize:14,fontWeight:700,color:l.color}}>{l.label}</span><span style={{fontSize:10,color:"#4A4A60",marginLeft:"auto"}}>{totalCounts[l.id]}</span></div><div style={{fontSize:11,color:"#7E7E96"}}>{l.desc}</div>{l.subs&&<div style={{display:"flex",flexWrap:"wrap",gap:4,marginTop:8}}>{l.subs.map(s=><span key={s.id} style={{fontSize:9,padding:"2px 7px",borderRadius:99,background:l.color+"15",color:l.color,fontWeight:500}}>{s.label} ({subCounts[s.tag]||0})</span>)}</div>}{keys.map((kc,ki)=>(<div key={ki} style={{display:"flex",alignItems:"center",gap:6,marginTop:6,paddingTop:ki===0?8:0,borderTop:ki===0?"1px solid #1A1A24":"none"}}><span style={{fontSize:8,padding:"1px 5px",borderRadius:99,background:"#F59E0B20",color:"#F59E0B",fontWeight:700}}>★</span><span style={{fontSize:13,fontWeight:600,fontFamily:"'Noto Sans KR'"}}>{kc.ko}</span></div>))}</div></div>)})}</div>}
 
-{view==="factory"&&<Factory copies={D}/>}
+{view==="factory"&&<Factory copies={D} gk={gk}/>}
 
-{view==="evaluate"&&<Evaluator/>}
+{view==="evaluate"&&<Evaluator gk={gk}/>}
 
 {view==="channels"&&<div style={{padding:"28px 32px"}}><div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))",gap:12}}>{CHANNELS.map(c=>(<div key={c.name} onClick={()=>{setCh(c.name);setView("warehouse")}} style={{background:"#111118",borderRadius:10,padding:16,cursor:"pointer",border:"1px solid #1A1A24",transition:"border-color 0.12s"}} onMouseEnter={e=>e.currentTarget.style.borderColor="#6366F1"} onMouseLeave={e=>e.currentTarget.style.borderColor="#1A1A24"}><div style={{fontSize:14,fontWeight:700,marginBottom:4}}>{c.name}</div><div style={{fontSize:11,color:"#7E7E96",marginBottom:10}}>{c.desc}</div><div style={{display:"flex",flexWrap:"wrap",gap:4}}>{c.levels.map(lid=>{const lv=LEVELS.find(x=>x.id===lid);return<span key={lid} style={{fontSize:9,padding:"2px 7px",borderRadius:99,background:lv.color+"20",color:lv.color,fontWeight:600}}>{lid}. {lv.label}</span>})}</div></div>))}</div></div>}
 
