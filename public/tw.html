@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Speak TW CopyOS v8</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap');
+:root{--bg:#0a0a10;--s1:#0f0f18;--s2:#15151f;--s3:#1c1c28;--bd:#252538;--bd2:#2f2f48;--acc:#6366f1;--ach:#818cf8;--gr:#10b981;--rd:#f43f5e;--yl:#f59e0b;--pu:#a78bfa;--tx:#e8e8f4;--tx2:#9494b8;--tx3:#5a5a7a;--star:#fbbf24}
+*{margin:0;padding:0;box-sizing:border-box}html,body{height:100%;overflow:hidden}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--tx);font-size:13px}
+button,select,input,textarea{font-family:inherit}
+.topnav{height:52px;background:var(--s1);border-bottom:1px solid var(--bd);display:flex;align-items:center;padding:0 18px;position:fixed;top:0;left:0;right:0;z-index:100}
+.logo{font-family:'Instrument Serif',serif;font-size:17px;margin-right:28px;display:flex;align-items:center;gap:7px;white-space:nowrap}
+.logo-dot{width:7px;height:7px;border-radius:50%;background:var(--acc)}
+.logo small{font-family:'DM Mono',monospace;font-size:10px;color:var(--tx3);font-style:normal}
+.nav-tabs{display:flex;gap:2px;flex:1}
+.ntab{padding:6px 15px;border-radius:6px;font-size:12px;font-weight:500;color:var(--tx2);transition:all .15s;border:none;background:transparent;display:flex;align-items:center;gap:6px;white-space:nowrap;cursor:pointer}
+.ntab:hover{background:var(--s3);color:var(--tx)}.ntab.active{background:rgba(99,102,241,.15);color:var(--ach)}
+.tnum{background:var(--s3);border-radius:10px;padding:1px 6px;font-family:'DM Mono',monospace;font-size:9px;color:var(--tx3)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.uitoggle{display:flex;background:var(--s2);border-radius:6px;padding:2px;border:1px solid var(--bd)}
+.uitab{padding:3px 10px;border-radius:4px;font-size:10px;font-family:'DM Mono',monospace;border:none;background:transparent;color:var(--tx2);transition:all .12s;cursor:pointer}
+.uitab.on{background:var(--acc);color:#fff}
+.star-nav-btn{display:flex;align-items:center;gap:5px;padding:5px 11px;border-radius:6px;border:1px solid var(--bd);background:transparent;color:var(--tx2);font-size:11px;transition:all .15s;cursor:pointer}
+.star-nav-btn:hover{border-color:var(--star);color:var(--star)}.scount{font-family:'DM Mono',monospace;font-weight:700;color:var(--star)}
+.app{display:flex;height:100vh;padding-top:52px}
+.sidebar{width:195px;min-width:195px;background:var(--s1);border-right:1px solid var(--bd);overflow-y:auto;padding:6px 0 20px;flex-shrink:0;display:none}
+.sidebar.vis{display:block}
+.sbg{padding:11px 12px 3px;font-family:'DM Mono',monospace;font-size:8.5px;color:var(--tx3);letter-spacing:1.5px;text-transform:uppercase;margin-top:6px}
+.si{display:flex;align-items:center;gap:6px;padding:5px 13px;border-left:2px solid transparent;font-size:12px;color:var(--tx2);transition:all .12s;cursor:pointer}
+.si:hover{background:var(--s2);color:var(--tx)}.si.on{background:rgba(99,102,241,.08);border-left-color:var(--acc);color:var(--ach)}
+.scnt{margin-left:auto;font-family:'DM Mono',monospace;font-size:9px;color:var(--tx3)}
+.content{flex:1;overflow-y:auto}
+.panel{display:none;padding:22px}.panel.active{display:block}
+.phd{margin-bottom:18px}.phd h1{font-family:'Instrument Serif',serif;font-size:21px;font-weight:400;margin-bottom:3px}
+.phd p{font-size:12px;color:var(--tx2);line-height:1.6}
+.auto-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:9px}
+.auto-grid-lg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:9px}
+.card{background:var(--s1);border:1px solid var(--bd);border-radius:9px;padding:13px}
+.rtitle{font-weight:600;font-size:13px;margin-bottom:9px}
+.ri{font-size:11.5px;color:var(--tx2);line-height:1.65;margin-bottom:4px;padding-left:14px;position:relative}
+.ri::before{content:'·';position:absolute;left:4px;color:var(--acc)}
+.ri.ok::before{content:'✓';color:var(--gr);font-size:10px;left:2px}
+.ri.no::before{content:'✕';color:var(--rd);font-size:10px;left:2px}
+.chip{padding:3px 10px;border-radius:20px;border:1px solid var(--bd);font-size:10px;color:var(--tx2);white-space:nowrap;transition:all .12s;cursor:pointer;background:transparent}
+.chip:hover{border-color:var(--acc);color:var(--ach)}.chip.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.ltb{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.sbox{position:relative;flex:1;min-width:180px}
+.sbox svg{position:absolute;left:9px;top:50%;transform:translateY(-50%);width:12px;height:12px;color:var(--tx3);pointer-events:none}
+.sinput{width:100%;background:var(--s2);border:1px solid var(--bd);border-radius:7px;padding:7px 9px 7px 28px;color:var(--tx);font-size:12px;outline:none;transition:border-color .15s}
+.sinput:focus{border-color:var(--acc)}.sinput::placeholder{color:var(--tx3)}
+.vt{display:flex;gap:2px;margin-left:auto}
+.vbtn{width:27px;height:27px;border-radius:5px;border:1px solid var(--bd);background:transparent;color:var(--tx2);font-size:12px;transition:all .12s;cursor:pointer}
+.vbtn.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.stbar{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.stxt{font-size:11px;color:var(--tx2);font-family:'DM Mono',monospace}
+.stxt strong{color:var(--tx)}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:9px}
+.clist{display:flex;flex-direction:column;gap:5px}
+.cc{background:var(--s1);border:1px solid var(--bd);border-radius:8px;padding:12px 12px 9px;transition:all .14s;position:relative;cursor:default}
+.cc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:8px 8px 0 0;background:transparent;transition:background .14s}
+.cc:hover{border-color:var(--acc)}.cc:hover::before{background:var(--acc)}
+.cc.starred{border-color:var(--star)!important}.cc.starred::before{background:var(--star)!important}
+.czh{font-size:13px;font-weight:500;line-height:1.7;margin-bottom:4px;color:var(--tx)}
+.cen{font-size:11px;color:var(--tx2);line-height:1.5;margin-bottom:7px;font-style:italic}
+.cmeta{display:flex;gap:3px;flex-wrap:wrap}
+.tag{font-size:9px;padding:2px 6px;border-radius:3px;border:1px solid var(--bd);background:var(--s3);color:var(--tx2);font-family:'DM Mono',monospace;white-space:nowrap}
+.tag-Meta{background:rgba(59,130,246,.1);color:#60a5fa;border-color:rgba(59,130,246,.2)}
+.tag-TikTok{background:rgba(244,63,94,.08);color:#fb7185;border-color:rgba(244,63,94,.15)}
+.tag-Google{background:rgba(16,185,129,.08);color:#34d399;border-color:rgba(16,185,129,.15)}
+.tag-AppStore{background:rgba(99,102,241,.1);color:var(--ach);border-color:rgba(99,102,241,.2)}
+.tag-IGOrganic{background:rgba(167,139,250,.08);color:var(--pu);border-color:rgba(167,139,250,.15)}
+.tag-Web{background:rgba(245,158,11,.08);color:#fbbf24;border-color:rgba(245,158,11,.15)}
+.tag-CRM{background:rgba(16,185,129,.08);color:var(--gr);border-color:rgba(16,185,129,.15)}
+.cactions{position:absolute;top:8px;right:8px;display:flex;gap:3px;opacity:0;transition:opacity .14s}
+.cc:hover .cactions{opacity:1}
+.cab{width:25px;height:25px;border-radius:4px;border:1px solid var(--bd);background:var(--s2);color:var(--tx2);font-size:11px;display:flex;align-items:center;justify-content:center;transition:all .12s;cursor:pointer}
+.cab:hover{background:var(--s3);color:var(--tx)}.cab.starred{color:var(--star);border-color:var(--star)}
+.clist .cc{padding:7px 11px;display:flex;gap:9px;align-items:flex-start}
+.clist .czh{flex:1;margin-bottom:0;font-size:12px}.clist .cen{display:none}
+.clist .cmeta{flex-shrink:0;margin-top:2px}
+mark{background:rgba(99,102,241,.28);color:inherit;border-radius:2px}
+.mc{background:var(--s1);border:1px solid var(--bd);border-radius:8px;padding:11px}
+.mhdr{display:flex;align-items:flex-start;justify-content:space-between;gap:7px;margin-bottom:7px}
+.mname{font-family:'DM Mono',monospace;font-size:8.5px;color:var(--tx3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.mst{font-size:8.5px;padding:2px 5px;border-radius:3px;font-family:'DM Mono',monospace;font-weight:600;flex-shrink:0}
+.st-scaling{background:rgba(16,185,129,.1);color:var(--gr);border:1px solid rgba(16,185,129,.2)}
+.st-declining{background:rgba(244,63,94,.08);color:var(--rd);border:1px solid rgba(244,63,94,.15)}
+.st-hidden{background:rgba(90,90,122,.1);color:var(--tx3);border:1px solid var(--bd)}
+.mkpis{display:flex;gap:11px;margin-bottom:7px;flex-wrap:wrap}
+.kpi{display:flex;flex-direction:column;gap:1px}
+.kl{font-family:'DM Mono',monospace;font-size:7.5px;color:var(--tx3);text-transform:uppercase}
+.kv{font-family:'DM Mono',monospace;font-size:13px;font-weight:600;color:var(--tx)}
+.kv.g{color:var(--gr)}.kv.w{color:var(--yl)}.kv.b{color:var(--rd)}
+.mwhat{font-size:11px;color:var(--tx2);line-height:1.5;margin-bottom:7px;padding:6px 9px;background:var(--s2);border-radius:5px;border-left:2px solid var(--acc)}
+.mtags{display:flex;gap:3px;flex-wrap:wrap}
+.mt{font-size:9px;padding:2px 6px;border-radius:3px;font-family:'DM Mono',monospace;border:1px solid;white-space:nowrap}
+.mt-a{background:rgba(99,102,241,.08);color:var(--ach);border-color:rgba(99,102,241,.17)}
+.mt-h{background:rgba(245,158,11,.07);color:#fbbf24;border-color:rgba(245,158,11,.14)}
+.mt-m{background:rgba(16,185,129,.06);color:var(--gr);border-color:rgba(16,185,129,.12)}
+.mt-f{background:rgba(244,63,94,.06);color:#f87171;border-color:rgba(244,63,94,.12)}
+.mt-t{background:rgba(167,139,250,.07);color:var(--pu);border-color:rgba(167,139,250,.14)}
+.glay{display:grid;grid-template-columns:360px 1fr;gap:18px}
+.bform{background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:18px;height:fit-content;position:sticky;top:22px;overflow-y:auto;max-height:calc(100vh - 100px)}
+.btitle{font-family:'Instrument Serif',serif;font-size:17px;margin-bottom:3px}
+.bsub{font-size:11px;color:var(--tx2);margin-bottom:16px;line-height:1.5}
+.fsec{margin-bottom:13px}
+.flabel{font-size:11px;font-weight:600;color:var(--tx2);margin-bottom:5px;display:flex;align-items:center;justify-content:space-between}
+.fhint{font-size:10px;color:var(--tx3);font-weight:400}
+.fsel,.ftxt{width:100%;background:var(--s2);border:1px solid var(--bd);border-radius:6px;padding:7px 9px;color:var(--tx);font-size:12px;outline:none;transition:border-color .15s}
+.fsel:focus,.ftxt:focus{border-color:var(--acc)}.ftxt{resize:vertical;min-height:60px;line-height:1.6}
+.mchips{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
+.mc2{padding:3px 8px;border-radius:4px;border:1px solid var(--bd);font-size:10px;color:var(--tx2);transition:all .12s;background:transparent;cursor:pointer}
+.mc2:hover{border-color:var(--acc);color:var(--ach)}.mc2.on{background:rgba(99,102,241,.14);border-color:var(--acc);color:var(--ach)}
+.base-wrap{background:var(--s2);border:1px solid var(--bd);border-radius:6px;overflow:hidden;margin-top:5px}
+.base-hdr{display:flex;align-items:center;justify-content:space-between;padding:6px 9px 4px;border-bottom:1px solid var(--bd)}
+.base-lbl{font-size:9px;font-family:'DM Mono',monospace;color:var(--tx3);text-transform:uppercase;letter-spacing:.5px}
+.base-ta{width:100%;background:transparent;border:none;padding:7px 9px;color:var(--tx);font-size:12px;outline:none;resize:none;line-height:1.65;min-height:55px}
+.base-hint{font-size:10px;color:var(--tx3);padding:4px 9px 6px;font-style:italic;border-top:1px solid var(--bd)}
+.divider{height:1px;background:var(--bd);margin:10px 0}
+.gbtn{width:100%;padding:10px;background:var(--acc);color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:600;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;margin-top:3px}
+.gbtn:hover{background:#4f46e5}.gbtn:disabled{opacity:.5;cursor:not-allowed}
+.gempty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:360px;color:var(--tx3);gap:7px}
+.rcards{display:flex;flex-direction:column;gap:13px}
+.rcard{background:var(--s1);border:1px solid var(--bd);border-radius:10px;overflow:hidden}
+.rchdr{padding:11px 15px;display:flex;align-items:flex-start;justify-content:space-between;border-bottom:1px solid var(--bd);gap:8px}
+.rhleft{display:flex;flex-direction:column;gap:3px}
+.rbadge{font-size:10px;font-weight:700;padding:3px 9px;border-radius:4px;font-family:'DM Mono',monospace}
+.rca .rbadge{background:rgba(16,185,129,.1);color:var(--gr);border:1px solid rgba(16,185,129,.2)}
+.rcb .rbadge{background:rgba(99,102,241,.1);color:var(--ach);border:1px solid rgba(99,102,241,.2)}
+.rcc .rbadge{background:rgba(245,158,11,.1);color:var(--yl);border:1px solid rgba(245,158,11,.2)}
+.rcd .rbadge{background:rgba(244,63,94,.08);color:var(--rd);border:1px solid rgba(244,63,94,.15)}
+.rce .rbadge{background:rgba(167,139,250,.08);color:var(--pu);border:1px solid rgba(167,139,250,.15)}
+.rcf .rbadge{background:rgba(245,158,11,.08);color:var(--yl);border:1px solid rgba(245,158,11,.15)}
+.rangle{font-size:11px;color:var(--tx2)}
+.racts{display:flex;gap:4px;align-items:center;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
+.ract{padding:3px 9px;border-radius:4px;border:1px solid var(--bd);background:transparent;font-size:10px;color:var(--tx2);cursor:pointer;transition:all .12s}
+.ract:hover{background:var(--s3);color:var(--tx)}.ract.starred{color:var(--star);border-color:var(--star)}
+.regen-btn{padding:2px 7px;border-radius:4px;border:1px solid rgba(99,102,241,.3);background:rgba(99,102,241,.07);font-size:9px;color:var(--ach);cursor:pointer;transition:all .12s;font-family:'DM Mono',monospace;font-weight:600}
+.regen-btn:hover{background:rgba(99,102,241,.15)}
+.rbody{padding:13px 15px}
+.csec{margin-bottom:11px}.csec:last-child{margin-bottom:0}
+.cslabel{font-size:9px;font-family:'DM Mono',monospace;color:var(--tx3);font-weight:700;text-transform:uppercase;letter-spacing:.7px;margin-bottom:5px;display:flex;align-items:center;gap:5px}
+.cslabel .ml{margin-left:auto;display:flex;gap:4px}
+.cpbtn{padding:2px 7px;border-radius:3px;border:1px solid var(--bd);background:transparent;font-size:9px;color:var(--tx3);cursor:pointer;transition:all .12s}
+.cpbtn:hover{color:var(--gr);border-color:var(--gr)}
+.ctxt{font-size:13px;line-height:1.7;color:var(--tx);white-space:pre-wrap;background:var(--s2);border-radius:6px;padding:9px 11px;border:1px solid var(--bd);font-weight:500}
+.ctxt.mono{font-family:'DM Mono',monospace;font-size:12px;font-weight:400}
+.ctxt.imgtext{font-size:13px;font-weight:700;letter-spacing:-.2px;line-height:1.6}
+.rnote{margin-top:9px;padding:7px 10px;border-radius:5px;font-size:11px;color:var(--tx2);line-height:1.6;background:var(--s2);border-left:2px solid var(--bd2)}
+.rnote strong{color:var(--tx)}
+.rflag{margin-top:7px;padding:6px 10px;border-radius:5px;font-size:11px;color:var(--yl);line-height:1.6;background:rgba(245,158,11,.07);border-left:2px solid var(--yl)}
+.sv-empty{padding:60px;text-align:center;color:var(--tx3)}
+.sv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.sv-card{background:var(--s1);border:1px solid var(--star);border-radius:8px;padding:12px;position:relative}
+.sv-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:8px 8px 0 0;background:var(--star)}
+.sv-label{font-family:'DM Mono',monospace;font-size:9px;color:var(--star);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
+.sv-text{font-size:12px;color:var(--tx);line-height:1.6;white-space:pre-wrap;margin-bottom:7px}
+.sv-meta{font-size:10px;color:var(--tx3);font-family:'DM Mono',monospace;margin-bottom:8px}
+.sv-acts{display:flex;gap:5px}
+.rgpicker{position:fixed;background:var(--s1);border:1px solid var(--bd2);border-radius:8px;padding:10px;z-index:500;min-width:300px;max-width:400px;box-shadow:0 8px 30px rgba(0,0,0,.6)}
+.rgpicker-title{font-size:9px;font-family:'DM Mono',monospace;color:var(--tx3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px}
+.rgpicker-opt{padding:8px 10px;border-radius:5px;cursor:pointer;background:var(--s2);margin-bottom:4px;border:1px solid var(--bd);transition:border-color .12s}
+.rgpicker-opt:hover{border-color:var(--acc)}
+.rgpicker-angle{font-size:9px;font-family:'DM Mono',monospace;color:var(--ach);margin-bottom:2px}
+.rgpicker-text{font-size:12px;color:var(--tx);line-height:1.55;white-space:pre-wrap}
+.toast{position:fixed;bottom:18px;right:18px;background:var(--gr);color:#000;padding:7px 14px;border-radius:7px;font-size:11px;font-weight:700;font-family:'DM Mono',monospace;transform:translateY(50px);opacity:0;transition:all .2s;z-index:999}
+.toast.show{transform:translateY(0);opacity:1}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--bd);border-radius:2px}
+.d::after{content:'';animation:da 1s steps(3) infinite}
+@keyframes da{0%{content:''}33%{content:'.'}66%{content:'..'}100%{content:'...'}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="logo"><div class="logo-dot"></div>Speak CopyOS<small>TW</small></div>
+  <div class="nav-tabs">
+    <button class="ntab" id="nt-foundation" onclick="go('foundation')">
+      <span class="i18n" data-zh="⚙️ 底層設定" data-en="⚙️ Foundation">⚙️ 底層設定</span>
+    </button>
+    <button class="ntab active" id="nt-library" onclick="go('library')">
+      <span class="i18n" data-zh="📚 文案庫" data-en="📚 Library">📚 文案庫</span>
+      <span class="tnum" id="lib-total">0</span>
+    </button>
+    <button class="ntab" id="nt-motion" onclick="go('motion')">
+      <span class="i18n" data-zh="🎬 Motion" data-en="🎬 Motion">🎬 Motion</span>
+    </button>
+    <button class="ntab" id="nt-generate" onclick="go('generate')">
+      <span class="i18n" data-zh="✨ AI 生成器" data-en="✨ Generator">✨ AI 生成器</span>
+    </button>
+  </div>
+  <div class="nav-right">
+    <div class="uitoggle" title="UI Language">
+      <button class="uitab on" id="ul-zh" onclick="setUILang('zh')">中</button>
+      <button class="uitab" id="ul-en" onclick="setUILang('en')">EN</button>
+    </div>
+    <button class="star-nav-btn" onclick="go('saved')">⭐ <span class="scount" id="sv-count">0</span></button>
+  </div>
+</nav>
+<div class="app">
+<aside class="sidebar" id="lib-sidebar">
+  <div class="sbg"><span class="i18n" data-zh="文案分類" data-en="Categories">文案分類</span></div>
+  <div class="si on" data-sec="all">📦 <span class="i18n" data-zh="全部" data-en="All">全部</span> <span class="scnt" id="sc-all">0</span></div>
+  <div class="si" data-sec="brand">✨ <span class="i18n" data-zh="品牌定位" data-en="Brand">品牌定位</span> <span class="scnt" id="sc-brand">0</span></div>
+  <div class="si" data-sec="usp">💡 <span class="i18n" data-zh="價值主張" data-en="Value Prop">價值主張</span> <span class="scnt" id="sc-usp">0</span></div>
+  <div class="si" data-sec="feature">⚙️ <span class="i18n" data-zh="功能文案" data-en="Features">功能文案</span> <span class="scnt" id="sc-feature">0</span></div>
+  <div class="si" data-sec="target">🎯 <span class="i18n" data-zh="目標受眾" data-en="Audience">目標受眾</span> <span class="scnt" id="sc-target">0</span></div>
+  <div class="si" data-sec="proof">⭐ <span class="i18n" data-zh="社會認同" data-en="Social Proof">社會認同</span> <span class="scnt" id="sc-proof">0</span></div>
+  <div class="si" data-sec="pricing">💰 <span class="i18n" data-zh="定價" data-en="Pricing">定價</span> <span class="scnt" id="sc-pricing">0</span></div>
+  <div class="si" data-sec="cta">👆 CTA <span class="scnt" id="sc-cta">0</span></div>
+  <div class="si" data-sec="paid">📱 <span class="i18n" data-zh="付費廣告" data-en="Paid Ads">付費廣告</span> <span class="scnt" id="sc-paid">0</span></div>
+  <div class="si" data-sec="organic">🌿 <span class="i18n" data-zh="IG 社群有機" data-en="IG Organic">IG 社群有機</span> <span class="scnt" id="sc-organic">0</span></div>
+  <div class="si" data-sec="crm">📨 CRM / Push <span class="scnt" id="sc-crm">0</span></div>
+  <div class="si" data-sec="ba">🔄 Before/After <span class="scnt" id="sc-ba">0</span></div>
+  <div class="sbg"><span class="i18n" data-zh="頻道篩選" data-en="By Channel">頻道篩選</span></div>
+  <div class="si" data-ch="Meta">📘 Meta Paid</div>
+  <div class="si" data-ch="IGOrganic">📸 IG Organic</div>
+  <div class="si" data-ch="TikTok">🎵 TikTok</div>
+  <div class="si" data-ch="Google">🔍 Google</div>
+  <div class="si" data-ch="AppStore">🍎 App Store</div>
+  <div class="si" data-ch="CRM">📨 CRM</div>
+</aside>
+<div class="content">
+
+<div class="panel" id="panel-foundation">
+<div style="max-width:1080px">
+<div class="phd"><h1>⚙️ 底層設定</h1><p>Brand DNA、TW 市場策略、頻道規格。AI 生成器自動參考，也是每次寫文案前應 check 的品牌原則。</p></div>
+<div class="auto-grid">
+<div class="card">
+  <div class="rtitle">🎭 Brand Persona — Honest × Witty</div>
+  <div style="font-size:12px;color:var(--tx);font-style:italic;margin-bottom:8px;padding:7px 10px;background:var(--s2);border-radius:5px;border-left:2px solid var(--acc)">"像走在你前面的嚮導，拉你前進。"</div>
+  <div class="ri"><strong>Confident</strong> — 直接陳述，讓數據說話</div>
+  <div class="ri"><strong>Innovative</strong> — AI 服務成果，不為 AI 而 AI</div>
+  <div class="ri"><strong style="color:var(--ach)">Authentic ★</strong> — 不誇大、不過度承諾</div>
+  <div class="ri"><strong>Witty</strong> — 讓人會心一笑，真實才有力度</div>
+</div>
+<div class="card">
+  <div class="rtitle" style="color:var(--gr)">✓ DO</div>
+  <div class="ri ok">以成果為先，不以功能為先</div>
+  <div class="ri ok">短句直接，刪掉廢話</div>
+  <div class="ri ok">點出真實痛點：學很久但開不了口</div>
+  <div class="ri ok">有數據就用：4500萬下載、93% ASR</div>
+  <div class="ri ok">像朋友說話，口語但不隨便</div>
+</div>
+<div class="card">
+  <div class="rtitle" style="color:var(--rd)">✕ DON'T</div>
+  <div class="ri no">"30天流利！"不切實際承諾</div>
+  <div class="ri no">"解鎖潛能" "有趣又簡單" 通用廢話</div>
+  <div class="ri no">遊戲化語言（除非 brief 要求）</div>
+  <div class="ri no">技術術語 NLP / LLM / ASR</div>
+  <div class="ri no">全大寫強調 / Emoji 灌水</div>
+</div>
+<div class="card">
+  <div class="rtitle">🇹🇼 TW 市場定位</div>
+  <div class="ri">Speak TOM 20.2% +2.4pp，唯一成長品牌</div>
+  <div class="ri">核心洞察：有基礎但不敢開口，缺練習機會不是缺單字</div>
+  <div class="ri">Duolingo 畢業生 → Speak 是下一步</div>
+  <div class="ri">情緒策略：賦權感 &gt; 焦慮感</div>
+</div>
+<div class="card">
+  <div class="rtitle">📱 頻道策略差異</div>
+  <div class="ri ok"><strong>Meta Paid</strong> — 打斷注意力，前2行決定成敗</div>
+  <div class="ri ok"><strong>IG Organic</strong> — 社群內容，品牌聲音，不廣告腔</div>
+  <div class="ri ok"><strong>KOL 合作</strong> — 保留 creator 聲音，自然植入</div>
+  <div class="ri ok"><strong>CRM/Push</strong> — 高個人化，簡短有溫度</div>
+  <div class="ri no">Paid Copy ≠ Organic Copy</div>
+</div>
+<div class="card">
+  <div class="rtitle">📐 頻道字數速查</div>
+  <div style="display:flex;flex-direction:column;gap:4px;margin-top:4px">
+    <div style="display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid var(--bd)"><span style="color:var(--tx2)">Meta Primary Text</span><span style="font-family:'DM Mono',monospace;color:var(--yl)">125字建議</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid var(--bd)"><span style="color:var(--tx2)">Meta Headline</span><span style="font-family:'DM Mono',monospace;color:var(--yl)">40字以內</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid var(--bd)"><span style="color:var(--tx2)">IG Organic Caption</span><span style="font-family:'DM Mono',monospace;color:var(--yl)">首行是 hook</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid var(--bd)"><span style="color:var(--tx2)">TikTok Caption</span><span style="font-family:'DM Mono',monospace;color:var(--yl)">50字建議</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid var(--bd)"><span style="color:var(--tx2)">Google Headline</span><span style="font-family:'DM Mono',monospace;color:var(--yl)">30 chars</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid var(--bd)"><span style="color:var(--tx2)">App Store 標題/副標</span><span style="font-family:'DM Mono',monospace;color:var(--yl)">各30字元</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;padding:3px 0"><span style="color:var(--tx2)">Push 標題</span><span style="font-family:'DM Mono',monospace;color:var(--yl)">iOS 65 / Android 50</span></div>
+  </div>
+</div>
+</div></div></div>
+
+<div class="panel active" id="panel-library">
+  <div class="ltb">
+    <div class="sbox">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input class="sinput" id="lib-q" placeholder="搜尋文案、關鍵字..." oninput="rl()">
+    </div>
+    <div class="vt">
+      <button class="vbtn on" id="vb-g" onclick="setView('grid')" title="Grid">⊞</button>
+      <button class="vbtn" id="vb-l" onclick="setView('list')" title="List">≡</button>
+    </div>
+  </div>
+  <div class="stbar"><div class="stxt"><span class="i18n" data-zh="顯示" data-en="Showing">顯示</span> <strong id="lib-n">0</strong> <span class="i18n" data-zh="筆" data-en="items">筆</span></div></div>
+  <div id="lib-content"></div>
+</div>
+
+<div class="panel" id="panel-motion">
+<div style="max-width:1200px">
+<div class="phd"><h1>🎬 Motion Creative Data</h1><p>過去 90 天廣告投放（$327K USD）。每張卡片解釋「這支廣告做了什麼、表現如何、關鍵教訓」。</p></div>
+<div style="background:var(--s2);border:1px solid var(--bd);border-radius:7px;padding:10px 14px;margin-bottom:14px;display:flex;gap:16px;flex-wrap:wrap;font-size:11px">
+  <div><span class="kl" style="display:block;margin-bottom:1px">SPEND</span>廣告花費 USD</div>
+  <div><span class="kl" style="display:block;margin-bottom:1px">CTR</span>點擊率，&gt;2% 好</div>
+  <div><span class="kl" style="display:block;margin-bottom:1px">HOOK%</span>3秒留存，&gt;25% 好</div>
+  <div><span class="kl" style="display:block;margin-bottom:1px">TRIALS</span>觸發 7 天試用次數</div>
+  <div><span class="kl" style="display:block;margin-bottom:1px">CPT</span>每次試用成本，越低越好</div>
+  <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center">
+    <span class="mst st-scaling">🟢 SCALING</span>
+    <span class="mst st-declining">🔴 DECLINING</span>
+    <span class="mst st-hidden">⚫ HIDDEN</span>
+  </div>
+</div>
+<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:13px;align-items:center">
+  <button class="chip on" id="mf-all" onclick="setMF('all')">全部</button>
+  <button class="chip" id="mf-scaling" onclick="setMF('scaling')">🟢 Scaling</button>
+  <button class="chip" id="mf-trials" onclick="setMF('trials')">高 Trials</button>
+  <button class="chip" id="mf-cpt" onclick="setMF('cpt')">低 CPT</button>
+  <button class="chip" id="mf-hook" onclick="setMF('hook')">高 Hook%</button>
+  <button class="chip" id="mf-jfp" onclick="setMF('jfp')">Judgment Free</button>
+  <button class="chip" id="mf-career" onclick="setMF('career')">Career</button>
+</div>
+<div class="auto-grid-lg" id="motion-grid"></div>
+</div></div>
+
+<div class="panel" id="panel-generate">
+<div class="glay">
+  <div class="bform">
+    <div class="btitle">✨ AI 文案生成器</div>
+    <div class="bsub">填 brief → 生成完整廣告組合。貼入基礎版本，AI 會從多個角度生成變體。</div>
+    <div class="fsec" style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:6px;padding:9px 11px;margin-bottom:14px">
+      <div class="flabel" style="color:var(--yl)">🔑 Anthropic API Key <span class="fhint" style="color:var(--tx3)">stored in memory only</span></div>
+      <input type="password" class="sinput" id="api-key" placeholder="sk-ant-..." style="padding-left:9px;margin-top:4px">
+    </div>
+    <div class="fsec">
+      <div class="flabel"><span class="i18n" data-zh="投放版位" data-en="Placement">投放版位</span> <span class="fhint">* required</span></div>
+      <select class="fsel" id="g-surf">
+        <option value="">選擇版位...</option>
+        <optgroup label="Meta Paid"><option value="meta-feed">Meta Feed (FB + IG)</option><option value="meta-story">IG Story / Reels</option></optgroup>
+        <optgroup label="IG Organic"><option value="ig-organic">IG Brand Post</option><option value="ig-collab">KOL / Creator Collab</option></optgroup>
+        <optgroup label="Short Video"><option value="tiktok">TikTok Ad</option><option value="youtube">YouTube Ad (5s Script)</option></optgroup>
+        <optgroup label="CRM / Push"><option value="push">Push Notification</option><option value="edm">EDM Subject + Preview</option><option value="crm-existing">CRM — Existing User Notification</option></optgroup>
+        <optgroup label="Other"><option value="google">Google Display</option><option value="appstore">App Store TW</option><option value="landing">Landing Page Hero</option></optgroup>
+      </select>
+    </div>
+    <div class="fsec">
+      <div class="flabel"><span class="i18n" data-zh="目標受眾" data-en="Audience">目標受眾</span></div>
+      <select class="fsel" id="g-aud">
+        <option value="">不指定</option>
+        <optgroup label="Core Audience"><option value="pro">高動機學習者 — 工程師/PM/外商</option><option value="plateau">學習撞牆者 — Duolingo 卡瓶頸</option><option value="career">職涯升級者 — 外商面試/海外派任</option></optgroup>
+        <optgroup label="Peripheral"><option value="traveler">旅遊族</option><option value="exam">備考族 — 多益/雅思/托福</option><option value="retire">退休成長族</option><option value="parent">家長</option></optgroup>
+        <optgroup label="Existing Users"><option value="existing-notify">付費用戶 — 新內容通知（非轉換）</option><option value="free-to-paid">免費用戶 → 轉換付費</option><option value="upgrade">付費用戶 → 升級 Premium Plus</option><option value="reactivate">流失用戶 → 重新激活</option></optgroup>
+      </select>
+    </div>
+    <div class="fsec">
+      <div class="flabel"><span class="i18n" data-zh="訊息角度" data-en="Angle">訊息角度</span></div>
+      <select class="fsel" id="g-angle">
+        <option value="">不指定</option>
+        <option value="jfp">😌 Judgment Free Practice</option>
+        <option value="conf">🗣 Speaking Confidence</option>
+        <option value="prog">📈 Visible Progress</option>
+        <option value="career2">💼 Career Advancement</option>
+        <option value="afford">💰 Affordability / 限時優惠</option>
+        <option value="anytime">⏱ Practice Anytime Anywhere</option>
+        <option value="real">🌍 Real World Scenarios</option>
+        <option value="ai">🤖 AI Powered Learning</option>
+        <option value="volume">🔥 High Volume Practice</option>
+        <option value="natural">💬 Natural Phrasing</option>
+        <option value="correction">⚡ Real Time Correction</option>
+      </select>
+    </div>
+    <div class="fsec">
+      <div class="flabel"><span class="i18n" data-zh="強調產品特色" data-en="Product Feature">強調產品特色</span> <span class="fhint">optional</span></div>
+      <select class="fsel" id="g-feature">
+        <option value="">不指定</option>
+        <optgroup label="🤖 AI Tutor">
+          <option value="speak-tutor">Speak Tutor — 24/7 AI 語言家教</option>
+          <option value="personalized">個人化課程 — AI 即時生成專屬課程</option>
+          <option value="correction-ai">即時 AI 糾正 — 每句話立刻回饋</option>
+          <option value="free-talk">AI Free Talk — 任選話題，隨時開口</option>
+          <option value="asr">語音辨識 93%+ / 0.1秒響應</option>
+        </optgroup>
+        <optgroup label="📚 Learning Method">
+          <option value="speaking-first">說更多學更快 — 20分鐘說100句</option>
+          <option value="3step">三步學習法 — 真人示範→口說→AI回饋</option>
+          <option value="linguist">語言學家設計課程（非 AI 生成）</option>
+          <option value="spaced">間隔重複複習 — 學了不怕忘</option>
+          <option value="scenarios">100+ 生活×職場×旅遊情境</option>
+          <option value="natural-phrases">道地用法 — 學真正自然的英文</option>
+        </optgroup>
+        <optgroup label="✨ New Features">
+          <option value="word-lookup">單字即查 — 對話中一鍵翻譯</option>
+          <option value="immersive">沉浸式視覺對話模式</option>
+          <option value="progress">進度追蹤 — 看到每週說的句數</option>
+          <option value="japanese">多語言 — 英文/日文/西班牙文</option>
+        </optgroup>
+        <optgroup label="👤 Ambassador">
+          <option value="lee-yang">李洋 — 英文最爛代言人，21天挑戰</option>
+          <option value="feng">鳳小岳 — 勇敢，最帥</option>
+          <option value="da-qian">大謙 — 250天真實用戶</option>
+        </optgroup>
+      </select>
+    </div>
+    <div class="fsec">
+      <div class="flabel">Hook <span class="i18n" data-zh="策略" data-en="Strategy">策略</span></div>
+      <div class="mchips" id="hook-chips">
+        <button class="mc2 on" data-v="">—</button>
+        <button class="mc2" data-v="contrast">對比反差</button>
+        <button class="mc2" data-v="question">問句</button>
+        <button class="mc2" data-v="relatable">感同身受</button>
+        <button class="mc2" data-v="story">Storytelling</button>
+        <button class="mc2" data-v="bold">大膽主張</button>
+        <button class="mc2" data-v="stat">數字衝擊</button>
+      </div>
+    </div>
+    <div class="fsec">
+      <div class="flabel"><span class="i18n" data-zh="Creative 格式" data-en="Creative Format">Creative 格式</span></div>
+      <div class="mchips" id="fmt-chips">
+        <button class="mc2 on" data-v="">—</button>
+        <button class="mc2" data-v="ba">Before/After</button>
+        <button class="mc2" data-v="testimonial">用戶見證</button>
+        <button class="mc2" data-v="notes">Notes截圖</button>
+        <button class="mc2" data-v="social-comments">留言截圖</button>
+        <button class="mc2" data-v="stat2">數字統計</button>
+        <button class="mc2" data-v="skit">短劇</button>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="fsec">
+      <div class="flabel"><span class="i18n" data-zh="基礎版本文案" data-en="Base Version Copy">基礎版本文案</span> <span class="fhint">optional — <span class="i18n" data-zh="生成多角度變體" data-en="generates multi-angle variants">生成多角度變體</span></span></div>
+      <div class="base-wrap">
+        <div class="base-hdr">
+          <span class="base-lbl">🎯 Control / Base Version</span>
+          <button onclick="document.getElementById('g-base').value=''" style="font-size:9px;color:var(--tx3);border:none;background:transparent;cursor:pointer;font-family:'DM Mono',monospace"><span class="i18n" data-zh="清除" data-en="Clear">清除</span></button>
+        </div>
+        <textarea class="base-ta" id="g-base" placeholder="Paste your base copy here&#10;AI will generate 5+ variants from different angles."></textarea>
+        <div class="base-hint"><span class="i18n" data-zh="💡 有基礎版本時生成 5-6 個角度變體；無時生成 3 個方向" data-en="💡 With base: 5-6 angle variants. Without: 3 directional options.">💡 有基礎版本時生成 5-6 個角度變體；無時生成 3 個方向</span></div>
+      </div>
+    </div>
+    <div class="fsec">
+      <div class="flabel"><span class="i18n" data-zh="額外需求" data-en="Extra Requirements">額外需求</span> <span class="fhint">optional</span></div>
+      <textarea class="ftxt" id="g-extra" placeholder="e.g. 搭配鳳小岳 / 畢業季 / 需要在地梗..."></textarea>
+    </div>
+    <button class="gbtn" id="gen-btn" onclick="doGen()">
+      <span>✨</span> <span class="i18n" data-zh="生成文案" data-en="Generate Copy">生成文案</span>
+    </button>
+  </div>
+  <div>
+    <div class="gempty" id="gen-empty">
+      <div style="font-size:38px;opacity:.35">✍️</div>
+      <div style="font-size:13px;color:var(--tx3)" class="i18n" data-zh="填寫左側 Brief，開始生成" data-en="Fill in the brief on the left to start">填寫左側 Brief，開始生成</div>
+      <div style="font-size:11px;color:var(--tx3);text-align:center;max-width:280px;line-height:1.6" class="i18n" data-zh="每個欄位旁有 🔄 按鈕可單獨重新生成" data-en="Each field has a 🔄 button to regenerate individually">每個欄位旁有 🔄 按鈕可單獨重新生成</div>
+    </div>
+    <div class="rcards" id="gen-results" style="display:none"></div>
+  </div>
+</div></div>
+
+<div class="panel" id="panel-saved">
+  <div class="phd">
+    <h1>⭐ <span class="i18n" data-zh="收藏的文案" data-en="Saved Copy">收藏的文案</span></h1>
+    <p class="i18n" data-zh="你儲存的文案。資料存在瀏覽器 localStorage，關閉頁面不會消失。" data-en="Your saved copy. Stored in browser localStorage.">你儲存的文案。資料存在瀏覽器 localStorage，關閉頁面不會消失。</p>
+  </div>
+  <div id="saved-content"></div>
+</div>
+</div></div>
+<div class="toast" id="toast">✓</div>
+<script>
+var COPY=[{"zh": "語言學習的新方式", "en": "A new way to learn languages", "src": "speak.com/tw", "s": "brand", "ch": "Web"}, {"zh": "Speak的學習秘訣：說更多，學更快", "en": "Speak more, learn faster", "src": "speak.com/tw", "s": "brand", "ch": "Web"}, {"zh": "不要怕錯，敢講最帥，Speak，讓英文一切好說。", "en": "Don't be afraid of mistakes. Being bold is cool. Let English be easy to say.", "src": "App Store", "s": "brand", "ch": "AppStore"}, {"zh": "讓英文一切好說", "en": "Makes everything in English easy to say", "src": "Brand Tagline", "s": "brand", "ch": "Web"}, {"zh": "Speak AI 英文導師，隨時陪你練口說。", "en": "Speak AI English tutor, always by your side.", "src": "speak.com/tw", "s": "brand", "ch": "Web"}, {"zh": "勇敢，最帥。", "en": "Being brave is the coolest.", "src": "Instagram @speak_zh — 鳳小岳", "s": "brand", "ch": "IGOrganic"}, {"zh": "英文真的要「自己講」，才會進步。Speak 的做法很單純：讓你一直開口說。", "en": "You only improve by actually speaking. Speak's approach: keep you speaking.", "src": "speak.com/tw", "s": "brand", "ch": "Web"}, {"zh": "許多人學習英文多年，仍然不敢開口說。關鍵原因不是單字量不足，而是缺乏穩定、可重複的口說練習機會。", "en": "Many study English for years but can't speak. The key: lack of practice, not vocabulary.", "src": "speak.com/tw", "s": "usp", "ch": "Web"}, {"zh": "從小到大學英文超過 2,000 小時 / 真正開口說英文的時間不到 20 小時", "en": "2,000+ hours studying English / Less than 20 hours actually speaking", "src": "Meta Paid", "s": "usp", "ch": "Meta"}, {"zh": "腦中一堆單字，嘴巴卻打不開", "en": "A head full of vocabulary, but your mouth just won't open", "src": "Meta Paid", "s": "usp", "ch": "Meta"}, {"zh": "明明學很久的英文，卻開不了口？", "en": "Studied English for so long — but still can't speak?", "src": "Meta Paid", "s": "usp", "ch": "Meta"}, {"zh": "閱讀和聽力可以自己練，但口說沒辦法", "en": "You can practice reading and listening alone, but not speaking", "src": "speak.com/tw", "s": "usp", "ch": "Web"}, {"zh": "重點不再是「考試會考」的英文，而是在生活中真的能派上用場的英文。", "en": "Not exam English. English that actually works in real life.", "src": "speak.com/tw", "s": "usp", "ch": "Web"}, {"zh": "辨識準確率達 93% 以上", "en": "Recognition accuracy over 93%", "src": "speak.com/tw", "s": "feature", "ch": "Web"}, {"zh": "AI 精準分析與立即回饋", "en": "AI precise analysis and immediate feedback", "src": "speak.com/tw", "s": "feature", "ch": "Web"}, {"zh": "使用 Speak 練習約 20 分鐘，你就能自然說出超過 100 句英文。", "en": "Practice 20 minutes and naturally speak over 100 sentences.", "src": "speak.com/tw", "s": "feature", "ch": "Web"}, {"zh": "Speak 的課程內容 100% 自主研發，由語言學家與專業的內容團隊共同設計。", "en": "100% self-developed courses, designed by linguists and professional content teams.", "src": "speak.com/tw", "s": "feature", "ch": "Web"}, {"zh": "AI 即時修正，每句話都能獲得回饋", "en": "Real-time AI correction — feedback on every sentence", "src": "Meta Paid", "s": "feature", "ch": "Meta"}, {"zh": "個人化課程：AI 了解你之後，即時生成完全屬於你的學習計畫和課程！", "en": "Personalized courses: AI gets to know you at a deep level, then designs a curriculum just for you!", "src": "speak.com", "s": "feature", "ch": "Web"}, {"zh": "間隔重複學習與智慧複習", "en": "Spaced repetition learning and smart review", "src": "speak.com/tw", "s": "feature", "ch": "Web"}, {"zh": "隨時隨地，想聊什麼都可以，話題隨你挑", "en": "Anytime, anywhere, any topic — you pick", "src": "speak.com/tw", "s": "feature", "ch": "Web"}, {"zh": "全新單字即查：對話中遇到陌生字，點一下即翻譯！", "en": "New word lookup: tap any word to translate instantly while speaking!", "src": "Instagram @speak_zh", "s": "feature", "ch": "IGOrganic"}, {"zh": "Speak Tutor 是你的專屬語言家教，24/7 陪你練習，以驚人的深度了解你，設計完全個人化的課程。", "en": "Speak Tutor is your personal language tutor 24/7 — gets to know you at a surprisingly deep level.", "src": "speak.com", "s": "feature", "ch": "Web"}, {"zh": "三步學習法：真人影片帶著學 → 反覆口說練習 → AI 個人化回饋", "en": "3-Step Method: Real instructor video → Speak practice → AI personalized feedback", "src": "App Store / Google Play", "s": "feature", "ch": "Web"}, {"zh": "你不需要一次很厲害，每個人都值得有一個安心練習、不怕講錯的空間", "en": "You don't need to be great all at once — everyone deserves a safe space to practice.", "src": "Meta Paid", "s": "target", "ch": "Meta"}, {"zh": "開會前只敢狂背英文逐字稿？你還有別的選擇！", "en": "Before meetings can you only frantically memorize scripts? You have another option!", "src": "Meta Paid", "s": "target", "ch": "Meta"}, {"zh": "老闆突然要你用英文？先跟 AI 過一遍！", "en": "Boss suddenly needs you in English? Run it through AI first!", "src": "Meta Paid", "s": "target", "ch": "Meta"}, {"zh": "10 分鐘後要跟客戶 Concall？先跟 AI 過一遍！", "en": "Client call in 10 minutes? Run it through AI first!", "src": "Meta Paid", "s": "target", "ch": "Meta"}, {"zh": "商務英文衝刺計畫！早上通勤 10 分鐘練習開會英文", "en": "Business English Sprint! Practice meeting English in 10 minutes during your commute.", "src": "Meta Paid", "s": "target", "ch": "Meta"}, {"zh": "自信英文面試，從 Speak 開始", "en": "Confident English interviews start with Speak.", "src": "Meta Paid", "s": "target", "ch": "Meta"}, {"zh": "退休後我開始學英文，每天用 Speak 10 分鐘，慢慢累積也能越來越順！", "en": "After retiring I started English — 10 min of Speak daily, gradually getting smoother!", "src": "Meta Paid", "s": "target", "ch": "Meta"}, {"zh": "英文學不好？不是太晚，是還沒開始！", "en": "Can't learn English? It's not too late — you just haven't started!", "src": "Meta Paid", "s": "target", "ch": "Meta"}, {"zh": "機票訂好了，行程排滿了，結果排隊過海關時開始汗流浹背？", "en": "Ticket booked, itinerary packed — then started sweating in the customs line?", "src": "TikTok", "s": "target", "ch": "TikTok"}, {"zh": "4.8/5 App Store 評分 | 10M+ 下載次數", "en": "4.8/5 App Store rating | 10M+ downloads", "src": "speak.com/tw", "s": "proof", "ch": "Web"}, {"zh": "App Store 編輯推薦", "en": "App Store Editor's Choice", "src": "App Store TW", "s": "proof", "ch": "AppStore"}, {"zh": "Forbes AI 50 / Fast Company 2025 最具創新力的 AI 公司", "en": "Forbes AI 50 / Fast Company 2025 Most Innovative AI", "src": "Landing Page", "s": "proof", "ch": "Web"}, {"zh": "全球累積下載數 4500 萬", "en": "45 million cumulative global downloads", "src": "Meta Paid", "s": "proof", "ch": "Meta"}, {"zh": "語音辨識：0.1 秒響應 / 93%+ 準確率", "en": "Speech recognition: 0.1 sec response / 93%+ accuracy", "src": "Landing Page", "s": "proof", "ch": "Web"}, {"zh": "我們收到了來自 OpenAI 的 1 兆 Token 獎牌 🏆", "en": "We received the 1 Trillion Token award from OpenAI! 🏆", "src": "Instagram @speak_zh", "s": "proof", "ch": "IGOrganic"}, {"zh": "回饋跟課程內容真的很有幫助，完全不會有壓力，卻會不知不覺一直開口說英文。— 王小姐，行銷企劃", "en": "Really helpful and no pressure — I keep speaking English without even noticing. — Ms. Wang", "src": "speak.com/tw", "s": "proof", "ch": "Web"}, {"zh": "用 Speak 練習一段時間後，在會議上開始比較能自然表達想法。— 林先生，跨國團隊工程師", "en": "After practicing with Speak, I express ideas more naturally in meetings. — Mr. Lin, Engineer", "src": "Landing Page", "s": "proof", "ch": "Web"}, {"zh": "Speak 提供7天免費試用期", "en": "Speak offers a 7-day free trial", "src": "speak.com/tw", "s": "pricing", "ch": "Web"}, {"zh": "立即領取官網專屬 299 元折扣，新用戶享有 7 天免費試用！", "en": "Get NT$299 off — new users also get a 7-day free trial!", "src": "Landing Page", "s": "pricing", "ch": "Web"}, {"zh": "限定優惠 現省超過1100！", "en": "Limited offer — save over NT$1,100 now!", "src": "Meta Paid", "s": "pricing", "ch": "Meta"}, {"zh": "開口一小步，回饋一大步", "en": "One small step to speak, one giant step of feedback", "src": "Landing Page", "s": "pricing", "ch": "Web"}, {"zh": "即刻體驗", "en": "Try it now", "src": "speak.com/tw", "s": "cta", "ch": "Web"}, {"zh": "領取七天免費體驗", "en": "Claim 7-day free trial", "src": "Landing Page", "s": "cta", "ch": "Web"}, {"zh": "Speak 讓英文一切好說｜立即開始 →", "en": "Speak — makes English easy to say | Start now →", "src": "Meta Paid", "s": "cta", "ch": "Meta"}, {"zh": "Speak - 讓你沒藉口不開口 →", "en": "Speak — no more excuses not to speak →", "src": "Meta Paid", "s": "cta", "ch": "Meta"}, {"zh": "下載 Speak 立即開口說英文 >", "en": "Download Speak — start speaking English now >", "src": "Google", "s": "cta", "ch": "Google"}, {"zh": "真正帥的不是講得完美，而是敢開口", "en": "True confidence isn't speaking perfectly — it's daring to speak", "src": "Meta Paid", "s": "paid", "ch": "Meta"}, {"zh": "連續 7 天說英文，原來可以進步這麼多！Day 7: 1097 句", "en": "7 days of English — Day 7: 1,097 sentences!", "src": "Meta Paid", "s": "paid", "ch": "Meta"}, {"zh": "開口說英文變得太容易了，找不到藉口偷懶…", "en": "Speaking English became too easy — I can't find an excuse to slack off…", "src": "Meta Paid", "s": "paid", "ch": "Meta"}, {"zh": "Speak - 有點太有效 →", "en": "Speak — almost too effective →", "src": "Meta Paid", "s": "paid", "ch": "Meta"}, {"zh": "本來只是練著玩培養語感，結果被派去英文報告…", "en": "I was just practicing for fun, ended up being assigned to give an English presentation…", "src": "Meta Paid", "s": "paid", "ch": "Meta"}, {"zh": "每天只要 10 分鐘，開口說英文 0 壓力", "en": "Just 10 minutes a day — speak English with zero pressure", "src": "Google", "s": "paid", "ch": "Google"}, {"zh": "你不需要一次很厲害，只要每天進步一點點，就會看到變化！", "en": "You don't need to be great all at once — just improve a little every day.", "src": "TikTok", "s": "paid", "ch": "TikTok"}, {"zh": "大家敲碗的功能，真的來了！在 Speak 練口說時，遇到不熟的單字？現在只要「點一下」，直接查看快速翻譯！", "en": "The feature everyone's been waiting for! Encounter unfamiliar words? Just tap once for quick translation!", "src": "Instagram @speak_zh", "s": "organic", "ch": "IGOrganic"}, {"zh": "「勇敢，最帥。」在學習說英文的路上，就算犯錯，只要你敢去開口，就是一件很帥的事。", "en": "Being brave is the coolest. Even if you make mistakes, daring to speak is already cool.", "src": "Instagram @speak_zh — 鳳小岳", "s": "organic", "ch": "IGOrganic"}, {"zh": "年度最大優惠倒數中！還有全新代言人即將公開⋯？👀", "en": "Biggest annual deal countdown! Plus a brand-new spokesperson about to be revealed? 👀", "src": "Instagram @speak_zh", "s": "organic", "ch": "IGOrganic"}, {"zh": "Speak 的年度口說報告出爐啦！想知道你今年花了多少時間練口說嗎？", "en": "Speak's annual speaking report is out! How much time did you practice this year?", "src": "Instagram @speak_zh", "s": "organic", "ch": "IGOrganic"}, {"zh": "不知道怎麼跟美國人 Small Talk？讓 Speak 用戶親身挑戰給你看！", "en": "Don't know how to small talk with Americans? Watch Speak users take on the challenge!", "src": "Instagram @speak_zh", "s": "organic", "ch": "IGOrganic"}, {"zh": "✨ 全新李洋專區 2.0 已上線！✨ 一起跟李洋開口練英文！", "en": "Brand-new Lee Yang Zone 2.0 is live! Practice English with Lee Yang!", "src": "Instagram @speak_zh", "s": "organic", "ch": "IGOrganic"}, {"zh": "李洋變廢了，英文變好了。英文講最爛代言人遺珠竟然是他！", "en": "Lee Yang got worse... his English got better. The spokesperson with the worst English!", "src": "Meta — 李洋 campaign", "s": "organic", "ch": "IGOrganic"}, {"zh": "新功能上線！AI Free Talk 現在可以自選話題對話。今天想聊什麼？", "en": "New feature live! AI Free Talk now lets you choose any conversation topic.", "src": "CRM Existing User", "s": "crm", "ch": "CRM"}, {"zh": "你的本週學習回顧 📊 這週說了 247 句英文，比上週多了 34 句！", "en": "Your weekly recap 📊 You spoke 247 sentences this week — 34 more than last week!", "src": "CRM Progress", "s": "crm", "ch": "CRM"}, {"zh": "🎉 李洋專區 2.0 上線！50 個全新情境對話等你練習。", "en": "🎉 Lee Yang Zone 2.0 is live! 50 new scenario conversations waiting for you.", "src": "CRM New Content", "s": "crm", "ch": "CRM"}, {"zh": "name님, 오늘 수업하고 스피킹 감 잡아요! 3분으로 첫 수업 완성해요😍", "en": "name, today's lesson is ready — get that speaking feel in 3 minutes! 😍", "src": "JustWords CRM — Career", "s": "crm", "ch": "CRM"}, {"zh": "Coffee More More → After using Speak → Can I get a latte? Thank you.", "en": "Coffee More More → Can I get a latte? Thank you.", "src": "Meta Paid c1!S52", "s": "ba", "ch": "Meta"}, {"zh": "Beef please? → After using Speak → Could I have the beef option, please?", "en": "Beef please? → Could I have the beef option, please?", "src": "Meta Paid c1!S52", "s": "ba", "ch": "Meta"}, {"zh": "(Copy → Translate → Paste) → After Speak → I can say it myself.", "en": "Copy/translate/paste → I can say it myself.", "src": "Meta Paid c1!S52", "s": "ba", "ch": "Meta"}, {"zh": "It's ok → 使用 Speak 後 → It works for me. Let's move forward with this plan.", "en": "It's ok → After Speak → It works for me. Let's move forward.", "src": "Meta Paid c1!S30", "s": "ba", "ch": "Meta"}];
+var MD=[{"n": "UGC53 learnnewlanguages", "w": "UGC 用戶分享學習歷程，Screen Recording 展示進度，Storytelling Hook。主打「看得到的進步」，說服初學者。", "sp": 26062, "ctr": 1.91, "hk": 34.2, "hl": 17.5, "tr": 316, "cpt": 82.5, "cpa": 6.65, "st": "hidden", "g": {"a": ["English Beginners"], "h": ["Storytelling"], "m": ["Visible Progress"], "t": ["UGC"], "f": ["Screen Recording", "Testimonial"]}}, {"n": "harryspeaks Expert Designed Hybrid", "w": "英語學習 YouTuber 示範 Speak，Contrast Hook，357 trials 最高，CPT $54.7。Working Professional 受眾，Expert Designed 訊息。", "sp": 19523, "ctr": 1.07, "hk": 13.4, "hl": 20.7, "tr": 357, "cpt": 54.7, "cpa": 10.53, "st": "declining", "g": {"a": ["Working Professionals"], "h": ["Contrast"], "m": ["Expert Designed"], "t": ["Hybrid"], "f": ["Influencer Endorsement"]}}, {"n": "S30 Feng-FOMO Celebrity Warning Image", "w": "鳳小岳代言人限時優惠靜態圖，Warning Headline FOMO，Affordability。CTR 51%，trials 231，CPT $74.4。", "sp": 17180, "ctr": 51.69, "hk": 0, "hl": 0, "tr": 231, "cpt": 74.4, "cpa": 0, "st": "hidden", "g": {"a": ["English Learners"], "h": [], "m": ["Affordability"], "t": ["Lifestyle Image With Text"], "f": ["Celebrity"]}}, {"n": "DaChien Robbery Split Screen JFP", "w": "大謙短劇：模擬沒有 Speak 英文有多爛，JFP 訊息，Hesitant Speaker，Split Screen。trials 148，CPT $84.2。", "sp": 12465, "ctr": 1.01, "hk": 12.9, "hl": 17.7, "tr": 148, "cpt": 84.2, "cpa": 0, "st": "hidden", "g": {"a": ["Hesitant Speakers"], "h": [], "m": ["Judgment Free Practice", "Speaking Confidence"], "t": ["UGC"], "f": ["Split Screen"]}}, {"n": "S30 LNY Red Envelope", "w": "農曆新年紅包靜態圖，CPT $36.9 最低。Motivated Learner，折扣清楚直接。最佳 Seasonal 做法。", "sp": 8746, "ctr": 52.18, "hk": 0, "hl": 0, "tr": 237, "cpt": 36.9, "cpa": 36.9, "st": "hidden", "g": {"a": ["Motivated Learners"], "h": [], "m": ["Affordability"], "t": ["Product Image with Text"], "f": ["Headline"]}}, {"n": "RW_S22A2 Text Only Review Career [SCALING]", "w": "純文字用戶評論截圖，Social Proof，Career Advancement。CPT $68.9，CPA $9.15，Scaling。純文字也能很有效。", "sp": 7858, "ctr": 98.48, "hk": 0, "hl": 0, "tr": 114, "cpt": 68.9, "cpa": 9.15, "st": "scaling", "g": {"a": ["Working Professionals"], "h": [], "m": ["Career Advancement"], "t": ["Text Only"], "f": ["Review"]}}, {"n": "UGC53 hayes Yapper Confident Comm [SCALING]", "w": "Yapper 格式談職場英文 small talk。CPT $92，Scaling。Working Professional，Confident Communication，Question Hook。", "sp": 7734, "ctr": 66.29, "hk": 29.3, "hl": 19.9, "tr": 84, "cpt": 92.1, "cpa": 16.42, "st": "scaling", "g": {"a": ["Working Professionals"], "h": ["Question"], "m": ["Confident Communication"], "t": ["UGC"], "f": ["Yapper"]}}, {"n": "S44 Threads Social Comments JFP [SCALING]", "w": "Threads 留言截圖插圖，JFP 訊息，Hesitant Speaker，Confession。CPT $58.2，CPM $2.48 超低，Scaling。", "sp": 5764, "ctr": 2.28, "hk": 0, "hl": 0, "tr": 99, "cpt": 58.2, "cpa": 13.86, "st": "scaling", "g": {"a": ["Hesitant Speakers"], "h": [], "m": ["Judgment Free Practice"], "t": ["Illustration"], "f": ["Social Comments"]}}, {"n": "UGC11 hua GlobalCompanyMTG [SCALING]", "w": "用戶見證：跨國公司英文會議真實場景，Speaking Confidence，Relatability Hook。CPT $62.5，CPA $11，Scaling。", "sp": 5625, "ctr": 94.85, "hk": 24.0, "hl": 14.2, "tr": 90, "cpt": 62.5, "cpa": 11.05, "st": "scaling", "g": {"a": ["Working Professionals"], "h": ["Relatability"], "m": ["Speaking Confidence"], "t": ["UGC"], "f": ["Testimonial"]}}, {"n": "RW_S14CB Notes Screenshot Humor [SCALING]", "w": "Notes App 截圖幽默風格，CTR 66%，CPT $62，CPA $13.7，Scaling。高效低成本格式。", "sp": 5014, "ctr": 65.92, "hk": 0.4, "hl": 13.5, "tr": 81, "cpt": 61.9, "cpa": 13.7, "st": "scaling", "g": {"a": [], "h": [], "m": [], "t": [], "f": []}}, {"n": "morning.jason AI Powered Greenscreen [SCALING]", "w": "morning.jason 分享 AI 功能體驗，Greenscreen，Question Hook。CPT $42.2 最低，CPA $9.24，Scaling。AI Powered Learning 最有效之一。", "sp": 3039, "ctr": 1.47, "hk": 26.8, "hl": 26.6, "tr": 72, "cpt": 42.2, "cpa": 9.24, "st": "scaling", "g": {"a": ["English Learners"], "h": ["Question"], "m": ["Ai Powered Learning"], "t": ["UGC"], "f": ["Greenscreen"]}}, {"n": "S30 High Production Skit 60s [WARNING]", "w": "高製作短劇 60s，Hook 60.9% 最高，Hold 56.1%，但 CPT $4,217，只有 1 trial。關鍵教訓：高 Hook ≠ 高轉換。", "sp": 4217, "ctr": 7.95, "hk": 60.9, "hl": 56.1, "tr": 1, "cpt": 4217, "cpa": 843, "st": "declining", "g": {"a": ["Hesitant Speakers"], "h": ["Direct Address"], "m": ["Judgment Free Practice"], "t": ["High Production"], "f": ["Skit"]}}];
+
+// ── i18n ──────────────────────────────────────────────────────────────
+var uiLang='zh';
+function setUILang(l){
+  uiLang=l;
+  document.getElementById('ul-zh').classList.toggle('on',l==='zh');
+  document.getElementById('ul-en').classList.toggle('on',l==='en');
+  document.querySelectorAll('.i18n').forEach(function(el){
+    var v=el.getAttribute('data-'+l);
+    if(v!==null)el.textContent=v;
+  });
+}
+
+// ── STATE ─────────────────────────────────────────────────────────────
+var curSec='all',curCh=null,curView='grid',curHook='',curFmt='',curMF='all';
+var saved=[];
+try{saved=JSON.parse(localStorage.getItem('speak_v8')||'[]');}catch(e){}
+
+// ── INIT ──────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',function(){
+  initCounts();rl();renderMotion();initChips();updateSvCount();
+  document.getElementById('lib-sidebar').classList.add('vis');
+  document.getElementById('lib-sidebar').addEventListener('click',function(e){
+    var si=e.target.closest('.si');if(!si)return;
+    var sec=si.getAttribute('data-sec'),ch=si.getAttribute('data-ch');
+    if(sec)setSec(sec);else if(ch)setCh(ch);
+  });
+  document.getElementById('lib-content').addEventListener('click',function(e){
+    var btn=e.target.closest('button[data-action]');if(!btn)return;
+    var action=btn.getAttribute('data-action');
+    var idx=parseInt(btn.getAttribute('data-idx'),10);
+    var item=window._LIB&&window._LIB[idx];if(!item)return;
+    if(action==='copy')cpText(item.zh||item.en,btn);
+    else if(action==='star')toggleStar(item,btn);
+  });
+  document.getElementById('gen-results').addEventListener('click',function(e){
+    var btn=e.target.closest('button[data-raction]');if(!btn)return;
+    var action=btn.getAttribute('data-raction');
+    var ci=parseInt(btn.getAttribute('data-ci')||'0',10);
+    var field=btn.getAttribute('data-field')||'';
+    if(action==='copy-field'){
+      var card=document.querySelectorAll('.rcard')[ci];
+      var el=card&&card.querySelector('[data-field-name="'+field+'"]');
+      if(el)cpText(el.textContent,btn);
+    }else if(action==='copy-all'){
+      var card2=document.querySelectorAll('.rcard')[ci];
+      if(card2){var texts=Array.from(card2.querySelectorAll('.ctxt')).map(function(t){return t.textContent.trim();}).join('\n\n---\n\n');cpText(texts,btn);}
+    }else if(action==='star-result'){
+      saveGenResult(btn,parseInt(btn.getAttribute('data-ri')||'0',10));
+    }else if(action==='regen'){
+      regenField(btn,ci,field,parseInt(btn.getAttribute('data-ri')||'0',10),btn.getAttribute('data-surf')||'');
+    }
+  });
+  document.getElementById('saved-content').addEventListener('click',function(e){
+    var btn=e.target.closest('button[data-saction]');if(!btn)return;
+    var action=btn.getAttribute('data-saction'),sid=btn.getAttribute('data-sid')||'';
+    if(action==='remove'){
+      saved=saved.filter(function(s){return s.id!==sid;});
+      localStorage.setItem('speak_v8',JSON.stringify(saved));
+      updateSvCount();renderSaved();
+    }else if(action==='copy'){
+      var it=saved.find(function(s){return s.id===sid;});
+      if(it)cpText(it.text,btn);
+    }
+  });
+});
+
+function initCounts(){
+  var tot=COPY.length;
+  document.getElementById('lib-total').textContent=tot;
+  document.getElementById('sc-all').textContent=tot;
+  ['brand','usp','feature','target','proof','pricing','cta','paid','organic','crm','ba'].forEach(function(s){
+    var el=document.getElementById('sc-'+s);
+    if(el)el.textContent=COPY.filter(function(d){return d.s===s;}).length;
+  });
+}
+
+// ── NAVIGATION ────────────────────────────────────────────────────────
+function go(name){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.ntab').forEach(function(t){t.classList.remove('active');});
+  var panel=document.getElementById('panel-'+name);if(panel)panel.classList.add('active');
+  var tab=document.getElementById('nt-'+name);if(tab)tab.classList.add('active');
+  document.getElementById('lib-sidebar').classList.toggle('vis',name==='library');
+  if(name==='saved')renderSaved();
+}
+function setSec(s){curSec=s;curCh=null;document.querySelectorAll('.si').forEach(function(e){e.classList.remove('on');});var el=document.querySelector('.si[data-sec="'+s+'"]');if(el)el.classList.add('on');rl();}
+function setCh(c){curCh=c;curSec='all';document.querySelectorAll('.si').forEach(function(e){e.classList.remove('on');});var el=document.querySelector('.si[data-ch="'+c+'"]');if(el)el.classList.add('on');rl();}
+function setView(v){curView=v;['g','l'].forEach(function(x){document.getElementById('vb-'+x).classList.remove('on');});document.getElementById('vb-'+v).classList.add('on');rl();}
+
+// ── LIBRARY ───────────────────────────────────────────────────────────
+function cid(item){return(item.zh||item.en).slice(0,40);}
+function hl(t,q){
+  if(!q||!t)return t||'';
+  return t.replace(new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi'),function(m){return '<mark>'+m+'</mark>';});
+}
+function getFiltered(){
+  var d=COPY,q=document.getElementById('lib-q').value.toLowerCase().trim();
+  if(curSec==='starred')d=d.filter(function(x){return saved.some(function(s){return s.id===cid(x);});});
+  else if(curSec!=='all')d=d.filter(function(x){return x.s===curSec;});
+  if(curCh)d=d.filter(function(x){return x.ch&&x.ch.toLowerCase().indexOf(curCh.toLowerCase())>=0;});
+  if(q)d=d.filter(function(x){return(x.zh&&x.zh.toLowerCase().indexOf(q)>=0)||(x.en&&x.en.toLowerCase().indexOf(q)>=0)||(x.src&&x.src.toLowerCase().indexOf(q)>=0);});
+  return d;
+}
+function rl(){
+  var data=getFiltered(),q=document.getElementById('lib-q').value.toLowerCase().trim();
+  document.getElementById('lib-n').textContent=data.length;
+  window._LIB=data;
+  if(!data.length){document.getElementById('lib-content').innerHTML='<div style="text-align:center;padding:60px;color:var(--tx3)">No results</div>';return;}
+  var cls=curView==='grid'?'cgrid':'clist';
+  var html='<div class="'+cls+'">';
+  data.forEach(function(item,idx){
+    var id=cid(item),isSt=saved.some(function(s){return s.id===id;});
+    var chKey=item.ch.replace(/ /g,'');
+    var zhT=q?hl(item.zh,q):(item.zh||'');
+    var enT=item.en?(q?hl(item.en,q):item.en):'';
+    var srcShort=item.src.replace('speak.com/tw/','↗/').replace('speak.com/tw','↗');
+    html+='<div class="cc'+(isSt?' starred':'')+'">';
+    html+='<div class="cactions">';
+    html+='<button class="cab'+(isSt?' starred':'')+'" data-action="star" data-idx="'+idx+'" title="save">⭐</button>';
+    html+='<button class="cab" data-action="copy" data-idx="'+idx+'" title="copy">⎘</button>';
+    html+='</div>';
+    if(zhT)html+='<div class="czh">'+zhT+'</div>';
+    if(enT&&curView!=='list')html+='<div class="cen">'+enT+'</div>';
+    html+='<div class="cmeta"><span class="tag tag-'+chKey+'">'+item.ch+'</span><span class="tag">'+srcShort+'</span></div>';
+    html+='</div>';
+  });
+  html+='</div>';
+  document.getElementById('lib-content').innerHTML=html;
+}
+
+// ── COPY & STAR ───────────────────────────────────────────────────────
+function cpText(text,btn){
+  navigator.clipboard.writeText(text||'').then(function(){
+    toast('✓ Copied');
+    if(btn){btn.textContent='✓';setTimeout(function(){btn.textContent='⎘';},2000);}
+  });
+}
+function toggleStar(item,btn){
+  var id=cid(item),idx=saved.findIndex(function(s){return s.id===id;});
+  if(idx>=0){saved.splice(idx,1);if(btn)btn.classList.remove('starred');var c=btn&&btn.closest('.cc');if(c)c.classList.remove('starred');}
+  else{saved.push({id:id,text:item.zh||item.en,src:item.src,ts:Date.now(),type:'library'});if(btn)btn.classList.add('starred');var c2=btn&&btn.closest('.cc');if(c2)c2.classList.add('starred');}
+  localStorage.setItem('speak_v8',JSON.stringify(saved));updateSvCount();
+}
+function updateSvCount(){document.getElementById('sv-count').textContent=saved.length;}
+function toast(msg){var t=document.getElementById('toast');t.textContent=msg||'✓';t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2000);}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+// ── SAVED ─────────────────────────────────────────────────────────────
+function renderSaved(){
+  var el=document.getElementById('saved-content');
+  if(!saved.length){el.innerHTML='<div class="sv-empty">No saved copy yet. Click ⭐ to save.</div>';return;}
+  var sorted=saved.slice().sort(function(a,b){return b.ts-a.ts;});
+  var html='<div class="sv-grid">';
+  sorted.forEach(function(item){
+    var date=new Date(item.ts).toLocaleDateString('zh-TW',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+    html+='<div class="sv-card">';
+    if(item.label)html+='<div class="sv-label">'+esc(item.label)+'</div>';
+    html+='<div class="sv-text">'+esc(item.text||'')+'</div>';
+    html+='<div class="sv-meta">'+date+(item.src?' · '+esc(item.src):'')+'</div>';
+    html+='<div class="sv-acts">';
+    html+='<button class="ract" data-saction="copy" data-sid="'+esc(item.id)+'">⎘ 複製</button>';
+    html+='<button class="ract" style="color:var(--rd);border-color:var(--rd)" data-saction="remove" data-sid="'+esc(item.id)+'">✕ 移除</button>';
+    html+='</div></div>';
+  });
+  html+='</div>';
+  el.innerHTML=html;
+}
+
+// ── MOTION ────────────────────────────────────────────────────────────
+function setMF(f){curMF=f;document.querySelectorAll('[id^="mf-"]').forEach(function(b){b.classList.remove('on');});document.getElementById('mf-'+f).classList.add('on');renderMotion();}
+function renderMotion(){
+  var d=MD.slice();
+  if(curMF==='scaling')d=d.filter(function(x){return x.st==='scaling';});
+  else if(curMF==='trials')d=d.filter(function(x){return x.tr>50;});
+  else if(curMF==='cpt')d=d.filter(function(x){return x.cpt>0&&x.cpt<75;});
+  else if(curMF==='hook')d=d.filter(function(x){return x.hk>25;});
+  else if(curMF==='jfp')d=d.filter(function(x){return x.g.m&&x.g.m.some(function(m){return m.indexOf('Judgment')>=0;});});
+  else if(curMF==='career')d=d.filter(function(x){return x.g.m&&x.g.m.some(function(m){return m.indexOf('Career')>=0;});});
+  var stL={scaling:'🟢 Scaling',declining:'🔴 Declining',hidden:'⚫ Hidden'};
+  function gc(v,lo,hi){return v>=hi?'g':v>=lo?'w':'b';}
+  var html='';
+  d.forEach(function(item){
+    var sc='st-'+(item.st||'hidden');
+    var tags='';
+    (item.g.a||[]).forEach(function(v){tags+='<span class="mt mt-a">👥 '+v+'</span>';});
+    (item.g.h||[]).forEach(function(v){tags+='<span class="mt mt-h">🎣 '+v+'</span>';});
+    (item.g.m||[]).forEach(function(v){tags+='<span class="mt mt-m">💬 '+v+'</span>';});
+    (item.g.t||[]).forEach(function(v){tags+='<span class="mt mt-t">🖼 '+v+'</span>';});
+    (item.g.f||[]).forEach(function(v){tags+='<span class="mt mt-f">🎞 '+v+'</span>';});
+    html+='<div class="mc"><div class="mhdr"><div class="mname" title="'+esc(item.n)+'">'+esc(item.n)+'</div><span class="mst '+sc+'">'+(stL[item.st]||item.st)+'</span></div>';
+    html+='<div class="mkpis"><div class="kpi"><div class="kl">SPEND</div><div class="kv">$'+item.sp.toLocaleString()+'</div></div>';
+    if(item.ctr)html+='<div class="kpi"><div class="kl">CTR</div><div class="kv '+gc(item.ctr,1.5,3)+'">'+item.ctr+'%</div></div>';
+    if(item.hk)html+='<div class="kpi"><div class="kl">HOOK%</div><div class="kv '+gc(item.hk,20,30)+'">'+item.hk+'%</div></div>';
+    if(item.tr)html+='<div class="kpi"><div class="kl">TRIALS</div><div class="kv '+gc(item.tr,30,100)+'">'+item.tr+'</div></div>';
+    if(item.cpt&&item.cpt<500)html+='<div class="kpi"><div class="kl">CPT</div><div class="kv '+(item.cpt<70?'g':item.cpt<100?'w':'b')+'">$'+item.cpt+'</div></div>';
+    if(item.cpa&&item.cpa<50)html+='<div class="kpi"><div class="kl">CPA</div><div class="kv g">$'+item.cpa+'</div></div>';
+    html+='</div><div class="mwhat">💡 <strong>這支廣告做了什麼：</strong>'+esc(item.w)+'</div>';
+    if(tags)html+='<div class="mtags">'+tags+'</div>';
+    html+='</div>';
+  });
+  document.getElementById('motion-grid').innerHTML=html;
+}
+
+// ── CHIPS ─────────────────────────────────────────────────────────────
+function initChips(){
+  document.getElementById('hook-chips').addEventListener('click',function(e){var btn=e.target.closest('.mc2');if(!btn)return;curHook=btn.getAttribute('data-v');document.querySelectorAll('#hook-chips .mc2').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');});
+  document.getElementById('fmt-chips').addEventListener('click',function(e){var btn=e.target.closest('.mc2');if(!btn)return;curFmt=btn.getAttribute('data-v');document.querySelectorAll('#fmt-chips .mc2').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');});
+}
+
+// ── GENERATE ──────────────────────────────────────────────────────────
+var _genSurf='',_genRes=[];
+async function doGen(){
+  var surf=document.getElementById('g-surf').value;
+  if(!surf){alert('請選擇投放版位');return;}
+  var aud=document.getElementById('g-aud').value;
+  var angle=document.getElementById('g-angle').value;
+  var feature=document.getElementById('g-feature').value;
+  var base=document.getElementById('g-base').value.trim();
+  var extra=document.getElementById('g-extra').value.trim();
+  _genSurf=surf;
+  var btn=document.getElementById('gen-btn'),res=document.getElementById('gen-results'),empty=document.getElementById('gen-empty');
+  btn.disabled=true;btn.innerHTML='<span class="d">Generating</span>';
+  res.style.display='none';empty.style.display='flex';
+  empty.innerHTML='<div style="font-size:36px">✨</div><div style="font-size:13px;color:var(--tx3)" class="d">Generating</div>';
+  var specs={'meta-feed':'Meta Feed: Primary Text 125字以內, Headline 40字以內, 廣告圖上文案=主標+副標+CTA','meta-story':'IG Story/Reels: 極簡3行圖上文案','ig-organic':'IG 品牌有機貼文（非廣告）: Caption首行是hook，不廣告腔','ig-collab':'KOL合作: 保留creator聲音，第一人稱','tiktok':'TikTok: 前1-2秒hook腳本，Caption 50字','youtube':'YouTube前5秒腳本: Hook→痛點→解方→CTA','push':'Push Notification: iOS65字元，Body 240字元，imageText留空','edm':'EDM: 主旨40-60字元，Preview 40-100字元，imageText留空','crm-existing':'CRM既有用戶通知: 告知新內容不推銷，headline和imageText留空','google':'Google Display: Headline嚴格30字元x3，Description嚴格90字元x2','appstore':'App Store TW: 標題30字元，副標30字元，描述首段170字元','landing':'Landing Page Hero: H1 3-8字，Subheadline 1-2句，CTA 2-5字'};
+  var audMap={'pro':'高動機學習者（工程師/PM/外商）','plateau':'學習撞牆者—Duolingo卡瓶頸','career':'職涯升級者—外商面試','traveler':'旅遊族','exam':'備考族','retire':'退休成長族','parent':'家長','existing-notify':'既有付費用戶—新內容通知','free-to-paid':'免費用戶→轉換付費','upgrade':'付費→升級','reactivate':'流失→重新激活','':'一般受眾'};
+  var fMap={'speak-tutor':'Speak Tutor 24/7 AI語言家教','personalized':'個人化課程AI即時生成','correction-ai':'即時AI糾正每句話','free-talk':'AI Free Talk任選話題','asr':'語音辨識93%+ 0.1秒','speaking-first':'20分鐘說100句','3step':'三步學習法','linguist':'語言學家設計課程','spaced':'間隔重複複習','scenarios':'100+情境','natural-phrases':'道地自然英文用法','word-lookup':'單字即查一鍵翻譯','immersive':'沉浸式視覺對話','progress':'進度追蹤','japanese':'多語言支援','lee-yang':'李洋21天挑戰','feng':'鳳小岳勇敢最帥','da-qian':'大謙250天真實用戶','':''};
+  var hasBase=base&&base.length>10;
+  var sys='You are CopyOS TW, Speak Taiwan copywriter.\nSpeak = AI English speaking app. Tagline: 讓英文一切好說. Persona: Honest x Witty guide.\nDO NOT: "fluent in 30 days", generic phrases, gamification jargon, ALL CAPS, emoji stuffing, shame marketing.\nTW: learners have foundation but cannot speak. Empowerment over anxiety.\nChannel: '+(specs[surf]||surf)+'\nAd image copy (imageText): complete visual hierarchy — main headline (4-8 chars) + subtitle (8-15 chars) + CTA text, separated by real newlines.\n'+(hasBase?'BASE MODE: given base copy. Output 5-6 variants from different angles (audience, hook, theme, tone, format, feature).':'STANDARD MODE: Output 3 options A(safest), B(Authentic+Witty), C(Bold).')+'\nOutput ONLY valid JSON array. Each object must have all keys: {"label":"","angle":"","tone":"","attribute":"","primaryText":"","headline":"","imageText":"","cta":"","note":"","flag":""}\nNo text before or after the JSON array.';
+  var usr='Channel: '+surf+'\nAudience: '+(audMap[aud]||'general')+'\nAngle: '+(angle||'unspecified')+'\nFeature: '+(fMap[feature]||'none')+'\nHook strategy: '+(curHook||'unspecified')+'\nFormat: '+(curFmt||'unspecified')+(extra?'\nExtra: '+extra:'')+(hasBase?'\nBase copy: "'+base+'"\nOutput 5-6 variants.':'\nOutput 3 options.')+'\nTraditional Chinese. JSON array only.';
+  try{
+    var r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true','x-api-key':(document.getElementById('api-key').value||'')},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2500,system:sys,messages:[{role:'user',content:usr}]})});
+    var data=await r.json();
+    var raw=(data.content||[]).map(function(b){return b.text||'';}).join('');
+    var opts;try{var m=raw.match(/\[[\s\S]*\]/);opts=JSON.parse(m?m[0]:raw);}catch(e){opts=null;}
+    if(opts&&Array.isArray(opts)){_genRes=opts;renderResults(opts,surf);}else renderResultsRaw(raw);
+  }catch(err){empty.innerHTML='<div style="font-size:30px">⚠️</div><div style="color:var(--tx3)">Error: '+esc(err.message)+'</div>';}
+  btn.disabled=false;btn.innerHTML='<span>✨</span> <span class="i18n" data-zh="生成文案" data-en="Generate Copy">'+(uiLang==='en'?'Generate Copy':'生成文案')+'</span>';
+}
+
+function renderResults(opts,surf){
+  document.getElementById('gen-empty').style.display='none';
+  var res=document.getElementById('gen-results');res.style.display='flex';
+  var clss=['rca','rcb','rcc','rcd','rce','rcf'];
+  var noImg=['push','edm','crm-existing','google'];
+  var isOrg=surf==='ig-organic'||surf==='ig-collab';
+  var html='';
+  opts.forEach(function(o,ci){
+    var cl=clss[ci]||'rca';
+    var showHL=o.headline&&o.headline.trim()&&!isOrg&&['push','edm','crm-existing'].indexOf(surf)<0;
+    var showImg=noImg.indexOf(surf)<0&&o.imageText&&o.imageText.trim();
+    html+='<div class="rcard '+cl+'"><div class="rchdr"><div class="rhleft">';
+    html+='<span class="rbadge">'+esc(o.label||'Variant '+(ci+1))+'</span>';
+    html+='<span class="rangle">'+esc(o.angle||o.tone||'')+'</span>';
+    html+='</div><div class="racts">';
+    html+='<span style="font-size:9px;padding:2px 7px;border-radius:3px;background:rgba(99,102,241,.1);color:var(--ach);border:1px solid rgba(99,102,241,.2);font-family:\'DM Mono\',monospace">'+esc(o.attribute||'')+'</span>';
+    html+='<button class="ract" data-raction="copy-all" data-ci="'+ci+'">⎘</button>';
+    html+='<button class="ract" data-raction="star-result" data-ri="'+ci+'">⭐</button>';
+    html+='</div></div><div class="rbody">';
+    if(o.primaryText){
+      var pLbl=isOrg?'Caption':(surf==='push'?'📱 Notification':'📝 Primary Text');
+      html+='<div class="csec"><div class="cslabel">'+pLbl+'<div class="ml"><button class="regen-btn" data-raction="regen" data-ci="'+ci+'" data-field="primaryText" data-ri="'+ci+'" data-surf="'+surf+'">🔄</button><button class="cpbtn" data-raction="copy-field" data-ci="'+ci+'" data-field="primaryText">Copy</button></div></div><div class="ctxt" data-field-name="primaryText">'+esc(o.primaryText)+'</div></div>';
+    }
+    if(showHL){html+='<div class="csec"><div class="cslabel">🔤 Headline<div class="ml"><button class="regen-btn" data-raction="regen" data-ci="'+ci+'" data-field="headline" data-ri="'+ci+'" data-surf="'+surf+'">🔄</button><button class="cpbtn" data-raction="copy-field" data-ci="'+ci+'" data-field="headline">Copy</button></div></div><div class="ctxt mono" data-field-name="headline">'+esc(o.headline)+'</div></div>';}
+    if(showImg){html+='<div class="csec"><div class="cslabel">🖼 Ad Image Copy<div class="ml"><button class="regen-btn" data-raction="regen" data-ci="'+ci+'" data-field="imageText" data-ri="'+ci+'" data-surf="'+surf+'">🔄</button><button class="cpbtn" data-raction="copy-field" data-ci="'+ci+'" data-field="imageText">Copy</button></div></div><div class="ctxt imgtext" data-field-name="imageText">'+esc(o.imageText).replace(/\n/g,'<br>')+'</div></div>';}
+    if(o.cta){html+='<div class="csec"><div class="cslabel">👆 CTA<div class="ml"><button class="regen-btn" data-raction="regen" data-ci="'+ci+'" data-field="cta" data-ri="'+ci+'" data-surf="'+surf+'">🔄</button><button class="cpbtn" data-raction="copy-field" data-ci="'+ci+'" data-field="cta">Copy</button></div></div><div class="ctxt mono" data-field-name="cta">'+esc(o.cta)+'</div></div>';}
+    html+='<div class="rnote"><strong>Brand Fit:</strong> '+esc(o.note||'')+'</div>';
+    if(o.flag)html+='<div class="rflag">⚠️ '+esc(o.flag)+'</div>';
+    html+='</div></div>';
+  });
+  res.innerHTML=html;
+}
+function renderResultsRaw(text){document.getElementById('gen-empty').style.display='none';var res=document.getElementById('gen-results');res.style.display='flex';res.innerHTML='<div class="rcard rca"><div class="rbody"><div class="ctxt">'+esc(text)+'</div></div></div>';}
+function saveGenResult(btn,ri){
+  if(!_genRes[ri])return;var o=_genRes[ri];
+  var text=(o.primaryText?'Primary Text:\n'+o.primaryText+'\n\n':'')+(o.headline?'Headline:\n'+o.headline+'\n\n':'')+(o.imageText?'Image Copy:\n'+o.imageText+'\n\n':'')+(o.cta?'CTA: '+o.cta:'');
+  saved.push({id:'gen_'+Date.now()+'_'+ri,text:text.trim(),label:o.label||'Generated',src:_genSurf,ts:Date.now(),type:'generated'});
+  localStorage.setItem('speak_v8',JSON.stringify(saved));updateSvCount();btn.classList.add('starred');btn.textContent='⭐ Saved';toast('⭐ Saved');
+}
+
+// ── REGEN FIELD ───────────────────────────────────────────────────────
+async function regenField(btn,ci,field,ri,surf){
+  var card=document.querySelectorAll('.rcard')[ci];
+  var el=card&&card.querySelector('[data-field-name="'+field+'"]');
+  var currentText=el?el.textContent:'';
+  btn.disabled=true;btn.textContent='⏳';
+  var sys='You are CopyOS TW. Regenerate only the "'+field+'" field for a Speak ad on "'+surf+'". Return ONLY a JSON array of 3 objects: [{"angle":"2-3 words","text":"new copy"},...]  No other text.';
+  var usr='Current '+field+': "'+currentText+'"\nGenerate 3 alternatives in Traditional Chinese. JSON array only.';
+  try{
+    var r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true','x-api-key':(document.getElementById('api-key').value||'')},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:600,system:sys,messages:[{role:'user',content:usr}]})});
+    var data=await r.json();var raw=(data.content||[]).map(function(b){return b.text||'';}).join('');
+    var opts;try{var m=raw.match(/\[[\s\S]*\]/);opts=JSON.parse(m?m[0]:raw);}catch(e){opts=null;}
+    if(opts&&Array.isArray(opts))showRegenPicker(btn,ci,field,opts);else toast('⚠️ Regen failed');
+  }catch(e){toast('⚠️ '+e.message);}
+  btn.disabled=false;btn.textContent='🔄';
+}
+function showRegenPicker(triggerBtn,ci,field,opts){
+  document.querySelectorAll('.rgpicker').forEach(function(p){p.remove();});
+  var picker=document.createElement('div');picker.className='rgpicker';
+  var html='<div class="rgpicker-title">Select new version for '+field+':</div>';
+  opts.forEach(function(o,i){html+='<div class="rgpicker-opt" data-pick-idx="'+i+'"><div class="rgpicker-angle">'+(i+1)+'. '+esc(o.angle||'')+'</div><div class="rgpicker-text">'+esc(o.text||'')+'</div></div>';});
+  html+='<div style="text-align:center;font-size:11px;color:var(--tx3);cursor:pointer;padding:6px;margin-top:3px" onclick="this.closest(\'.rgpicker\').remove()">Cancel</div>';
+  picker.innerHTML=html;
+  picker.addEventListener('click',function(e){var opt=e.target.closest('.rgpicker-opt');if(!opt)return;applyRegen(ci,field,opts[parseInt(opt.getAttribute('data-pick-idx'),10)].text||'');picker.remove();});
+  var rect=triggerBtn.getBoundingClientRect();
+  picker.style.top=(rect.bottom+8+window.scrollY)+'px';picker.style.right=(window.innerWidth-rect.right)+'px';
+  document.body.appendChild(picker);
+  setTimeout(function(){document.addEventListener('click',function close(e){if(!picker.contains(e.target)&&e.target!==triggerBtn){picker.remove();document.removeEventListener('click',close);}});},100);
+}
+function applyRegen(ci,field,newText){
+  var card=document.querySelectorAll('.rcard')[ci];if(!card)return;
+  var el=card.querySelector('[data-field-name="'+field+'"]');if(!el)return;
+  if(field==='imageText')el.innerHTML=esc(newText).replace(/\n/g,'<br>');else el.textContent=newText;
+  if(_genRes[ci])_genRes[ci][field]=newText;
+  el.style.borderColor='var(--gr)';setTimeout(function(){el.style.borderColor='';},1500);toast('✓ Updated');
+}
+
+</script>
+</body>
+</html>
