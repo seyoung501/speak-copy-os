@@ -649,9 +649,14 @@ function Factory({copies, gk}) {
   const [promo, setPromo] = useState(false);
   const [pain, setPain] = useState("");
   const [generated, setGenerated] = useState(null);
+  const [remixPicks, setRemixPicks] = useState([]);
+  const [remixSearch, setRemixSearch] = useState("");
+  const [remixOut, setRemixOut] = useState(null);
 
   const personaList = KR_PERSONAS[audience] || [];
   const formatList = KR_CHANNEL_FORMATS[channel] || [];
+  const audienceSubs = Object.keys(KR_PERSONAS);
+  const featureChoices = [{ tag: "", label: "— 없음 —" }, ...FEAT_TAGS];
 
   useEffect(() => {
     if (personaList.length && !personaList.find(p => p.id === persona)) setPersona(personaList[0].id);
@@ -661,6 +666,7 @@ function Factory({copies, gk}) {
   }, [channel, formatList, format]);
 
   const personaObj = personaList.find(p => p.id === persona);
+  const formatObj = formatList.find(f => f.id === format);
 
   const generate = () => {
     const brief = { audience, persona, intent, channel, format, promo, pain: pain.trim(), feature };
@@ -668,101 +674,217 @@ function Factory({copies, gk}) {
     setGenerated({ brief, variants, at: new Date().toISOString() });
   };
 
+  const toggleRemixPick = (copy) => {
+    setRemixPicks(prev => {
+      const exists = prev.find(p => p.ko === copy.ko);
+      if (exists) return prev.filter(p => p.ko !== copy.ko);
+      if (prev.length >= 3) return [prev[1], prev[2], copy];
+      return [...prev, copy];
+    });
+  };
+
+  const remixCandidates = useMemo(() => {
+    let pool = copies.filter(c => c.l === "3" || c.l === "4" || c.l === "5" || c.k);
+    if (remixSearch) {
+      const q = remixSearch.toLowerCase();
+      pool = pool.filter(c => c.ko.toLowerCase().includes(q) || c.en.toLowerCase().includes(q));
+    }
+    return pool.slice(0, 40);
+  }, [remixSearch, copies]);
+
+  const runRemix = () => {
+    if (remixPicks.length < 2) return;
+    const parts = remixPicks.map(p => p.ko);
+    // Simple remix: combine elements
+    const results = [
+      { headline: parts[0].split(/[.,!?]/)[0] + ". " + (parts[1]?.split(/[.,!?]/)[1] || parts[1]?.split(/[.,!?]/)[0] || ""), archetype: "Remix A", rationale: "첫 번째 카피의 오프닝 + 두 번째 카피의 후반부 결합" },
+      { headline: (parts[1]?.split(/[.,!?]/)[0] || "") + ". " + parts[0].split(/[.,!?]/)[0] + ".", archetype: "Remix B", rationale: "순서 역전 — 두 번째 카피로 시작" },
+      parts[2] ? { headline: parts[0].split(/[.,!?]/)[0] + ". " + parts[2].split(/[.,!?]/)[0] + ".", archetype: "Remix C", rationale: "첫 번째 + 세 번째 결합" } : null,
+    ].filter(Boolean).map(v => ({ ...v, check: krBrandCheck(v.headline), sub: null, cta: null, leans: "Remix" }));
+    setRemixOut(results);
+  };
+
   const brandColor = (check) => !check ? "#6B7280" : check.pass ? "#10B981" : check.violations.some(v => v.sev === "high") ? "#EF4444" : "#F59E0B";
 
+  const KR_FIELD = ({ label, children }) => (
+    <div>
+      <div style={{ fontSize: 10, color: "#9CA3AF", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 6, fontWeight: 600, fontFamily: "'Pretendard','Inter'" }}>{label}</div>
+      {children}
+    </div>
+  );
+
+  const krSelect = { padding: "9px 12px", background: "#FFFFFF", border: "1px solid #E2E4E8", borderRadius: 6, color: "#1A1A1A", fontSize: 12, fontFamily: "'Pretendard','Inter',sans-serif", outline: "none", cursor: "pointer", width: "100%" };
+
+  const renderVariant = (v, i) => {
+    const bc = brandColor(v.check);
+    return (
+      <div key={i} style={{ background: "#FFFFFF", borderRadius: 12, padding: "18px 22px", border: "1px solid #E2E4E8", borderLeft: `4px solid ${bc}`, position: "relative" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+          <span style={{ fontSize: 11, fontWeight: 700, color: "#1C49FF" }}>{v.archetype}</span>
+          <span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 99, background: bc + "15", color: bc, fontWeight: 600 }}>{v.check?.pass ? "PASS" : v.check?.violations?.length ? "⚠ " + v.check.violations.length : "—"}</span>
+          {v.leans && <span style={{ fontSize: 10, color: "#9CA3AF", marginLeft: "auto" }}>{v.leans}</span>}
+        </div>
+        <div style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.5, color: "#1A1A1A", fontFamily: "'Noto Sans KR',sans-serif", paddingRight: 60 }}>{v.headline}</div>
+        {v.sub && <div style={{ fontSize: 14, color: "#4B5563", marginTop: 6, lineHeight: 1.6 }}>{v.sub}</div>}
+        {v.cta && <div style={{ display: "inline-block", marginTop: 10, padding: "5px 14px", borderRadius: 6, background: "#1C49FF10", color: "#1C49FF", fontSize: 12, fontWeight: 600 }}>{v.cta}</div>}
+        <div style={{ fontSize: 11, color: "#9CA3AF", marginTop: 10, lineHeight: 1.5 }}>{v.rationale}</div>
+        {v.check?.violations?.length > 0 && <div style={{ marginTop: 8, display: "flex", flexWrap: "wrap", gap: 4 }}>
+          {v.check.violations.map((vl, vi) => <span key={vi} style={{ fontSize: 10, padding: "2px 8px", borderRadius: 99, background: vl.sev === "high" ? "#FEE2E2" : "#FEF3C7", color: vl.sev === "high" ? "#DC2626" : "#D97706" }}>{vl.label}</span>)}
+        </div>}
+        <button onClick={() => navigator.clipboard.writeText(v.headline + (v.sub ? "\n" + v.sub : ""))} style={{ position: "absolute", top: 16, right: 16, border: "none", background: "#E2E4E8", color: "#374151", borderRadius: 6, padding: "4px 12px", fontSize: 11, cursor: "pointer", fontWeight: 600 }}>Copy</button>
+      </div>
+    );
+  };
+
   return (
-    <div style={{ padding: "28px 34px", maxWidth: 920 }}>
-      <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 6, fontFamily: "'Pretendard','Inter'" }}>🏭 Copy Factory</h2>
-      <p style={{ fontSize: 13, color: "#6B7280", marginBottom: 24 }}>Brief 입력 → 5가지 아키타입의 카피를 자동 생성 + 브랜드 체크</p>
+    <div style={{ padding: "24px 34px", maxWidth: 1100 }}>
+      <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 6 }}>
+        <h2 style={{ fontSize: 22, fontWeight: 700, margin: 0, fontFamily: "'Pretendard','Inter'" }}>🏭 Copy Factory</h2>
+        <span style={{ fontSize: 10, padding: "3px 10px", borderRadius: 99, background: "#1C49FF22", color: "#1C49FF", fontWeight: 700, letterSpacing: "0.08em", border: "1px solid #1C49FF44" }}>GENERATES · GUARDRAILED</span>
+      </div>
+      <p style={{ color: "#6B7280", fontSize: 12, margin: "0 0 18px" }}>Brief 입력 → 5가지 아키타입 자동 생성 + 브랜드 체크. Remix로 기존 카피를 합성할 수도 있습니다.</p>
 
-      {/* Brief Form */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 20 }}>
-        {/* Audience */}
-        <div>
-          <label style={{ fontSize: 11, fontWeight: 700, color: "#1C49FF", textTransform: "uppercase", letterSpacing: "0.05em", display: "block", marginBottom: 8 }}>① Target Audience</label>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
-            {Object.keys(KR_PERSONAS).map(a => <button key={a} onClick={() => setAudience(a)} style={selectBtnStyle(audience === a)}>{a}</button>)}
-          </div>
-        </div>
-        {/* Persona */}
-        <div>
-          <label style={{ fontSize: 11, fontWeight: 700, color: "#7C3AED", textTransform: "uppercase", letterSpacing: "0.05em", display: "block", marginBottom: 8 }}>② Persona</label>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
-            {personaList.map(p => <button key={p.id} onClick={() => setPersona(p.id)} style={selectBtnStyle(persona === p.id, "#7C3AED")}>{p.label}</button>)}
-          </div>
-          {personaObj && <div style={{ fontSize: 11, color: "#6B7280", marginTop: 6 }}>Pain: "{personaObj.pain}"</div>}
-        </div>
+      {/* Mode switcher */}
+      <div style={{ display: "flex", gap: 4, marginBottom: 22, background: "#FFFFFF", padding: 3, borderRadius: 9, width: "fit-content", border: "1px solid #E2E4E8" }}>
+        {[["generate", "✨ Generate", "Primary"], ["remix", "🎛 Remix", "Secondary"]].map(([id, label, tag]) => (
+          <button key={id} onClick={() => setMode(id)} style={{ padding: "8px 18px", borderRadius: 7, border: "none", background: mode === id ? "#1C49FF" : "transparent", color: mode === id ? "#fff" : "#6B7280", fontSize: 12, fontWeight: 700, cursor: "pointer", fontFamily: "'Pretendard','Inter'", display: "flex", alignItems: "center", gap: 8 }}>
+            {label}
+            <span style={{ fontSize: 8, padding: "2px 6px", borderRadius: 99, background: mode === id ? "rgba(255,255,255,0.2)" : "#E2E4E8", color: mode === id ? "#fff" : "#9CA3AF", fontWeight: 700, letterSpacing: "0.08em" }}>{tag}</span>
+          </button>
+        ))}
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, marginBottom: 20 }}>
-        {/* Intent */}
-        <div>
-          <label style={{ fontSize: 11, fontWeight: 700, color: "#0D9488", textTransform: "uppercase", letterSpacing: "0.05em", display: "block", marginBottom: 8 }}>③ Intent (퍼널)</label>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
-            {KR_INTENTS.map(i => <button key={i.id} onClick={() => setIntent(i.id)} style={selectBtnStyle(intent === i.id, "#0D9488")}>{i.label}</button>)}
-          </div>
-        </div>
-        {/* Channel */}
-        <div>
-          <label style={{ fontSize: 11, fontWeight: 700, color: "#DC2626", textTransform: "uppercase", letterSpacing: "0.05em", display: "block", marginBottom: 8 }}>④ Channel</label>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
-            {FACTORY_CHANNELS_KR.map(c => <button key={c.id} onClick={() => setChannel(c.id)} style={selectBtnStyle(channel === c.id, "#DC2626")}>{c.label}</button>)}
-          </div>
-        </div>
-        {/* Format */}
-        <div>
-          <label style={{ fontSize: 11, fontWeight: 700, color: "#9CA3AF", textTransform: "uppercase", letterSpacing: "0.05em", display: "block", marginBottom: 8 }}>Format</label>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
-            {formatList.map(f => <button key={f.id} onClick={() => setFormat(f.id)} style={selectBtnStyle(format === f.id, "#6B7280")}>{f.label}</button>)}
-          </div>
-        </div>
-      </div>
+      {/* ============ GENERATE MODE ============ */}
+      {mode === "generate" && (<>
+        <div style={{ background: "#FFFFFF", border: "1px solid #E2E4E8", borderRadius: 12, padding: "20px 24px", marginBottom: 24 }}>
+          <div style={{ fontSize: 10, color: "#9CA3AF", fontWeight: 700, letterSpacing: "0.12em", marginBottom: 10, textTransform: "uppercase" }}>1 · The Brief</div>
 
-      {/* Options row */}
-      <div style={{ display: "flex", gap: 16, marginBottom: 20, alignItems: "flex-end" }}>
-        <div style={{ flex: 1 }}>
-          <label style={{ fontSize: 11, fontWeight: 700, color: "#374151", display: "block", marginBottom: 6 }}>Custom Pain (optional)</label>
-          <input value={pain} onChange={e => setPain(e.target.value)} placeholder="예: 3년 다녔는데 말이 안 된다..." style={{ width: "100%", padding: "8px 12px", borderRadius: 8, border: "1px solid #E2E4E8", fontSize: 13, outline: "none", fontFamily: "'Pretendard'" }} />
-        </div>
-        <label style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer", fontSize: 12, color: "#374151", padding: "8px 0" }}>
-          <input type="checkbox" checked={promo} onChange={e => setPromo(e.target.checked)} /> 프로모 포함
-        </label>
-        <button onClick={generate} style={{ padding: "10px 28px", borderRadius: 8, border: "none", background: "#1C49FF", color: "#fff", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "'Pretendard','Inter'" }}>
-          ⚡ Generate
-        </button>
-      </div>
-
-      {/* Results */}
-      {generated && <div style={{ marginTop: 16 }}>
-        <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 16, color: "#1A1A1A" }}>
-          Generated {generated.variants.length} archetypes — {audience} / {personaObj?.label || persona} / {intent}
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-          {generated.variants.map((v, i) => {
-            const bc = brandColor(v.check);
-            return (
-              <div key={i} style={{ background: "#FFFFFF", borderRadius: 12, padding: "18px 22px", border: "1px solid #E2E4E8", borderLeft: `4px solid ${bc}`, position: "relative" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-                  <span style={{ fontSize: 11, fontWeight: 700, color: "#1C49FF", fontFamily: "'Pretendard','Inter'" }}>{v.archetype}</span>
-                  <span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 99, background: bc + "15", color: bc, fontWeight: 600 }}>{v.check?.pass ? "PASS" : v.check?.violations.length ? "⚠ " + v.check.violations.length + " issue(s)" : "—"}</span>
-                  <span style={{ fontSize: 10, color: "#9CA3AF", marginLeft: "auto" }}>{v.leans}</span>
-                </div>
-                <div style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.5, color: "#1A1A1A", fontFamily: "'Noto Sans KR',sans-serif", paddingRight: 60 }}>{v.headline}</div>
-                {v.sub && <div style={{ fontSize: 14, color: "#4B5563", marginTop: 6, lineHeight: 1.6 }}>{v.sub}</div>}
-                {v.cta && <div style={{ display: "inline-block", marginTop: 10, padding: "5px 14px", borderRadius: 6, background: "#1C49FF10", color: "#1C49FF", fontSize: 12, fontWeight: 600 }}>{v.cta}</div>}
-                <div style={{ fontSize: 11, color: "#9CA3AF", marginTop: 10, lineHeight: 1.5 }}>{v.rationale}</div>
-                {v.check?.violations.length > 0 && <div style={{ marginTop: 8, display: "flex", flexWrap: "wrap", gap: 4 }}>
-                  {v.check.violations.map((vl, vi) => <span key={vi} style={{ fontSize: 10, padding: "2px 8px", borderRadius: 99, background: vl.sev === "high" ? "#FEE2E2" : "#FEF3C7", color: vl.sev === "high" ? "#DC2626" : "#D97706" }}>{vl.label}</span>)}
-                </div>}
-                <button onClick={() => { navigator.clipboard.writeText(v.headline + (v.sub ? "\n" + v.sub : "")); }} style={{ position: "absolute", top: 16, right: 16, border: "none", background: "#E2E4E8", color: "#374151", borderRadius: 6, padding: "4px 12px", fontSize: 11, cursor: "pointer", fontWeight: 600 }}>Copy</button>
+          {/* Audience */}
+          <div style={{ marginBottom: 14 }}>
+            <div style={{ fontSize: 10, color: "#1C49FF", letterSpacing: "0.12em", marginBottom: 8, textTransform: "uppercase", fontWeight: 700 }}>👥 Audience</div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr 1fr", gap: 10 }}>
+              <KR_FIELD label="Segment">
+                <select value={audience} onChange={e => setAudience(e.target.value)} style={krSelect}>
+                  {audienceSubs.map(a => <option key={a} value={a}>{a}</option>)}
+                </select>
+              </KR_FIELD>
+              <KR_FIELD label="Sub-persona">
+                <select value={persona} onChange={e => setPersona(e.target.value)} style={krSelect}>
+                  {personaList.map(p => <option key={p.id} value={p.id}>{p.label}</option>)}
+                </select>
+              </KR_FIELD>
+              <KR_FIELD label="Intent Level">
+                <select value={intent} onChange={e => setIntent(e.target.value)} style={krSelect}>
+                  {KR_INTENTS.map(i => <option key={i.id} value={i.id}>{i.label}</option>)}
+                </select>
+              </KR_FIELD>
+            </div>
+            {personaObj && (
+              <div style={{ marginTop: 8, padding: "8px 12px", background: "#1C49FF08", border: "1px solid #1C49FF22", borderRadius: 6, fontSize: 11, color: "#6B7280", lineHeight: 1.5 }}>
+                <strong style={{ color: "#1C49FF", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase" }}>{personaObj.tone}</strong>
+                {" · Pain: "}<span style={{ color: "#1A1A1A" }}>{personaObj.pain}</span>
               </div>
-            );
-          })}
+            )}
+          </div>
+
+          {/* Channel */}
+          <div style={{ marginBottom: 14 }}>
+            <div style={{ fontSize: 10, color: "#7C3AED", letterSpacing: "0.12em", marginBottom: 8, textTransform: "uppercase", fontWeight: 700 }}>📡 Channel</div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1.5fr", gap: 10 }}>
+              <KR_FIELD label="Channel">
+                <select value={channel} onChange={e => setChannel(e.target.value)} style={krSelect}>
+                  {FACTORY_CHANNELS_KR.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
+                </select>
+              </KR_FIELD>
+              <KR_FIELD label="Format">
+                <select value={format} onChange={e => setFormat(e.target.value)} style={krSelect}>
+                  {formatList.map(f => <option key={f.id} value={f.id}>{f.label}</option>)}
+                </select>
+              </KR_FIELD>
+            </div>
+            {formatObj && (
+              <div style={{ marginTop: 8, padding: "8px 12px", background: "#7C3AED08", border: "1px solid #7C3AED22", borderRadius: 6, fontSize: 11, color: "#6B7280", lineHeight: 1.5, display: "flex", gap: 14, flexWrap: "wrap" }}>
+                <span><strong style={{ color: "#7C3AED", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase" }}>Tone</strong> <span style={{ color: "#1A1A1A" }}>{formatObj.tone}</span></span>
+                {formatObj.headlineMax > 0 && <span><strong style={{ color: "#7C3AED", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase" }}>Headline max</strong> <span style={{ color: "#1A1A1A" }}>{formatObj.headlineMax}자</span></span>}
+                {formatObj.subMax > 0 && <span><strong style={{ color: "#7C3AED", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase" }}>Sub max</strong> <span style={{ color: "#1A1A1A" }}>{formatObj.subMax}자</span></span>}
+              </div>
+            )}
+          </div>
+
+          {/* Content options */}
+          <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr", gap: 10, marginBottom: 14 }}>
+            <KR_FIELD label="Feature to highlight (optional)">
+              <select value={feature} onChange={e => setFeature(e.target.value)} style={krSelect}>
+                {featureChoices.map(f => <option key={f.tag} value={f.tag}>{f.label}</option>)}
+              </select>
+            </KR_FIELD>
+            <KR_FIELD label="Promotional use">
+              <label style={{ display: "flex", alignItems: "center", gap: 8, padding: "9px 12px", background: "#FFFFFF", border: "1px solid #E2E4E8", borderRadius: 6, cursor: "pointer" }}>
+                <input type="checkbox" checked={promo} onChange={e => setPromo(e.target.checked)} style={{ accentColor: "#1C49FF" }} />
+                <span style={{ fontSize: 12 }}>Promo / discount</span>
+              </label>
+            </KR_FIELD>
+          </div>
+
+          <KR_FIELD label="Pain point / hook (optional — overrides persona pain)">
+            <input type="text" value={pain} onChange={e => setPain(e.target.value)} placeholder="예: 회의에서 한마디도 못 한다 / 10년 공부했는데 말이 안 된다" style={{ ...krSelect, width: "100%" }} />
+          </KR_FIELD>
+
+          <div style={{ display: "flex", gap: 10, marginTop: 20, alignItems: "center" }}>
+            <button onClick={generate} style={{ padding: "11px 26px", background: "#1C49FF", border: "none", borderRadius: 8, color: "#fff", fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "'Pretendard','Inter'", boxShadow: "0 4px 20px #1C49FF44" }}>
+              ✨ Generate 5 variations
+            </button>
+            <span style={{ fontSize: 11, color: "#9CA3AF" }}>From {copies.length} warehouse copies + brief + guardrails</span>
+          </div>
         </div>
-      </div>}
+
+        {/* Results */}
+        {generated && <div>
+          <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 16, color: "#1A1A1A" }}>
+            {generated.variants.length} archetypes — {audience} / {personaObj?.label || persona} / {intent}
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+            {generated.variants.map((v, i) => renderVariant(v, i))}
+          </div>
+        </div>}
+      </>)}
+
+      {/* ============ REMIX MODE ============ */}
+      {mode === "remix" && (<>
+        <div style={{ background: "#FFFFFF", border: "1px solid #E2E4E8", borderRadius: 12, padding: "20px 24px", marginBottom: 24 }}>
+          <div style={{ fontSize: 10, color: "#9CA3AF", fontWeight: 700, letterSpacing: "0.12em", marginBottom: 10, textTransform: "uppercase" }}>Select 2-3 copies to remix</div>
+
+          <input value={remixSearch} onChange={e => setRemixSearch(e.target.value)} placeholder="카피 검색..." style={{ ...krSelect, marginBottom: 12 }} />
+
+          <div style={{ maxHeight: 300, overflowY: "auto", display: "flex", flexDirection: "column", gap: 4 }}>
+            {remixCandidates.map((c, i) => {
+              const picked = remixPicks.find(p => p.ko === c.ko);
+              return (
+                <div key={i} onClick={() => toggleRemixPick(c)} style={{ padding: "8px 12px", borderRadius: 6, border: `1px solid ${picked ? "#1C49FF" : "#E2E4E8"}`, background: picked ? "#1C49FF08" : "#FFFFFF", cursor: "pointer", fontSize: 12, lineHeight: 1.5 }}>
+                  <span style={{ color: "#1A1A1A" }}>{c.ko}</span>
+                  {c.en && <span style={{ color: "#9CA3AF", fontSize: 10, marginLeft: 8 }}>{c.en}</span>}
+                </div>
+              );
+            })}
+          </div>
+
+          <div style={{ display: "flex", gap: 10, marginTop: 16, alignItems: "center" }}>
+            <button onClick={runRemix} disabled={remixPicks.length < 2} style={{ padding: "10px 24px", background: remixPicks.length >= 2 ? "#1C49FF" : "#E2E4E8", border: "none", borderRadius: 8, color: remixPicks.length >= 2 ? "#fff" : "#9CA3AF", fontSize: 13, fontWeight: 700, cursor: remixPicks.length >= 2 ? "pointer" : "default" }}>
+              🎛 Remix {remixPicks.length} copies
+            </button>
+            <span style={{ fontSize: 11, color: "#9CA3AF" }}>{remixPicks.length}/3 selected</span>
+            {remixPicks.length > 0 && <button onClick={() => setRemixPicks([])} style={{ border: "none", background: "transparent", color: "#EF4444", fontSize: 11, cursor: "pointer" }}>Clear</button>}
+          </div>
+        </div>
+
+        {remixOut && <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          {remixOut.map((v, i) => renderVariant(v, i))}
+        </div>}
+      </>)}
     </div>
   );
 }
+
 
 function Card({item,lv}){const[cp,setCp]=useState(false);const fc=item.f==="TO-BE aligned"?"#10B981":item.f==="AS-IS legacy"?"#EF4444":"#6B7280";return(<div style={{background:"#FFFFFF",borderRadius:10,padding:"14px 18px",borderLeft:`4px solid ${lv.color}`,position:"relative",transition:"transform 0.12s,box-shadow 0.12s"}} onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-1px)";e.currentTarget.style.boxShadow="0 6px 20px rgba(0,0,0,0.18)"}} onMouseLeave={e=>{e.currentTarget.style.transform="";e.currentTarget.style.boxShadow=""}}>{item.k&&<span style={{position:"absolute",top:10,right:52,fontSize:9,padding:"2px 7px",borderRadius:99,background:"#F59E0B20",color:"#F59E0B",fontWeight:700}}>★ KEY</span>}<div style={{fontSize:16,fontWeight:item.k?700:500,lineHeight:1.55,color:"#1A1A1A",fontFamily:"'Noto Sans KR',sans-serif",letterSpacing:"-0.015em",paddingRight:60}}>{item.ko}</div>{item.en&&<div style={{fontSize:12.5,color:"#6B7280",marginTop:5,fontStyle:"italic",lineHeight:1.4}}>{item.en}</div>}<div style={{display:"flex",flexWrap:"wrap",gap:5,marginTop:10,alignItems:"center"}}><span style={{fontSize:10,padding:"2px 7px",borderRadius:99,background:lv.color+"18",color:lv.color,fontWeight:600}}>{lv.id}. {lv.label}</span>{item.g&&<span style={{fontSize:10,padding:"2px 7px",borderRadius:99,background:"#F3F4F612",color:"#6B7280"}}>{FEAT_TAGS.find(t=>t.tag===item.g)?.label}</span>}<span style={{fontSize:10,padding:"2px 7px",borderRadius:99,background:fc+"14",color:fc,fontWeight:600}}>{item.f}</span><span style={{fontSize:10,color:"#9CA3AF",marginLeft:"auto"}}>{item.s}</span></div><button onClick={()=>{navigator.clipboard.writeText(item.ko);setCp(true);setTimeout(()=>setCp(false),1000)}} style={{position:"absolute",top:10,right:10,border:"none",background:cp?"#10B981":"#E2E4E8",color:cp?"#fff":"#7E7E96",borderRadius:6,padding:"3px 9px",fontSize:10,cursor:"pointer",fontWeight:600}}>{cp?"✓":"Copy"}</button></div>)}
 
