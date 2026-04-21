@@ -1,5 +1,9 @@
 import { useState, useMemo } from "react";
 
+// API key stored in localStorage so user only enters once
+const getStoredKey=()=>{try{return window.localStorage?.getItem("gemini_key")||""}catch(e){return""}};
+const storeKey=(k)=>{try{window.localStorage?.setItem("gemini_key",k)}catch(e){}};
+
 const LEVELS = [
   { id:"1", label:"Brand Vision", color:"#3B82F6", desc:"The world Speak wants to create", subs:null },
   { id:"2", label:"Brand Philosophy", color:"#8B5CF6", desc:"What Speak believes", subs:null },
@@ -292,6 +296,8 @@ function Evaluator(){
   const[loading,setLoading]=useState(false);
   const[result,setResult]=useState(null);
   const[error,setError]=useState(null);
+  const[apiKey,setApiKey]=useState(getStoredKey());
+  const saveKey=(k)=>{setApiKey(k);storeKey(k)};
 
   const evaluate=async()=>{
     if(!input.trim())return;
@@ -310,7 +316,7 @@ function Evaluator(){
     }catch(e){
       // If Claude API fails (on Vercel), try Gemini as fallback
       try{
-        const GEMINI_KEY="AIzaSyBrUTwqcAWSf0hSk2bLHLzO7Rr0o3n0JVQ";
+        const GEMINI_KEY=getStoredKey();
         const res2=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`,{
           method:"POST",headers:{"Content-Type":"application/json"},
           body:JSON.stringify({system_instruction:{parts:[{text:EVAL_PROMPT}]},contents:[{parts:[{text:`Evaluate this Korean marketing copy for Speak:\n\n"${input}"`}]}],generationConfig:{temperature:0.7,maxOutputTokens:2000,responseMimeType:"application/json"}})
@@ -334,7 +340,13 @@ function Evaluator(){
 
   return(<div style={{padding:"28px 32px",maxWidth:800}}>
     <h2 style={{fontSize:18,fontWeight:700,fontFamily:"'Space Mono',monospace",marginBottom:4}}>✅ Copy Evaluator</h2>
-    <p style={{fontSize:12,color:"#7E7E96",marginBottom:24}}>Paste any copy → Get a brand compliance score + improvement suggestions</p>
+    <p style={{fontSize:12,color:"#7E7E96",marginBottom:16}}>Paste any copy → Get a brand compliance score + improvement suggestions</p>
+    
+    {!apiKey&&<div style={{marginBottom:16,padding:"12px 16px",background:"#F59E0B10",borderRadius:8,border:"1px solid #F59E0B33"}}>
+      <div style={{fontSize:11,fontWeight:700,color:"#F59E0B",marginBottom:6}}>🔑 Gemini API Key needed (free, no credit card)</div>
+      <div style={{fontSize:10,color:"#7E7E96",marginBottom:8}}>Get one at <a href="https://aistudio.google.com" target="_blank" style={{color:"#A5B4FC"}}>aistudio.google.com</a> → Get API Key → Create</div>
+      <div style={{display:"flex",gap:6}}><input placeholder="Paste your Gemini API key here..." onChange={e=>saveKey(e.target.value)} style={{flex:1,padding:"6px 10px",borderRadius:6,border:"1px solid #1A1A24",background:"#0D0D14",color:"#EDEDF3",fontSize:11,outline:"none"}}/></div>
+    </div>}
 
     <div style={{marginBottom:20}}>
       <label style={{fontSize:10,fontWeight:700,color:"#4A4A60",textTransform:"uppercase",letterSpacing:"0.1em",display:"block",marginBottom:6}}>Copy to evaluate</label>
@@ -541,6 +553,8 @@ function Factory({copies}){
   const[results,setResults]=useState(null);
   const[error,setError]=useState(null);
   const[copiedIdx,setCopiedIdx]=useState(null);
+  const[apiKey,setApiKey]=useState(getStoredKey());
+  const saveKey=(k)=>{setApiKey(k);storeKey(k)};
   
   const ch=FACTORY_CHANNELS[channelIdx];
   const fmt=ch.formats[formatIdx]||ch.formats[0];
@@ -658,7 +672,7 @@ Keep ALL values short. Return ONLY valid JSON array.`;
     }catch(e){
       // Fallback to Gemini (works on Vercel)
       try{
-        const GEMINI_KEY="AIzaSyBrUTwqcAWSf0hSk2bLHLzO7Rr0o3n0JVQ";
+        const GEMINI_KEY=getStoredKey();
         const res2=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`,{
           method:"POST",headers:{"Content-Type":"application/json"},
           body:JSON.stringify({system_instruction:{parts:[{text:SYSTEM_PROMPT}]},contents:[{parts:[{text:userMsg}]}],generationConfig:{temperature:0.7,maxOutputTokens:4000,responseMimeType:"application/json"}})
@@ -676,7 +690,13 @@ Keep ALL values short. Return ONLY valid JSON array.`;
 
   return(<div style={{padding:"28px 32px",maxWidth:900}}>
     <h2 style={{fontSize:18,fontWeight:700,fontFamily:"'Space Mono',monospace",marginBottom:4}}>🏭 Copy Factory</h2>
-    <p style={{fontSize:12,color:"#7E7E96",marginBottom:24}}>Channel → Angle → Target → Tone → Generate 5-10 on-brand options</p>
+    <p style={{fontSize:12,color:"#7E7E96",marginBottom:16}}>Channel → Angle → Target → Tone → Generate on-brand options</p>
+
+    {!apiKey&&<div style={{marginBottom:16,padding:"12px 16px",background:"#F59E0B10",borderRadius:8,border:"1px solid #F59E0B33"}}>
+      <div style={{fontSize:11,fontWeight:700,color:"#F59E0B",marginBottom:6}}>🔑 Gemini API Key needed (free, no credit card)</div>
+      <div style={{fontSize:10,color:"#7E7E96",marginBottom:8}}>Get one at <a href="https://aistudio.google.com" target="_blank" style={{color:"#A5B4FC"}}>aistudio.google.com</a> → Get API Key → Create</div>
+      <div style={{display:"flex",gap:6}}><input placeholder="Paste your Gemini API key here..." onChange={e=>saveKey(e.target.value)} style={{flex:1,padding:"6px 10px",borderRadius:6,border:"1px solid #1A1A24",background:"#0D0D14",color:"#EDEDF3",fontSize:11,outline:"none"}}/></div>
+    </div>}
 
     {/* ① Channel */}
     <div style={{marginBottom:20}}>
