@@ -517,17 +517,9 @@ DO NOT invent numbers. If a claim needs data not here, state without a number.
 - General: Broad. Lead with universal pain.
 
 ═══ OUTPUT FORMAT ═══
-Respond ONLY in valid JSON. No markdown. Return an array of 5-10 copy options.
-Each option:
-{
-  "label": "short descriptive label in Korean",
-  "copies": {}, // see FORMAT SPEC in user message
-  "en_translation": "English translation of main headline",
-  "levels_used": "hierarchy levels drawn from (e.g. 'USP1 + RTB-Scale')",
-  "brand_note": "1-sentence brand strategy explanation",
-  "tone_level": "safe|balanced|bold",
-  "data_used": "specific data points used, or 'none'"
-}`;
+Respond ONLY in valid JSON. Return an array of exactly 3 objects.
+Keep ALL text values SHORT. Each object:
+{"ko":"Korean copy text","en":"English translation (max 10 words)","sub":"optional supporting copy in Korean or null","tone":"safe|balanced|bold","note":"brand strategy in 10 words max"}`;
 
 function Factory({copies}){
   const[channelIdx,setChannelIdx]=useState(0);
@@ -633,16 +625,9 @@ ${getFormatSpec()}
 ${refCopyText}
 
 ═══ INSTRUCTIONS ═══
-Generate 5 Korean copy options. Vary from safest to boldest. Each must:
-1. Follow channel rules and format spec exactly
-2. Combine ALL selected message angles naturally
-3. Match target audience motivation
-4. Use ONLY data from DATA BANK
-5. Follow Honest × Witty tone
-6. Respect character limits
-7. Keep brand_note and en_translation SHORT (under 15 words each)
-
-Return ONLY a JSON array of exactly 5 options.`;
+Generate exactly 3 Korean copy options: one safe, one balanced, one bold.
+Output format: [{"ko":"...","en":"...","sub":"...or null","tone":"safe|balanced|bold","note":"..."}]
+Keep ALL values short. Return ONLY valid JSON array.`;
 
     try{
       const GEMINI_KEY="AIzaSyBrUTwqcAWSf0hSk2bLHLzO7Rr0o3n0JVQ";
@@ -651,14 +636,19 @@ Return ONLY a JSON array of exactly 5 options.`;
         body:JSON.stringify({
           system_instruction:{parts:[{text:SYSTEM_PROMPT}]},
           contents:[{parts:[{text:userMsg}]}],
-          generationConfig:{temperature:0.7,maxOutputTokens:8000,responseMimeType:"application/json"}
+          generationConfig:{temperature:0.7,maxOutputTokens:4000,responseMimeType:"application/json"}
         })
       });
       const data=await res.json();
       if(data.error){setError("API error: "+(data.error.message||JSON.stringify(data.error)));setLoading(false);return}
       const text=data.candidates?.[0]?.content?.parts?.[0]?.text||"";
-      if(!text){setError("Empty response from AI");setLoading(false);return}
-      const clean=text.replace(/```json|```/g,"").trim();
+      if(!text){setError("Empty response. Try again.");setLoading(false);return}
+      let clean=text.replace(/```json|```/g,"").trim();
+      // Try to fix truncated JSON
+      if(!clean.endsWith("]")){
+        const lastComplete=clean.lastIndexOf("}");
+        if(lastComplete>0) clean=clean.substring(0,lastComplete+1)+"]";
+      }
       const parsed=JSON.parse(clean);
       setResults(Array.isArray(parsed)?parsed:[parsed]);
     }catch(e){setError("Generation failed: "+e.message)}
@@ -666,23 +656,6 @@ Return ONLY a JSON array of exactly 5 options.`;
   };
 
   const toneColors={"safe":"#10B981","balanced":"#F59E0B","bold":"#EF4444"};
-  
-  // Render copy fields from the copies object
-  const renderCopies=(copies)=>{
-    if(!copies)return null;
-    const entries=Object.entries(copies);
-    if(entries.length===1){
-      return <div style={{fontSize:17,fontWeight:700,lineHeight:1.5,color:"#EDEDF3",fontFamily:"'Noto Sans KR',sans-serif",letterSpacing:"-0.015em",paddingRight:60}}>{entries[0][1]}</div>;
-    }
-    return entries.map(([key,val],j)=>{
-      const label=key.replace(/_/g," ").replace(/\b\w/g,l=>l.toUpperCase());
-      const isMain=j===0;
-      return <div key={key} style={{marginBottom:j<entries.length-1?6:0}}>
-        <span style={{fontSize:9,fontWeight:600,color:"#4A4A60",textTransform:"uppercase",letterSpacing:"0.05em"}}>{label}</span>
-        <div style={{fontSize:isMain?17:14,fontWeight:isMain?700:500,lineHeight:1.5,color:isMain?"#EDEDF3":"#B4B4C8",fontFamily:"'Noto Sans KR',sans-serif",paddingRight:isMain?60:0}}>{val}</div>
-      </div>;
-    });
-  };
 
   return(<div style={{padding:"28px 32px",maxWidth:900}}>
     <h2 style={{fontSize:18,fontWeight:700,fontFamily:"'Space Mono',monospace",marginBottom:4}}>🏭 Copy Factory</h2>
@@ -752,20 +725,17 @@ Return ONLY a JSON array of exactly 5 options.`;
       <div style={{fontSize:14,fontWeight:700,color:"#EDEDF3",marginBottom:4,fontFamily:"'Space Mono',monospace"}}>Generated: {results.length} options</div>
       <div style={{fontSize:11,color:"#7E7E96",marginBottom:16}}>{ch.label} · {fmt.label} · {target} · {tone}</div>
       <div style={{display:"flex",flexDirection:"column",gap:12}}>
-        {results.map((r,i)=>{const tc=toneColors[r.tone_level]||"#7E7E96";return(
+        {results.map((r,i)=>{const tc=toneColors[r.tone]||"#F59E0B";return(
           <div key={i} style={{background:"#111118",borderRadius:10,padding:"16px 20px",borderLeft:`4px solid ${tc}`,position:"relative"}}>
             <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:10}}>
               <span style={{fontSize:11,fontWeight:700,color:tc,fontFamily:"'Space Mono',monospace"}}>#{i+1}</span>
-              <span style={{fontSize:10,padding:"2px 8px",borderRadius:99,background:tc+"18",color:tc,fontWeight:600}}>{r.tone_level}</span>
-              <span style={{fontSize:11,color:"#7E7E96"}}>{r.label}</span>
-              {r.levels_used&&<span style={{fontSize:9,padding:"2px 7px",borderRadius:99,background:"#6366F115",color:"#6366F1",marginLeft:"auto",marginRight:70}}>{r.levels_used}</span>}
+              <span style={{fontSize:10,padding:"2px 8px",borderRadius:99,background:tc+"18",color:tc,fontWeight:600}}>{r.tone}</span>
             </div>
-            {/* Structured copy fields */}
-            <div style={{marginBottom:8}}>{renderCopies(r.copies)}</div>
-            {r.en_translation&&<div style={{fontSize:12,color:"#5A5A72",marginTop:4,fontStyle:"italic"}}>{r.en_translation}</div>}
-            <div style={{fontSize:11,color:"#5A5A72",marginTop:8,lineHeight:1.5}}>{r.brand_note}</div>
-            {r.data_used&&r.data_used!=="none"&&<div style={{fontSize:10,color:"#06B6D4",marginTop:4}}>📊 {r.data_used}</div>}
-            <button onClick={()=>{const copyText=r.copies?Object.values(r.copies).join("\n"):r.headline||"";navigator.clipboard.writeText(copyText);setCopiedIdx(i);setTimeout(()=>setCopiedIdx(null),1200)}} style={{position:"absolute",top:14,right:14,border:"none",background:copiedIdx===i?"#10B981":"#1A1A24",color:copiedIdx===i?"#fff":"#7E7E96",borderRadius:6,padding:"4px 12px",fontSize:11,cursor:"pointer",fontWeight:600}}>{copiedIdx===i?"✓ Copied":"Copy"}</button>
+            <div style={{fontSize:17,fontWeight:700,lineHeight:1.5,color:"#EDEDF3",fontFamily:"'Noto Sans KR',sans-serif",letterSpacing:"-0.015em",paddingRight:60}}>{r.ko}</div>
+            {r.sub&&<div style={{fontSize:13,color:"#9CA3AF",marginTop:6,lineHeight:1.5}}>{r.sub}</div>}
+            {r.en&&<div style={{fontSize:12,color:"#5A5A72",marginTop:4,fontStyle:"italic"}}>{r.en}</div>}
+            {r.note&&<div style={{fontSize:11,color:"#4A4A60",marginTop:8}}>{r.note}</div>}
+            <button onClick={()=>{navigator.clipboard.writeText(r.ko+(r.sub?"\n"+r.sub:""));setCopiedIdx(i);setTimeout(()=>setCopiedIdx(null),1200)}} style={{position:"absolute",top:14,right:14,border:"none",background:copiedIdx===i?"#10B981":"#1A1A24",color:copiedIdx===i?"#fff":"#7E7E96",borderRadius:6,padding:"4px 12px",fontSize:11,cursor:"pointer",fontWeight:600}}>{copiedIdx===i?"✓ Copied":"Copy"}</button>
           </div>
         )})}
       </div>
