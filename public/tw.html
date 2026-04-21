@@ -25,7 +25,7 @@ button,select,input,textarea{font-family:inherit}
 .uitab.on{background:var(--acc);color:#fff}
 .star-nav-btn{display:flex;align-items:center;gap:5px;padding:5px 11px;border-radius:6px;border:1px solid var(--bd);background:transparent;color:var(--tx2);font-size:11px;transition:all .15s;cursor:pointer}
 .star-nav-btn:hover{border-color:var(--star);color:var(--star)}.scount{font-family:'DM Mono',monospace;font-weight:700;color:var(--star)}
-.app{display:flex;height:100vh;padding-top:88px}
+.app{display:flex;height:100vh;padding-top:52px}
 .sidebar{width:195px;min-width:195px;background:var(--s1);border-right:1px solid var(--bd);overflow-y:auto;padding:6px 0 20px;flex-shrink:0;display:none}
 .sidebar.vis{display:block}
 .sbg{padding:11px 12px 3px;font-family:'DM Mono',monospace;font-size:8.5px;color:var(--tx3);letter-spacing:1.5px;text-transform:uppercase;margin-top:6px}
@@ -172,6 +172,47 @@ mark{background:rgba(28,73,255,.28);color:inherit;border-radius:2px}
 .d::after{content:'';animation:da 1s steps(3) infinite}
 @keyframes da{0%{content:''}33%{content:'.'}66%{content:'..'}100%{content:'...'}}
 </style>
+
+<script>
+// Shared API caller: Gemini first (no CORS), Claude fallback
+async function callAI(sys, usr, maxTokens) {
+  var gk = '';
+  try { gk = localStorage.getItem('gk') || ''; } catch(x) {}
+  if (gk) {
+    var r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=' + gk, {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({system_instruction:{parts:[{text:sys}]},contents:[{parts:[{text:usr}]}],generationConfig:{temperature:0.7,maxOutputTokens:maxTokens,responseMimeType:'application/json'}})
+    });
+    var d = await r.json();
+    if (d.error) throw new Error(d.error.message);
+    var t = d.candidates&&d.candidates[0]&&d.candidates[0].content&&d.candidates[0].content.parts&&d.candidates[0].content.parts[0]&&d.candidates[0].content.parts[0].text||'';
+    if (!t) throw new Error('Empty');
+    return t;
+  }
+  try {
+    var r2 = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:maxTokens,system:sys,messages:[{role:'user',content:usr}]})});
+    var data = await r2.json();
+    var raw = (data.content||[]).map(function(b){return b.text||'';}).join('');
+    if (raw&&raw.length>5) return raw;
+    throw new Error('empty');
+  } catch(e2) {
+    var key = prompt('Gemini API Key\naistudio.google.com -> Get API Key -> Create');
+    if (key&&key.trim()) { try{localStorage.setItem('gk',key.trim());}catch(x){} return callAI(sys,usr,maxTokens); }
+    throw new Error('API Key required');
+  }
+}
+// Load saved key into input on page load
+document.addEventListener('DOMContentLoaded',function(){
+  try{var k=localStorage.getItem('gk');if(k&&document.getElementById('gk-input'))document.getElementById('gk-input').value=k;}catch(e){}
+});
+function saveGK(){
+  var v=document.getElementById('gk-input').value.trim();
+  if(v){try{localStorage.setItem('gk',v);}catch(e){}
+    var st=document.getElementById('gk-status');if(st){st.style.display='inline';setTimeout(function(){st.style.display='none';},2000);}
+  }
+}
+</script>
+
 </head>
 <body>
 
@@ -198,6 +239,12 @@ mark{background:rgba(28,73,255,.28);color:inherit;border-radius:2px}
       <button class="uitab" id="ul-en" onclick="setUILang('en')">EN</button>
     </div>
     <button class="star-nav-btn" onclick="go('saved')">⭐ <span class="scount" id="sv-count">0</span></button>
+  </div>
+  <div style="margin-left:8px;display:flex;align-items:center;gap:5px;border-left:1px solid var(--bd);padding-left:10px">
+    <span style="font-size:10px;color:var(--tx3)">🔑</span>
+    <input id="gk-input" type="text" placeholder="Gemini Key" style="width:160px;padding:3px 7px;border-radius:4px;border:1px solid var(--bd);font-size:10px;outline:none;font-family:monospace;color:var(--tx);background:var(--s2)" />
+    <button onclick="saveGK()" style="padding:2px 8px;border-radius:4px;border:none;background:var(--acc);color:#fff;font-size:10px;font-weight:600;cursor:pointer">Save</button>
+    <span id="gk-status" style="font-size:9px;color:#10B981;display:none">✓</span>
   </div>
 </nav>
 <div class="app">
@@ -692,52 +739,7 @@ async function doGen(){
   empty.innerHTML='<div style="font-size:36px">✨</div><div style="font-size:13px;color:var(--tx3)" class="d">Generating</div>';
   var specs={'meta-feed':'Meta Feed: Primary Text 125字以內, Headline 40字以內, 廣告圖上文案=主標+副標+CTA','meta-story':'IG Story/Reels: 極簡3行圖上文案','ig-organic':'IG 品牌有機貼文（非廣告）: Caption首行是hook，不廣告腔','ig-collab':'KOL合作: 保留creator聲音，第一人稱','tiktok':'TikTok: 前1-2秒hook腳本，Caption 50字','youtube':'YouTube前5秒腳本: Hook→痛點→解方→CTA','push':'Push Notification: iOS65字元，Body 240字元，imageText留空','edm':'EDM: 主旨40-60字元，Preview 40-100字元，imageText留空','crm-existing':'CRM既有用戶通知: 告知新內容不推銷，headline和imageText留空','google':'Google Display: Headline嚴格30字元x3，Description嚴格90字元x2','appstore':'App Store TW: 標題30字元，副標30字元，描述首段170字元','landing':'Landing Page Hero: H1 3-8字，Subheadline 1-2句，CTA 2-5字'};
   var audMap={'pro':'高動機學習者（工程師/PM/外商）','plateau':'學習撞牆者—Duolingo卡瓶頸','career':'職涯升級者—外商面試','traveler':'旅遊族','exam':'備考族','retire':'退休成長族','parent':'家長','existing-notify':'既有付費用戶—新內容通知','free-to-paid':'免費用戶→轉換付費','upgrade':'付費→升級','reactivate':'流失→重新激活','':'一般受眾'};
-  
-// Shared API caller: Claude first (works in artifacts), Gemini fallback (works on Vercel)
-async function callAI(sys, usr, maxTokens) {
-  // Get Gemini key from localStorage (shared with KR app)
-  var gk = '';
-  try { gk = localStorage.getItem('gk') || ''; } catch(x) {}
-  
-  // If Gemini key exists, use it directly (fastest, no CORS issues)
-  if (gk) {
-    var r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=' + gk, {
-      method: 'POST', headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        system_instruction: {parts: [{text: sys}]},
-        contents: [{parts: [{text: usr}]}],
-        generationConfig: {temperature: 0.7, maxOutputTokens: maxTokens, responseMimeType: 'application/json'}
-      })
-    });
-    var d = await r.json();
-    if (d.error) throw new Error(d.error.message);
-    var t = d.candidates && d.candidates[0] && d.candidates[0].content && d.candidates[0].content.parts && d.candidates[0].content.parts[0] && d.candidates[0].content.parts[0].text || '';
-    if (!t) throw new Error('Empty AI response');
-    return t;
-  }
-  
-  // No Gemini key — try Claude API (only works in claude.ai artifacts)
-  try {
-    var r2 = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST', headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({model: 'claude-sonnet-4-20250514', max_tokens: maxTokens, system: sys, messages: [{role: 'user', content: usr}]})
-    });
-    var data = await r2.json();
-    var raw = (data.content || []).map(function(b) { return b.text || ''; }).join('');
-    if (raw && raw.length > 5) return raw;
-    throw new Error('empty');
-  } catch(e2) {
-    // Prompt user to set key
-    var key = prompt('Gemini API Key가 필요합니다.\naistudio.google.com에서 무료 발급 후 입력해주세요:');
-    if (key && key.trim()) {
-      try { localStorage.setItem('gk', key.trim()); } catch(x) {}
-      return callAI(sys, usr, maxTokens); // retry with the new key
-    }
-    throw new Error('🔑 Gemini API Key가 필요합니다. 한국 탭에서 Set Key를 눌러 입력하거나, 여기서 다시 시도해주세요.');
-  }
-}
-
-var fMap={'speak-tutor':'Speak Tutor 24/7 AI語言家教','personalized':'個人化課程AI即時生成','correction-ai':'即時AI糾正每句話','free-talk':'AI Free Talk任選話題','asr':'語音辨識93%+ 0.1秒','speaking-first':'20分鐘說100句','3step':'三步學習法','linguist':'語言學家設計課程','spaced':'間隔重複複習','scenarios':'100+情境','natural-phrases':'道地自然英文用法','word-lookup':'單字即查一鍵翻譯','immersive':'沉浸式視覺對話','progress':'進度追蹤','japanese':'多語言支援','lee-yang':'李洋21天挑戰','feng':'鳳小岳勇敢最帥','da-qian':'大謙250天真實用戶','':''};
+  var fMap={'speak-tutor':'Speak Tutor 24/7 AI語言家教','personalized':'個人化課程AI即時生成','correction-ai':'即時AI糾正每句話','free-talk':'AI Free Talk任選話題','asr':'語音辨識93%+ 0.1秒','speaking-first':'20分鐘說100句','3step':'三步學習法','linguist':'語言學家設計課程','spaced':'間隔重複複習','scenarios':'100+情境','natural-phrases':'道地自然英文用法','word-lookup':'單字即查一鍵翻譯','immersive':'沉浸式視覺對話','progress':'進度追蹤','japanese':'多語言支援','lee-yang':'李洋21天挑戰','feng':'鳳小岳勇敢最帥','da-qian':'大謙250天真實用戶','':''};
   var hasBase=base&&base.length>10;
   var sys='You are CopyOS TW, Speak Taiwan copywriter.\nSpeak = AI English speaking app. Tagline: 讓英文一切好說. Persona: Honest x Witty guide.\nDO NOT: "fluent in 30 days", generic phrases, gamification jargon, ALL CAPS, emoji stuffing, shame marketing.\nTW: learners have foundation but cannot speak. Empowerment over anxiety.\nChannel: '+(specs[surf]||surf)+'\nAd image copy (imageText): complete visual hierarchy — main headline (4-8 chars) + subtitle (8-15 chars) + CTA text, separated by real newlines.\n'+(hasBase?'BASE MODE: given base copy. Output 5-6 variants from different angles (audience, hook, theme, tone, format, feature).':'STANDARD MODE: Output 3 options A(safest), B(Authentic+Witty), C(Bold).')+'\nOutput ONLY valid JSON array. Each object must have all keys: {"label":"","angle":"","tone":"","attribute":"","primaryText":"","headline":"","imageText":"","cta":"","note":"","flag":""}\nNo text before or after the JSON array.';
   var usr='Channel: '+surf+'\nAudience: '+(audMap[aud]||'general')+'\nAngle: '+(angle||'unspecified')+'\nFeature: '+(fMap[feature]||'none')+'\nHook strategy: '+(curHook||'unspecified')+'\nFormat: '+(curFmt||'unspecified')+(extra?'\nExtra: '+extra:'')+(hasBase?'\nBase copy: "'+base+'"\nOutput 5-6 variants.':'\nOutput 3 options.')+'\nTraditional Chinese. JSON array only.';
