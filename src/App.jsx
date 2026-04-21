@@ -827,7 +827,7 @@ function Factory({copies, gk}) {
           </div>
 
           <KR_FIELD label="Pain point / hook (optional — overrides persona pain)">
-            <input type="text" value={pain} onChange={e => setPain(e.target.value)} placeholder="예: 회의에서 한마디도 못 한다 / 10년 공부했는데 말이 안 된다" style={{ ...krSelect, width: "100%" }} />
+            <input type="text" defaultValue={pain} onBlur={e => setPain(e.target.value)} onKeyDown={e => { if(e.key==="Enter") setPain(e.target.value) }} placeholder="예: 회의에서 한마디도 못 한다 / 10년 공부했는데 말이 안 된다" style={{ ...krSelect, width: "100%" }} />
           </KR_FIELD>
 
           <div style={{ display: "flex", gap: 10, marginTop: 20, alignItems: "center" }}>
@@ -854,7 +854,7 @@ function Factory({copies, gk}) {
         <div style={{ background: "#FFFFFF", border: "1px solid #E2E4E8", borderRadius: 12, padding: "20px 24px", marginBottom: 24 }}>
           <div style={{ fontSize: 10, color: "#9CA3AF", fontWeight: 700, letterSpacing: "0.12em", marginBottom: 10, textTransform: "uppercase" }}>Select 2-3 copies to remix</div>
 
-          <input value={remixSearch} onChange={e => setRemixSearch(e.target.value)} placeholder="카피 검색..." style={{ ...krSelect, marginBottom: 12 }} />
+          <input defaultValue={remixSearch} onBlur={e => setRemixSearch(e.target.value)} onKeyDown={e => { if(e.key==="Enter") setRemixSearch(e.target.value) }} placeholder="카피 검색..." style={{ ...krSelect, marginBottom: 12 }} />
 
           <div style={{ maxHeight: 300, overflowY: "auto", display: "flex", flexDirection: "column", gap: 4 }}>
             {remixCandidates.map((c, i) => {
@@ -2806,7 +2806,7 @@ function FactoryTab() {
             </div>
 
             <Field label="Pain point / hook (optional — overrides persona pain for variant 1)">
-              <input type="text" value={pain} onChange={e => setPain(e.target.value)}
+              <input type="text" defaultValue={pain} onBlur={e => setPain(e.target.value)} onKeyDown={e => { if(e.key==="Enter") setPain(e.target.value) }}
                 placeholder="e.g. 会議で黙るのはもう終わり / 10年やって話せない / TOEIC900、でも話せない"
                 style={{ ...selectStyle, width: "100%" }} />
             </Field>
@@ -2955,7 +2955,7 @@ function FactoryTab() {
               </div>
             </div>
 
-            <input type="text" value={remixSearch} onChange={e => setRemixSearch(e.target.value)}
+            <input type="text" defaultValue={remixSearch} onBlur={e => setRemixSearch(e.target.value)} onKeyDown={e => { if(e.key==="Enter") setRemixSearch(e.target.value) }}
               placeholder="Search warehouse copies to pick…"
               style={{ ...selectStyle, width: "100%", marginBottom: 10 }} />
             <div style={{ maxHeight: 260, overflowY: "auto",
