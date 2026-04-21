@@ -763,54 +763,36 @@ return(<div style={{minHeight:"100vh",background:"#F8F9FB",color:"#1A1A1A",fontF
 
 
 
-{view==="about"&&<div style={{padding:"40px 32px",maxWidth:800}}>
-<h2 style={{fontSize:24,fontWeight:700,fontFamily:"'Pretendard','Inter'",marginBottom:8,color:"#1A1A1A"}}>Speak Copy OS</h2>
-<p style={{fontSize:15,color:"#4B5563",lineHeight:1.8,marginBottom:32}}>Speak 마케팅팀의 브랜드 카피를 한 곳에서 관리하고, 새로운 카피를 만들고, 브랜드에 맞는지 검증하는 시스템입니다.</p>
+{view==="about"&&<div style={{padding:"40px 32px",maxWidth:720}}>
+<h2 style={{fontSize:28,fontWeight:700,fontFamily:"'Pretendard','Inter'",marginBottom:6,color:"#1A1A1A"}}>Speak Copy OS</h2>
+<p style={{fontSize:14,color:"#6B7280",marginBottom:32}}>A centralized copy system for Speak's marketing team.</p>
 
-<div style={{background:"#FFFFFF",borderRadius:12,padding:"24px 28px",marginBottom:20,border:"1px solid #E2E4E8"}}>
-<h3 style={{fontSize:16,fontWeight:700,color:"#1C49FF",marginBottom:12}}>왜 만들었나요?</h3>
-<p style={{fontSize:14,color:"#374151",lineHeight:1.8}}>
-매번 새로운 캠페인을 기획할 때마다, 브랜드 카피를 처음부터 다시 만들고 있었습니다. 과거에 잘 작동했던 카피, 브랜드 포지셔닝에 맞는 메시지, 검증된 USP들이 팀원들의 머릿속이나 흩어진 문서에만 존재했죠.
-</p>
-<p style={{fontSize:14,color:"#374151",lineHeight:1.8,marginTop:8}}>
-Copy OS는 이 문제를 해결합니다. <strong>Speak의 모든 메시지 자산을 하나의 구조화된 시스템으로 모아</strong>, 누구나 검색하고, 재활용하고, 새로운 카피를 만들 수 있게 합니다.
+<div style={{background:"#FFFFFF",borderRadius:12,padding:"24px 28px",marginBottom:16,border:"1px solid #E2E4E8"}}>
+<h3 style={{fontSize:15,fontWeight:700,color:"#1C49FF",marginBottom:10}}>Why</h3>
+<p style={{fontSize:14,color:"#374151",lineHeight:1.7}}>
+Every new campaign used to start from scratch. Proven copy, brand positioning, and USPs lived in people's heads or scattered docs. Copy OS turns Speak's entire messaging history into a single, searchable system — so the team can find, reuse, and build on what already works.
 </p>
 </div>
 
-<div style={{background:"#FFFFFF",borderRadius:12,padding:"24px 28px",marginBottom:20,border:"1px solid #E2E4E8"}}>
-<h3 style={{fontSize:16,fontWeight:700,color:"#1C49FF",marginBottom:12}}>어떻게 만들었나요?</h3>
-<div style={{fontSize:14,color:"#374151",lineHeight:1.8}}>
-<p><strong>7단계 메시지 위계</strong>를 설계하여 모든 카피를 분류했습니다:</p>
-<p style={{margin:"12px 0",padding:"12px 16px",background:"#F0F1F3",borderRadius:8,fontSize:13}}>
-① Brand Vision → ② Brand Philosophy → ③ Brand Definition → ④ USP → ⑤ Targeting → ⑥ RTB (근거) → ⑦ CTA
+<div style={{background:"#FFFFFF",borderRadius:12,padding:"24px 28px",marginBottom:16,border:"1px solid #E2E4E8"}}>
+<h3 style={{fontSize:15,fontWeight:700,color:"#1C49FF",marginBottom:10}}>How it was built</h3>
+<p style={{fontSize:14,color:"#374151",lineHeight:1.7}}>
+We collected every existing message across all channels — website, app store, landing pages, paid ads, CRM, social, press kit — and classified them into a 7-level message hierarchy: Vision → Philosophy → Definition → USP → Targeting → RTB → CTA. 170+ copies, each tagged with source, English translation, and positioning fit.
 </p>
-<p>현재 <strong>170개 이상의 카피</strong>가 이 위계에 따라 분류되어 있으며, 각 카피에는 영어 번역, 출처, 포지셔닝 태그(TO-BE / Universal / AS-IS)가 달려있습니다.</p>
-<p style={{marginTop:8}}>카피 공장(Factory)은 <strong>Gemini AI</strong>를 활용하여, 창고의 기존 카피를 레퍼런스로 참고하면서 브랜드 톤(Honest × Witty)에 맞는 새로운 카피를 생성합니다.</p>
+</div>
+
+<div style={{background:"#FFFFFF",borderRadius:12,padding:"24px 28px",marginBottom:16,border:"1px solid #E2E4E8"}}>
+<h3 style={{fontSize:15,fontWeight:700,color:"#1C49FF",marginBottom:10}}>How to use</h3>
+<div style={{fontSize:14,color:"#374151",lineHeight:1.7}}>
+<p><strong>📦 Warehouse</strong> — Search and browse all existing copy by hierarchy level, keyword, or positioning fit.</p>
+<p style={{marginTop:8}}><strong>🏭 Factory</strong> — Generate new on-brand copy. Pick a channel, message angle(s), and target audience — AI creates options grounded in the warehouse.</p>
+<p style={{marginTop:8}}><strong>📡 Channels</strong> — See which hierarchy levels apply to each marketing channel.</p>
+<p style={{marginTop:8}}><strong>📐 Hierarchy</strong> — Visual map of the full 7-level message structure with key copies.</p>
 </div>
 </div>
 
-<div style={{background:"#FFFFFF",borderRadius:12,padding:"24px 28px",marginBottom:20,border:"1px solid #E2E4E8"}}>
-<h3 style={{fontSize:16,fontWeight:700,color:"#1C49FF",marginBottom:12}}>어떻게 쓰면 좋나요?</h3>
-<div style={{fontSize:14,color:"#374151",lineHeight:1.8}}>
-<p style={{marginBottom:12}}><strong>📦 Warehouse (창고)</strong> — 기존 카피를 검색하고 찾을 때</p>
-<p style={{color:"#6B7280",marginBottom:16,paddingLeft:16}}>위계별로 필터링하거나, 키워드 검색으로 원하는 카피를 빠르게 찾으세요. ★ Key Copy 토글로 각 위계의 대표 카피만 볼 수도 있습니다.</p>
-
-<p style={{marginBottom:12}}><strong>🏭 Factory (공장)</strong> — 새 카피를 만들 때</p>
-<p style={{color:"#6B7280",marginBottom:16,paddingLeft:16}}>① 채널 선택 → ② 메시지 앵글 선택 (복수 가능) → ③ 타겟 선택 → Generate. AI가 창고의 기존 카피를 참고하여 브랜드에 맞는 3가지 옵션을 생성합니다.</p>
-
-<p style={{marginBottom:12}}><strong>📡 Channels (채널)</strong> — 채널별 카피 가이드</p>
-<p style={{color:"#6B7280",marginBottom:16,paddingLeft:16}}>각 채널(Paid, LP, App Store, CRM 등)에서 어떤 위계의 메시지를 써야 하는지 한눈에 볼 수 있습니다.</p>
-
-<p style={{marginBottom:12}}><strong>📐 Hierarchy (위계)</strong> — 전체 메시지 구조 파악</p>
-<p style={{color:"#6B7280",paddingLeft:16}}>7단계 위계의 전체 구조와 각 단계의 Key Copy를 시각적으로 확인할 수 있습니다.</p>
-</div>
-</div>
-
-<div style={{background:"#F0F1F3",borderRadius:12,padding:"20px 24px",marginBottom:20}}>
-<p style={{fontSize:13,color:"#6B7280",lineHeight:1.6}}>
-Built by Speak Korea Marketing Team · AI Hackathon 2026<br/>
-Brand: 나를 끌어주는 영어 앱 · Tone: Honest × Witty · Positioning: Pacer
-</p>
+<div style={{padding:"16px 0",fontSize:13,color:"#9CA3AF"}}>
+Speak Marketing Team · AI Hackathon 2026
 </div>
 </div>}
 
