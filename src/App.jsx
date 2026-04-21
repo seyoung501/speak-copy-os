@@ -297,17 +297,29 @@ function Evaluator(){
   const evaluate=async()=>{
     if(!input.trim())return;
     setLoading(true);setError(null);setResult(null);
+    const prompt=`Evaluate this Korean marketing copy for Speak:\n\n"${input}"`;
     try{
+      // Try Claude API (works in claude.ai artifacts)
       const res=await fetch("https://api.anthropic.com/v1/messages",{
         method:"POST",headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1500,system:EVAL_PROMPT,messages:[{role:"user",content:`Evaluate this Korean marketing copy for Speak:\n\n"${input}"`}]})
+        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1500,system:EVAL_PROMPT,messages:[{role:"user",content:prompt}]})
       });
       const data=await res.json();
       const text=data.content?.map(b=>b.type==="text"?b.text:"").join("")||"";
       if(!text) throw new Error("empty");
       const clean=text.replace(/```json|```/g,"").trim();
       setResult(JSON.parse(clean));
-    }catch(e){setError("⚠️ 이 기능은 Claude.ai 프로젝트에서 사용하세요. Vercel 사이트에서는 Warehouse / Channels / Hierarchy를 이용할 수 있습니다.")}
+    }catch(e){
+      // Fallback: server-side Gemini proxy (works on Vercel)
+      try{
+        const res2=await fetch("/api/claude",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({system:EVAL_PROMPT,prompt})});
+        const data2=await res2.json();
+        if(data2.error) throw new Error(data2.error);
+        const text2=data2.content?.[0]?.text||"";
+        if(!text2) throw new Error("empty");
+        setResult(JSON.parse(text2.replace(/```json|```/g,"").trim()));
+      }catch(e2){setError("⚠️ 생성 실패: "+(e2.message||"30초 후 다시 시도해주세요"))}
+    }
     setLoading(false);
   };
 
@@ -634,6 +646,7 @@ Keep ALL values short. Return ONLY valid JSON array.`;
     };
 
     try{
+      // Try Claude API (works in claude.ai artifacts)
       const res=await fetch("https://api.anthropic.com/v1/messages",{
         method:"POST",headers:{"Content-Type":"application/json"},
         body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1500,system:SYSTEM_PROMPT,messages:[{role:"user",content:userMsg}]})
@@ -641,7 +654,16 @@ Keep ALL values short. Return ONLY valid JSON array.`;
       const data=await res.json();
       const text=data.content?.map(b=>b.type==="text"?b.text:"").join("")||"";
       setResults(parseResult(text));
-    }catch(e){setError("⚠️ 이 기능은 Claude.ai 프로젝트에서 사용하세요. Vercel 사이트에서는 Warehouse / Channels / Hierarchy를 이용할 수 있습니다.")}
+    }catch(e){
+      // Fallback: server-side Gemini proxy (works on Vercel)
+      try{
+        const res2=await fetch("/api/claude",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({system:SYSTEM_PROMPT,prompt:userMsg})});
+        const data2=await res2.json();
+        if(data2.error) throw new Error(data2.error);
+        const text2=data2.content?.[0]?.text||"";
+        setResults(parseResult(text2));
+      }catch(e2){setError("⚠️ 생성 실패: "+(e2.message||"30초 후 다시 시도해주세요"))}
+    }
     setLoading(false);
   };
 
