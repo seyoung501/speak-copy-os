@@ -299,7 +299,6 @@ function Evaluator(){
     setLoading(true);setError(null);setResult(null);
     const prompt=`Evaluate this Korean marketing copy for Speak:\n\n"${input}"`;
     try{
-      // Try Claude API (works in claude.ai artifacts)
       const res=await fetch("https://api.anthropic.com/v1/messages",{
         method:"POST",headers:{"Content-Type":"application/json"},
         body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1500,system:EVAL_PROMPT,messages:[{role:"user",content:prompt}]})
@@ -307,18 +306,24 @@ function Evaluator(){
       const data=await res.json();
       const text=data.content?.map(b=>b.type==="text"?b.text:"").join("")||"";
       if(!text) throw new Error("empty");
-      const clean=text.replace(/```json|```/g,"").trim();
-      setResult(JSON.parse(clean));
+      setResult(JSON.parse(text.replace(/```json|```/g,"").trim()));
     }catch(e){
-      // Fallback: server-side Gemini proxy (works on Vercel)
       try{
-        const res2=await fetch("/api/claude",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({system:EVAL_PROMPT,prompt})});
-        const data2=await res2.json();
-        if(data2.error) throw new Error(data2.error);
-        const text2=data2.content?.[0]?.text||"";
-        if(!text2) throw new Error("empty");
-        setResult(JSON.parse(text2.replace(/```json|```/g,"").trim()));
-      }catch(e2){setError("⚠️ 생성 실패: "+(e2.message||"30초 후 다시 시도해주세요"))}
+        const gk=localStorage.getItem("gk")||"";
+        if(!gk) throw new Error("nokey");
+        const res2=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${gk}`,{
+          method:"POST",headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({system_instruction:{parts:[{text:EVAL_PROMPT}]},contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0.7,maxOutputTokens:2000,responseMimeType:"application/json"}})
+        });
+        const d2=await res2.json();
+        if(d2.error) throw new Error(d2.error.message);
+        const t2=d2.candidates?.[0]?.content?.parts?.[0]?.text||"";
+        if(!t2) throw new Error("empty");
+        setResult(JSON.parse(t2.replace(/```json|```/g,"").trim()));
+      }catch(e2){
+        if(e2.message==="nokey") setError("🔑 Gemini API Key를 입력해주세요 (상단 설정)");
+        else setError("⚠️ 생성 실패: "+(e2.message||"30초 후 다시 시도해주세요"));
+      }
     }
     setLoading(false);
   };
@@ -646,7 +651,6 @@ Keep ALL values short. Return ONLY valid JSON array.`;
     };
 
     try{
-      // Try Claude API (works in claude.ai artifacts)
       const res=await fetch("https://api.anthropic.com/v1/messages",{
         method:"POST",headers:{"Content-Type":"application/json"},
         body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1500,system:SYSTEM_PROMPT,messages:[{role:"user",content:userMsg}]})
@@ -655,14 +659,21 @@ Keep ALL values short. Return ONLY valid JSON array.`;
       const text=data.content?.map(b=>b.type==="text"?b.text:"").join("")||"";
       setResults(parseResult(text));
     }catch(e){
-      // Fallback: server-side Gemini proxy (works on Vercel)
       try{
-        const res2=await fetch("/api/claude",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({system:SYSTEM_PROMPT,prompt:userMsg})});
-        const data2=await res2.json();
-        if(data2.error) throw new Error(data2.error);
-        const text2=data2.content?.[0]?.text||"";
-        setResults(parseResult(text2));
-      }catch(e2){setError("⚠️ 생성 실패: "+(e2.message||"30초 후 다시 시도해주세요"))}
+        const gk=localStorage.getItem("gk")||"";
+        if(!gk) throw new Error("nokey");
+        const res2=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${gk}`,{
+          method:"POST",headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({system_instruction:{parts:[{text:SYSTEM_PROMPT}]},contents:[{parts:[{text:userMsg}]}],generationConfig:{temperature:0.7,maxOutputTokens:4000,responseMimeType:"application/json"}})
+        });
+        const d2=await res2.json();
+        if(d2.error) throw new Error(d2.error.message);
+        const t2=d2.candidates?.[0]?.content?.parts?.[0]?.text||"";
+        setResults(parseResult(t2));
+      }catch(e2){
+        if(e2.message==="nokey") setError("🔑 Gemini API Key를 입력해주세요 (상단 설정)");
+        else setError("⚠️ 생성 실패: "+(e2.message||"30초 후 다시 시도해주세요"));
+      }
     }
     setLoading(false);
   };
@@ -758,6 +769,9 @@ Keep ALL values short. Return ONLY valid JSON array.`;
 function Card({item,lv}){const[cp,setCp]=useState(false);const fc=item.f==="TO-BE aligned"?"#10B981":item.f==="AS-IS legacy"?"#EF4444":"#6B7280";return(<div style={{background:"#111118",borderRadius:10,padding:"14px 18px",borderLeft:`4px solid ${lv.color}`,position:"relative",transition:"transform 0.12s,box-shadow 0.12s"}} onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-1px)";e.currentTarget.style.boxShadow="0 6px 20px rgba(0,0,0,0.18)"}} onMouseLeave={e=>{e.currentTarget.style.transform="";e.currentTarget.style.boxShadow=""}}>{item.k&&<span style={{position:"absolute",top:10,right:52,fontSize:9,padding:"2px 7px",borderRadius:99,background:"#F59E0B20",color:"#F59E0B",fontWeight:700}}>★ KEY</span>}<div style={{fontSize:16,fontWeight:item.k?700:500,lineHeight:1.55,color:"#EDEDF3",fontFamily:"'Noto Sans KR',sans-serif",letterSpacing:"-0.015em",paddingRight:60}}>{item.ko}</div>{item.en&&<div style={{fontSize:12.5,color:"#7E7E96",marginTop:5,fontStyle:"italic",lineHeight:1.4}}>{item.en}</div>}<div style={{display:"flex",flexWrap:"wrap",gap:5,marginTop:10,alignItems:"center"}}><span style={{fontSize:10,padding:"2px 7px",borderRadius:99,background:lv.color+"18",color:lv.color,fontWeight:600}}>{lv.id}. {lv.label}</span>{item.g&&<span style={{fontSize:10,padding:"2px 7px",borderRadius:99,background:"#F3F4F612",color:"#9CA3AF"}}>{FEAT_TAGS.find(t=>t.tag===item.g)?.label}</span>}<span style={{fontSize:10,padding:"2px 7px",borderRadius:99,background:fc+"14",color:fc,fontWeight:600}}>{item.f}</span><span style={{fontSize:10,color:"#4A4A60",marginLeft:"auto"}}>{item.s}</span></div><button onClick={()=>{navigator.clipboard.writeText(item.ko);setCp(true);setTimeout(()=>setCp(false),1000)}} style={{position:"absolute",top:10,right:10,border:"none",background:cp?"#10B981":"#1A1A24",color:cp?"#fff":"#7E7E96",borderRadius:6,padding:"3px 9px",fontSize:10,cursor:"pointer",fontWeight:600}}>{cp?"✓":"Copy"}</button></div>)}
 
 export default function App(){const[sel,setSel]=useState("All");const[subSel,setSubSel]=useState(null);const[featTag,setFeatTag]=useState(null);const[fit,setFit]=useState("All");const[q,setQ]=useState("");const[ch,setCh]=useState(null);const[view,setView]=useState("warehouse");const[keyOnly,setKeyOnly]=useState(false);
+const[gk,setGk]=useState(()=>{try{return localStorage.getItem("gk")||""}catch{return""}});
+const[showKey,setShowKey]=useState(false);
+const saveGk=(v)=>{setGk(v);try{localStorage.setItem("gk",v)}catch{}};
 const data=useMemo(()=>{let r=D;if(ch){const c=CHANNELS.find(x=>x.name===ch);if(c)r=r.filter(d=>c.levels.includes(d.l))}if(sel!=="All")r=r.filter(d=>d.l===sel);if(subSel)r=r.filter(d=>d.sub===subSel);if(featTag)r=r.filter(d=>d.g===featTag);if(fit!=="All")r=r.filter(d=>d.f===fit);if(keyOnly)r=r.filter(d=>d.k);if(q.trim()){const s=q.toLowerCase();r=r.filter(d=>d.ko.toLowerCase().includes(s)||d.en.toLowerCase().includes(s)||d.s.toLowerCase().includes(s))}return r},[sel,subSel,featTag,fit,q,ch,keyOnly]);
 const counts=useMemo(()=>{const c={};LEVELS.forEach(l=>c[l.id]=0);data.forEach(d=>c[d.l]++);return c},[data]);
 const totalCounts=useMemo(()=>{const c={};LEVELS.forEach(l=>c[l.id]=0);D.forEach(d=>c[d.l]++);return c},[]);
@@ -775,7 +789,13 @@ return(<div style={{minHeight:"100vh",background:"#08080D",color:"#EDEDF3",fontF
 <p style={{color:"#7E7E96",fontSize:12,marginTop:5}}>7-level hierarchy · {D.length} copies · Brand: 나를 끌어주는 영어 앱</p>
 <div style={{display:"flex",gap:3,marginTop:14,background:"#111118",borderRadius:8,padding:2,width:"fit-content"}}>
 {[["warehouse","📦 Warehouse"],["factory","🏭 Factory"],["evaluate","✅ Evaluate"],["channels","📡 Channels"],["map","📐 Hierarchy"]].map(([v,lb])=>(<button key={v} onClick={()=>{setView(v);if(v!=="warehouse")setCh(null)}} style={{padding:"6px 16px",borderRadius:6,border:"none",background:view===v?"#6366F1":"transparent",color:view===v?"#fff":"#7E7E96",fontSize:11,fontWeight:600,cursor:"pointer"}}>{lb}</button>))}
-</div></div>
+<button onClick={()=>setShowKey(!showKey)} style={{padding:"6px 12px",borderRadius:6,border:"none",background:gk?"#10B98120":"#F59E0B20",color:gk?"#10B981":"#F59E0B",fontSize:11,fontWeight:600,cursor:"pointer",marginLeft:8}}>{gk?"🔑 Key ✓":"🔑 Set Key"}</button>
+</div>
+{showKey&&<div style={{marginTop:10,display:"flex",gap:6,alignItems:"center"}}>
+<input value={gk} onChange={e=>saveGk(e.target.value)} placeholder="Gemini API Key (aistudio.google.com에서 무료 발급)" style={{flex:1,maxWidth:400,padding:"6px 10px",borderRadius:6,border:"1px solid #1A1A24",background:"#0D0D14",color:"#EDEDF3",fontSize:11,outline:"none",fontFamily:"'Space Mono',monospace"}}/>
+<span style={{fontSize:10,color:"#5A5A72"}}>Factory/Evaluate용 · <a href="https://aistudio.google.com" target="_blank" style={{color:"#A5B4FC"}}>무료 발급</a></span>
+</div>}
+</div>
 
 {view==="map"&&<div style={{padding:"28px 32px",maxWidth:860}}>{LEVELS.map((l,i)=>{const keys=D.filter(d=>d.l===l.id&&d.k);return(<div key={l.id} style={{display:"flex",gap:14,marginBottom:4}}><div style={{width:36,display:"flex",flexDirection:"column",alignItems:"center"}}><div style={{width:28,height:28,borderRadius:99,background:l.color,display:"flex",alignItems:"center",justifyContent:"center",color:"#fff",fontSize:12,fontWeight:700,fontFamily:"'Space Mono'"}}>{l.id}</div>{i<LEVELS.length-1&&<div style={{width:2,flex:1,background:"#1A1A24",marginTop:2}}/>}</div><div style={{flex:1,background:"#111118",borderRadius:10,padding:"14px 18px",marginBottom:8,borderLeft:`3px solid ${l.color}`}}><div style={{display:"flex",alignItems:"center",gap:8,marginBottom:3}}><span style={{fontSize:14,fontWeight:700,color:l.color}}>{l.label}</span><span style={{fontSize:10,color:"#4A4A60",marginLeft:"auto"}}>{totalCounts[l.id]}</span></div><div style={{fontSize:11,color:"#7E7E96"}}>{l.desc}</div>{l.subs&&<div style={{display:"flex",flexWrap:"wrap",gap:4,marginTop:8}}>{l.subs.map(s=><span key={s.id} style={{fontSize:9,padding:"2px 7px",borderRadius:99,background:l.color+"15",color:l.color,fontWeight:500}}>{s.label} ({subCounts[s.tag]||0})</span>)}</div>}{keys.map((kc,ki)=>(<div key={ki} style={{display:"flex",alignItems:"center",gap:6,marginTop:6,paddingTop:ki===0?8:0,borderTop:ki===0?"1px solid #1A1A24":"none"}}><span style={{fontSize:8,padding:"1px 5px",borderRadius:99,background:"#F59E0B20",color:"#F59E0B",fontWeight:700}}>★</span><span style={{fontSize:13,fontWeight:600,fontFamily:"'Noto Sans KR'"}}>{kc.ko}</span></div>))}</div></div>)})}</div>}
 
