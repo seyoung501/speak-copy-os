@@ -692,14 +692,46 @@ async function doGen(){
   empty.innerHTML='<div style="font-size:36px">✨</div><div style="font-size:13px;color:var(--tx3)" class="d">Generating</div>';
   var specs={'meta-feed':'Meta Feed: Primary Text 125字以內, Headline 40字以內, 廣告圖上文案=主標+副標+CTA','meta-story':'IG Story/Reels: 極簡3行圖上文案','ig-organic':'IG 品牌有機貼文（非廣告）: Caption首行是hook，不廣告腔','ig-collab':'KOL合作: 保留creator聲音，第一人稱','tiktok':'TikTok: 前1-2秒hook腳本，Caption 50字','youtube':'YouTube前5秒腳本: Hook→痛點→解方→CTA','push':'Push Notification: iOS65字元，Body 240字元，imageText留空','edm':'EDM: 主旨40-60字元，Preview 40-100字元，imageText留空','crm-existing':'CRM既有用戶通知: 告知新內容不推銷，headline和imageText留空','google':'Google Display: Headline嚴格30字元x3，Description嚴格90字元x2','appstore':'App Store TW: 標題30字元，副標30字元，描述首段170字元','landing':'Landing Page Hero: H1 3-8字，Subheadline 1-2句，CTA 2-5字'};
   var audMap={'pro':'高動機學習者（工程師/PM/外商）','plateau':'學習撞牆者—Duolingo卡瓶頸','career':'職涯升級者—外商面試','traveler':'旅遊族','exam':'備考族','retire':'退休成長族','parent':'家長','existing-notify':'既有付費用戶—新內容通知','free-to-paid':'免費用戶→轉換付費','upgrade':'付費→升級','reactivate':'流失→重新激活','':'一般受眾'};
-  var fMap={'speak-tutor':'Speak Tutor 24/7 AI語言家教','personalized':'個人化課程AI即時生成','correction-ai':'即時AI糾正每句話','free-talk':'AI Free Talk任選話題','asr':'語音辨識93%+ 0.1秒','speaking-first':'20分鐘說100句','3step':'三步學習法','linguist':'語言學家設計課程','spaced':'間隔重複複習','scenarios':'100+情境','natural-phrases':'道地自然英文用法','word-lookup':'單字即查一鍵翻譯','immersive':'沉浸式視覺對話','progress':'進度追蹤','japanese':'多語言支援','lee-yang':'李洋21天挑戰','feng':'鳳小岳勇敢最帥','da-qian':'大謙250天真實用戶','':''};
+  
+// Shared API caller: Claude first (works in artifacts), Gemini fallback (works on Vercel)
+async function callAI(sys, usr, maxTokens) {
+  // Try Claude first
+  try {
+    var r = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({model: 'claude-sonnet-4-20250514', max_tokens: maxTokens, system: sys, messages: [{role: 'user', content: usr}]})
+    });
+    var data = await r.json();
+    var raw = (data.content || []).map(function(b) { return b.text || ''; }).join('');
+    if (raw && raw.length > 5) return raw;
+    throw new Error('empty');
+  } catch(e) {
+    // Fallback to Gemini
+    var gk = '';
+    try { gk = localStorage.getItem('gk') || ''; } catch(x) {}
+    if (!gk) throw new Error('🔑 Set your Gemini API Key first (click Set Key in the top bar)');
+    var r2 = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=' + gk, {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        system_instruction: {parts: [{text: sys}]},
+        contents: [{parts: [{text: usr}]}],
+        generationConfig: {temperature: 0.7, maxOutputTokens: maxTokens, responseMimeType: 'application/json'}
+      })
+    });
+    var d2 = await r2.json();
+    if (d2.error) throw new Error(d2.error.message);
+    var t2 = d2.candidates && d2.candidates[0] && d2.candidates[0].content && d2.candidates[0].content.parts && d2.candidates[0].content.parts[0] && d2.candidates[0].content.parts[0].text || '';
+    if (!t2) throw new Error('Empty AI response');
+    return t2;
+  }
+}
+
+var fMap={'speak-tutor':'Speak Tutor 24/7 AI語言家教','personalized':'個人化課程AI即時生成','correction-ai':'即時AI糾正每句話','free-talk':'AI Free Talk任選話題','asr':'語音辨識93%+ 0.1秒','speaking-first':'20分鐘說100句','3step':'三步學習法','linguist':'語言學家設計課程','spaced':'間隔重複複習','scenarios':'100+情境','natural-phrases':'道地自然英文用法','word-lookup':'單字即查一鍵翻譯','immersive':'沉浸式視覺對話','progress':'進度追蹤','japanese':'多語言支援','lee-yang':'李洋21天挑戰','feng':'鳳小岳勇敢最帥','da-qian':'大謙250天真實用戶','':''};
   var hasBase=base&&base.length>10;
   var sys='You are CopyOS TW, Speak Taiwan copywriter.\nSpeak = AI English speaking app. Tagline: 讓英文一切好說. Persona: Honest x Witty guide.\nDO NOT: "fluent in 30 days", generic phrases, gamification jargon, ALL CAPS, emoji stuffing, shame marketing.\nTW: learners have foundation but cannot speak. Empowerment over anxiety.\nChannel: '+(specs[surf]||surf)+'\nAd image copy (imageText): complete visual hierarchy — main headline (4-8 chars) + subtitle (8-15 chars) + CTA text, separated by real newlines.\n'+(hasBase?'BASE MODE: given base copy. Output 5-6 variants from different angles (audience, hook, theme, tone, format, feature).':'STANDARD MODE: Output 3 options A(safest), B(Authentic+Witty), C(Bold).')+'\nOutput ONLY valid JSON array. Each object must have all keys: {"label":"","angle":"","tone":"","attribute":"","primaryText":"","headline":"","imageText":"","cta":"","note":"","flag":""}\nNo text before or after the JSON array.';
   var usr='Channel: '+surf+'\nAudience: '+(audMap[aud]||'general')+'\nAngle: '+(angle||'unspecified')+'\nFeature: '+(fMap[feature]||'none')+'\nHook strategy: '+(curHook||'unspecified')+'\nFormat: '+(curFmt||'unspecified')+(extra?'\nExtra: '+extra:'')+(hasBase?'\nBase copy: "'+base+'"\nOutput 5-6 variants.':'\nOutput 3 options.')+'\nTraditional Chinese. JSON array only.';
   try{
-    var r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2500,system:sys,messages:[{role:'user',content:usr}]})});
-    var data=await r.json();
-    var raw=(data.content||[]).map(function(b){return b.text||'';}).join('');
+    var raw = await callAI(sys, usr, 2500);
     var opts;try{var m=raw.match(/\[[\s\S]*\]/);opts=JSON.parse(m?m[0]:raw);}catch(e){opts=null;}
     if(opts&&Array.isArray(opts)){_genRes=opts;renderResults(opts,surf);}else renderResultsRaw(raw);
   }catch(err){empty.innerHTML='<div style="font-size:30px">⚠️</div><div style="color:var(--tx3)">Error: '+esc(err.message)+'</div>';}
@@ -755,8 +787,7 @@ async function regenField(btn,ci,field,ri,surf){
   var sys='You are CopyOS TW. Regenerate only the "'+field+'" field for a Speak ad on "'+surf+'". Return ONLY a JSON array of 3 objects: [{"angle":"2-3 words","text":"new copy"},...]  No other text.';
   var usr='Current '+field+': "'+currentText+'"\nGenerate 3 alternatives in Traditional Chinese. JSON array only.';
   try{
-    var r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:600,system:sys,messages:[{role:'user',content:usr}]})});
-    var data=await r.json();var raw=(data.content||[]).map(function(b){return b.text||'';}).join('');
+    var raw = await callAI(sys, usr, 600);
     var opts;try{var m=raw.match(/\[[\s\S]*\]/);opts=JSON.parse(m?m[0]:raw);}catch(e){opts=null;}
     if(opts&&Array.isArray(opts))showRegenPicker(btn,ci,field,opts);else toast('⚠️ Regen failed');
   }catch(e){toast('⚠️ '+e.message);}
