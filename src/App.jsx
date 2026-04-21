@@ -296,7 +296,7 @@ function Evaluator(){
   const evaluate=async()=>{
     if(!input.trim())return;
     setLoading(true);setError(null);setResult(null);
-    try{
+    const callGemini=async(retries=2)=>{
       const GEMINI_KEY="AIzaSyBrUTwqcAWSf0hSk2bLHLzO7Rr0o3n0JVQ";
       const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`,{
         method:"POST",headers:{"Content-Type":"application/json"},
@@ -307,9 +307,20 @@ function Evaluator(){
         })
       });
       const data=await res.json();
-      if(data.error){setError("API error: "+(data.error.message||JSON.stringify(data.error)));setLoading(false);return}
+      if(data.error){
+        if(retries>0&&(data.error.code===429||data.error.message?.includes("rate"))){
+          setError("⏳ Rate limit — retrying in 10 seconds...");
+          await new Promise(r=>setTimeout(r,10000));
+          return callGemini(retries-1);
+        }
+        throw new Error(data.error.message||JSON.stringify(data.error));
+      }
+      return data;
+    };
+    try{
+      const data=await callGemini();
       const text=data.candidates?.[0]?.content?.parts?.[0]?.text||"";
-      if(!text){setError("Empty response from AI");setLoading(false);return}
+      if(!text){setError("Empty response. Try again in 10s.");setLoading(false);return}
       const clean=text.replace(/```json|```/g,"").trim();
       setResult(JSON.parse(clean));
     }catch(e){setError("Evaluation failed: "+e.message)}
@@ -629,22 +640,33 @@ Generate exactly 3 Korean copy options: one safe, one balanced, one bold.
 Output format: [{"ko":"...","en":"...","sub":"...or null","tone":"safe|balanced|bold","note":"..."}]
 Keep ALL values short. Return ONLY valid JSON array.`;
 
-    try{
+    const callGemini=async(prompt,system,retries=2)=>{
       const GEMINI_KEY="AIzaSyBrUTwqcAWSf0hSk2bLHLzO7Rr0o3n0JVQ";
       const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`,{
         method:"POST",headers:{"Content-Type":"application/json"},
         body:JSON.stringify({
-          system_instruction:{parts:[{text:SYSTEM_PROMPT}]},
-          contents:[{parts:[{text:userMsg}]}],
+          system_instruction:{parts:[{text:system}]},
+          contents:[{parts:[{text:prompt}]}],
           generationConfig:{temperature:0.7,maxOutputTokens:4000,responseMimeType:"application/json"}
         })
       });
       const data=await res.json();
-      if(data.error){setError("API error: "+(data.error.message||JSON.stringify(data.error)));setLoading(false);return}
+      if(data.error){
+        if(retries>0&&(data.error.code===429||data.error.message?.includes("rate"))){
+          setError("⏳ Rate limit — retrying in 10 seconds...");
+          await new Promise(r=>setTimeout(r,10000));
+          return callGemini(prompt,system,retries-1);
+        }
+        throw new Error(data.error.message||JSON.stringify(data.error));
+      }
+      return data;
+    };
+
+    try{
+      const data=await callGemini(userMsg,SYSTEM_PROMPT);
       const text=data.candidates?.[0]?.content?.parts?.[0]?.text||"";
-      if(!text){setError("Empty response. Try again.");setLoading(false);return}
+      if(!text){setError("Empty response. Try again in 10s.");setLoading(false);return}
       let clean=text.replace(/```json|```/g,"").trim();
-      // Try to fix truncated JSON
       if(!clean.endsWith("]")){
         const lastComplete=clean.lastIndexOf("}");
         if(lastComplete>0) clean=clean.substring(0,lastComplete+1)+"]";
