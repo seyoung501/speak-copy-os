@@ -321,18 +321,18 @@ function Evaluator({gk}){
 
   return(<div style={{padding:"28px 32px",maxWidth:800}}>
     <h2 style={{fontSize:18,fontWeight:700,fontFamily:"'Pretendard','Inter',sans-serif",marginBottom:4}}>✅ Copy Evaluator</h2>
-    <p style={{fontSize:12,color:"#6B7280",marginBottom:16}}>Paste any copy → Get a brand compliance score + improvement suggestions</p>
+    <p style={{fontSize:13,color:"#4B5563",marginBottom:16}}>Paste any copy → Get a brand compliance score + improvement suggestions</p>
 
     <div style={{marginBottom:20}}>
-      <label style={{fontSize:10,fontWeight:700,color:"#9CA3AF",textTransform:"uppercase",letterSpacing:"0.1em",display:"block",marginBottom:6}}>Copy to evaluate</label>
+      <label style={{fontSize:10,fontWeight:700,color:"#374151",textTransform:"uppercase",letterSpacing:"0.1em",display:"block",marginBottom:6}}>Copy to evaluate</label>
       <textarea value={input} onChange={e=>setInput(e.target.value)} placeholder="카피를 여기에 붙여넣으세요... (e.g. 영어가 쉬워지니까, 선택지가 무한대!)" rows={4} style={{width:"100%",padding:"14px 16px",borderRadius:10,border:"1px solid #E2E4E8",background:"#F0F1F3",color:"#1A1A1A",fontSize:15,outline:"none",resize:"vertical",fontFamily:"'Noto Sans KR','DM Sans',sans-serif",lineHeight:1.6}}/>
     </div>
 
-    <button onClick={evaluate} disabled={loading||!input.trim()} style={{padding:"12px 32px",borderRadius:8,border:"none",background:loading?"#2A2A38":!input.trim()?"#E2E4E8":"#10B981",color:!input.trim()?"#4A4A60":"#fff",fontSize:14,fontWeight:700,cursor:loading?"wait":!input.trim()?"default":"pointer",fontFamily:"'Pretendard','Inter',sans-serif",opacity:loading?0.7:1}}>
+    <button onClick={evaluate} disabled={loading||!input.trim()} style={{padding:"12px 32px",borderRadius:8,border:"none",background:loading?"#2A2A38":!input.trim()?"#E2E4E8":"#10B981",color:!input.trim()?"#4A4A60":"#fff",fontSize:15,fontWeight:700,cursor:loading?"wait":!input.trim()?"default":"pointer",fontFamily:"'Pretendard','Inter',sans-serif",opacity:loading?0.7:1}}>
       {loading?"Evaluating...":"✅ Evaluate Copy"}
     </button>
 
-    {error&&<div style={{marginTop:16,padding:"12px 16px",background:"#EF444420",borderRadius:8,color:"#EF4444",fontSize:12}}>{error}</div>}
+    {error&&<div style={{marginTop:16,padding:"12px 16px",background:"#EF444420",borderRadius:8,color:"#DC2626",fontSize:13}}>{error}</div>}
 
     {result&&<div style={{marginTop:28}}>
       {/* Overall verdict */}
@@ -653,7 +653,7 @@ Keep ALL values short. Return ONLY valid JSON array.`;
 
   return(<div style={{padding:"28px 32px",maxWidth:900}}>
     <h2 style={{fontSize:18,fontWeight:700,fontFamily:"'Pretendard','Inter',sans-serif",marginBottom:4}}>🏭 Copy Factory</h2>
-    <p style={{fontSize:12,color:"#6B7280",marginBottom:16}}>Channel → Angle → Target → Tone → Generate on-brand options</p>
+    <p style={{fontSize:13,color:"#4B5563",marginBottom:16}}>Channel → Angle → Target → Tone → Generate on-brand options</p>
 
     {/* ① Channel */}
     <div style={{marginBottom:20}}>
@@ -673,7 +673,7 @@ Keep ALL values short. Return ONLY valid JSON array.`;
       <div style={{display:"flex",flexWrap:"wrap",gap:5}}>
         {FACTORY_ANGLES.map(a=>{const sel=angles.includes(a.id);return<button key={a.id} onClick={()=>toggleAngle(a.id)} style={{padding:"8px 16px",borderRadius:8,border:`1px solid ${sel?"#F59E0B":"#E2E4E8"}`,background:sel?"#F59E0B15":"#F0F1F3",color:sel?"#FCD34D":"#7E7E96",fontSize:12,cursor:"pointer",fontWeight:sel?700:400}}>{a.label}</button>})}
       </div>
-      <div style={{marginTop:6,fontSize:11,color:"#9CA3AF"}}>{selectedAngles.map(a=>a.desc).join(" + ")}</div>
+      <div style={{marginTop:6,fontSize:12,color:"#4B5563"}}>{selectedAngles.map(a=>a.desc).join(" + ")}</div>
     </div>
 
     {/* ③ Target + ④ Tone */}
@@ -694,25 +694,25 @@ Keep ALL values short. Return ONLY valid JSON array.`;
 
     {/* Additional context */}
     <div style={{marginBottom:20}}>
-      <label style={{fontSize:10,fontWeight:700,color:"#9CA3AF",textTransform:"uppercase",letterSpacing:"0.1em",display:"block",marginBottom:6}}>Additional Context (optional)</label>
-      <textarea value={context} onChange={e=>setContext(e.target.value)} placeholder="e.g. Summer promo, emphasize travel English, 50% discount, 여행 시즌 강조..." rows={2} style={{width:"100%",padding:"10px 14px",borderRadius:8,border:"1px solid #E2E4E8",background:"#F0F1F3",color:"#1A1A1A",fontSize:12,outline:"none",resize:"vertical",fontFamily:"'Pretendard','Noto Sans KR',sans-serif"}}/>
+      <label style={{fontSize:10,fontWeight:700,color:"#374151",textTransform:"uppercase",letterSpacing:"0.1em",display:"block",marginBottom:6}}>Additional Context (optional)</label>
+      <textarea value={context} onChange={e=>setContext(e.target.value)} placeholder="e.g. Summer promo, emphasize travel English, 50% discount, 여행 시즌 강조..." rows={2} style={{width:"100%",padding:"10px 14px",borderRadius:8,border:"1px solid #E2E4E8",background:"#F0F1F3",color:"#1A1A1A",fontSize:13,outline:"none",resize:"vertical",fontFamily:"'Pretendard','Noto Sans KR',sans-serif"}}/>
     </div>
 
     {/* Reference copies preview */}
     <div style={{marginBottom:20,padding:"12px 14px",background:"#F0F1F3",borderRadius:8,border:"1px solid #E2E4E8"}}>
-      <div style={{fontSize:10,fontWeight:700,color:"#9CA3AF",textTransform:"uppercase",letterSpacing:"0.1em",marginBottom:8}}>Reference copies from warehouse ({relevantCopies.length})</div>
+      <div style={{fontSize:10,fontWeight:700,color:"#374151",textTransform:"uppercase",letterSpacing:"0.1em",marginBottom:8}}>Reference copies from warehouse ({relevantCopies.length})</div>
       <div style={{display:"flex",flexWrap:"wrap",gap:4}}>
-        {relevantCopies.slice(0,8).map((c,i)=><span key={i} style={{fontSize:10,padding:"3px 8px",borderRadius:6,background:"#E8E9ED",color:"#6B7280",maxWidth:250,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.ko.slice(0,40)}...</span>)}
+        {relevantCopies.slice(0,8).map((c,i)=><span key={i} style={{fontSize:10,padding:"3px 8px",borderRadius:6,background:"#E8E9ED",color:"#4B5563",maxWidth:250,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.ko.slice(0,40)}...</span>)}
         {relevantCopies.length>8&&<span style={{fontSize:10,color:"#9CA3AF"}}>+{relevantCopies.length-8} more</span>}
       </div>
     </div>
 
     {/* Generate button */}
-    <button onClick={generate} disabled={loading} style={{padding:"14px 36px",borderRadius:8,border:"none",background:loading?"#2A2A38":"#1C49FF",color:"#fff",fontSize:14,fontWeight:700,cursor:loading?"wait":"pointer",fontFamily:"'Pretendard','Inter',sans-serif",opacity:loading?0.7:1}}>
+    <button onClick={generate} disabled={loading} style={{padding:"14px 36px",borderRadius:8,border:"none",background:loading?"#2A2A38":"#1C49FF",color:"#fff",fontSize:15,fontWeight:700,cursor:loading?"wait":"pointer",fontFamily:"'Pretendard','Inter',sans-serif",opacity:loading?0.7:1}}>
       {loading?"Generating 5-10 options...":"⚡ Generate Copy Options (5-10)"}
     </button>
 
-    {error&&<div style={{marginTop:16,padding:"12px 16px",background:"#EF444420",borderRadius:8,color:"#EF4444",fontSize:12}}>{error}</div>}
+    {error&&<div style={{marginTop:16,padding:"12px 16px",background:"#EF444420",borderRadius:8,color:"#DC2626",fontSize:13}}>{error}</div>}
 
     {/* Results */}
     {results&&<div style={{marginTop:28}}>
@@ -763,7 +763,7 @@ return(<div style={{minHeight:"100vh",background:"#F8F9FB",color:"#1A1A1A",fontF
 <button onClick={()=>setShowKey(!showKey)} style={{padding:"6px 12px",borderRadius:6,border:"none",background:gk?"#10B98120":"#F59E0B20",color:gk?"#10B981":"#F59E0B",fontSize:11,fontWeight:600,cursor:"pointer",marginLeft:8}}>{gk?"🔑 Key ✓":"🔑 Set Key"}</button>
 </div>
 {showKey&&<div style={{marginTop:10,display:"flex",gap:6,alignItems:"center"}}>
-<input value={gk} onChange={e=>saveGk(e.target.value)} placeholder="Gemini API Key (aistudio.google.com에서 무료 발급)" style={{flex:1,maxWidth:400,padding:"6px 10px",borderRadius:6,border:"1px solid #E2E4E8",background:"#F0F1F3",color:"#1A1A1A",fontSize:11,outline:"none",fontFamily:"'Pretendard','Inter',sans-serif"}}/>
+<input value={gk} onChange={e=>saveGk(e.target.value)} placeholder="Gemini API Key (aistudio.google.com에서 무료 발급)" style={{flex:1,maxWidth:400,padding:"6px 10px",borderRadius:6,border:"1px solid #E2E4E8",background:"#F0F1F3",color:"#1A1A1A",fontSize:12,outline:"none",fontFamily:"'Pretendard','Inter',sans-serif"}}/>
 <span style={{fontSize:10,color:"#9CA3AF"}}>Factory/Evaluate용 · <a href="https://aistudio.google.com" target="_blank" style={{color:"#5B7AFF"}}>무료 발급</a></span>
 </div>}
 </div>
@@ -778,10 +778,10 @@ return(<div style={{minHeight:"100vh",background:"#F8F9FB",color:"#1A1A1A",fontF
 
 {view==="warehouse"&&<div style={{display:"flex",minHeight:"calc(100vh - 120px)"}}>
 <div style={{width:280,borderRight:"1px solid #E2E4E8",padding:"16px 14px",flexShrink:0,overflowY:"auto"}}>
-<input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search..." style={{width:"100%",padding:"8px 11px",borderRadius:7,border:"1px solid #E2E4E8",background:"#FFFFFF",color:"#1A1A1A",fontSize:12,outline:"none",marginBottom:10}}/>
+<input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search..." style={{width:"100%",padding:"8px 11px",borderRadius:7,border:"1px solid #E2E4E8",background:"#FFFFFF",color:"#1A1A1A",fontSize:13,outline:"none",marginBottom:10}}/>
 <button onClick={()=>setKeyOnly(!keyOnly)} style={{width:"100%",padding:"7px 11px",borderRadius:7,border:`1px solid ${keyOnly?"#F59E0B55":"#E2E4E8"}`,background:keyOnly?"#F59E0B12":"transparent",color:keyOnly?"#F59E0B":"#7E7E96",fontSize:11,fontWeight:600,cursor:"pointer",marginBottom:12}}>★ Key Copies Only</button>
 {ch&&<div style={{marginBottom:12,padding:"7px 11px",background:"#1C49FF12",borderRadius:7,border:"1px solid #1C49FF33"}}><div style={{fontSize:10,color:"#1C49FF",fontWeight:600}}>Channel: {ch}</div><button onClick={()=>setCh(null)} style={{fontSize:10,color:"#1C49FF",background:"none",border:"none",cursor:"pointer",textDecoration:"underline",marginTop:2}}>Clear</button></div>}
-<div style={{fontSize:9,fontWeight:700,color:"#9CA3AF",textTransform:"uppercase",letterSpacing:"0.1em",marginBottom:8}}>Message Hierarchy</div>
+<div style={{fontSize:9,fontWeight:700,color:"#374151",textTransform:"uppercase",letterSpacing:"0.1em",marginBottom:8}}>Message Hierarchy</div>
 <button onClick={()=>{setSel("All");setSubSel(null);setFeatTag(null)}} style={{display:"flex",alignItems:"center",width:"100%",padding:"8px 11px",borderRadius:7,border:sel==="All"?"1px solid #1C49FF44":"1px solid transparent",background:sel==="All"?"#1C49FF12":"transparent",color:sel==="All"?"#5B7AFF":"#7E7E96",fontSize:12,fontWeight:600,cursor:"pointer",marginBottom:6}}>All Levels<span style={{marginLeft:"auto",fontSize:11,fontFamily:"'Pretendard','Inter'",color:"#9CA3AF"}}>{data.length}</span></button>
 
 {LEVELS.map(l=>{const active=sel===l.id;const expanded=active&&l.subs;return(<div key={l.id} style={{marginBottom:4}}>
@@ -795,7 +795,7 @@ return(<div style={{minHeight:"100vh",background:"#F8F9FB",color:"#1A1A1A",fontF
 </div>}</div>)})}
 
 <div style={{marginTop:16,paddingTop:12,borderTop:"1px solid #E2E4E8"}}>
-<div style={{fontSize:9,fontWeight:700,color:"#9CA3AF",textTransform:"uppercase",letterSpacing:"0.1em",marginBottom:6}}>Positioning Fit</div>
+<div style={{fontSize:9,fontWeight:700,color:"#374151",textTransform:"uppercase",letterSpacing:"0.1em",marginBottom:6}}>Positioning Fit</div>
 {FIT_TAGS.map(f=>(<button key={f} onClick={()=>setFit(fit===f?"All":f)} style={{display:"block",width:"100%",textAlign:"left",padding:"4px 10px",borderRadius:5,border:"none",background:fit===f?"#1C49FF15":"transparent",color:fit===f?(f==="AS-IS legacy"?"#EF4444":"#5B7AFF"):"#5A5A72",fontSize:11,cursor:"pointer",marginBottom:1}}>{f==="AS-IS legacy"?"⚠️ ":""}{f}</button>))}
 </div></div>
 
