@@ -728,7 +728,7 @@ Keep ALL values short. Return ONLY valid JSON array.`;
 
 function Card({item,lv}){const[cp,setCp]=useState(false);const fc=item.f==="TO-BE aligned"?"#10B981":item.f==="AS-IS legacy"?"#EF4444":"#6B7280";return(<div style={{background:"#FFFFFF",borderRadius:10,padding:"14px 18px",borderLeft:`4px solid ${lv.color}`,position:"relative",transition:"transform 0.12s,box-shadow 0.12s"}} onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-1px)";e.currentTarget.style.boxShadow="0 6px 20px rgba(0,0,0,0.18)"}} onMouseLeave={e=>{e.currentTarget.style.transform="";e.currentTarget.style.boxShadow=""}}>{item.k&&<span style={{position:"absolute",top:10,right:52,fontSize:9,padding:"2px 7px",borderRadius:99,background:"#F59E0B20",color:"#F59E0B",fontWeight:700}}>★ KEY</span>}<div style={{fontSize:16,fontWeight:item.k?700:500,lineHeight:1.55,color:"#1A1A1A",fontFamily:"'Noto Sans KR',sans-serif",letterSpacing:"-0.015em",paddingRight:60}}>{item.ko}</div>{item.en&&<div style={{fontSize:12.5,color:"#6B7280",marginTop:5,fontStyle:"italic",lineHeight:1.4}}>{item.en}</div>}<div style={{display:"flex",flexWrap:"wrap",gap:5,marginTop:10,alignItems:"center"}}><span style={{fontSize:10,padding:"2px 7px",borderRadius:99,background:lv.color+"18",color:lv.color,fontWeight:600}}>{lv.id}. {lv.label}</span>{item.g&&<span style={{fontSize:10,padding:"2px 7px",borderRadius:99,background:"#F3F4F612",color:"#6B7280"}}>{FEAT_TAGS.find(t=>t.tag===item.g)?.label}</span>}<span style={{fontSize:10,padding:"2px 7px",borderRadius:99,background:fc+"14",color:fc,fontWeight:600}}>{item.f}</span><span style={{fontSize:10,color:"#9CA3AF",marginLeft:"auto"}}>{item.s}</span></div><button onClick={()=>{navigator.clipboard.writeText(item.ko);setCp(true);setTimeout(()=>setCp(false),1000)}} style={{position:"absolute",top:10,right:10,border:"none",background:cp?"#10B981":"#E2E4E8",color:cp?"#fff":"#7E7E96",borderRadius:6,padding:"3px 9px",fontSize:10,cursor:"pointer",fontWeight:600}}>{cp?"✓":"Copy"}</button></div>)}
 
-export default function App(){const[sel,setSel]=useState("All");const[subSel,setSubSel]=useState(null);const[featTag,setFeatTag]=useState(null);const[fit,setFit]=useState("All");const[q,setQ]=useState("");const[ch,setCh]=useState(null);const[view,setView]=useState("warehouse");const[keyOnly,setKeyOnly]=useState(false);
+export default function App(){const[sel,setSel]=useState("All");const[subSel,setSubSel]=useState(null);const[featTag,setFeatTag]=useState(null);const[fit,setFit]=useState("All");const[q,setQ]=useState("");const[ch,setCh]=useState(null);const[view,setView]=useState("about");const[keyOnly,setKeyOnly]=useState(false);
 const[gk,setGk]=useState(()=>{try{return localStorage.getItem("gk")||""}catch{return""}});
 const[showKey,setShowKey]=useState(false);
 const saveGk=(v)=>{setGk(v);try{localStorage.setItem("gk",v)}catch{}};
@@ -748,7 +748,7 @@ return(<div style={{minHeight:"100vh",background:"#F8F9FB",color:"#1A1A1A",fontF
 <div style={{display:"flex",alignItems:"center",gap:10}}><span style={{fontSize:24}}>🏭</span><h1 style={{fontSize:20,fontWeight:700,letterSpacing:"-0.03em",fontFamily:"'Pretendard','Inter',sans-serif"}}>Speak KR Copy Warehouse</h1><span style={{fontSize:9,padding:"2px 8px",borderRadius:99,background:"#1C49FF",color:"#fff",fontWeight:700}}>v9</span></div>
 <p style={{color:"#6B7280",fontSize:12,marginTop:5}}>7-level hierarchy · {D.length} copies · Brand: 나를 끌어주는 영어 앱</p>
 <div style={{display:"flex",gap:3,marginTop:14,background:"#FFFFFF",borderRadius:8,padding:2,width:"fit-content"}}>
-{[["warehouse","📦 Warehouse"],["factory","🏭 Factory"],["channels","📡 Channels"],["map","📐 Hierarchy"],["about","ℹ️ About"]].map(([v,lb])=>(<button key={v} onClick={()=>{setView(v);if(v!=="warehouse")setCh(null)}} style={{padding:"6px 16px",borderRadius:6,border:"none",background:view===v?"#1C49FF":"transparent",color:view===v?"#fff":"#7E7E96",fontSize:11,fontWeight:600,cursor:"pointer"}}>{lb}</button>))}
+{[["about","ℹ️ About"],["warehouse","📦 Warehouse"],["factory","🏭 Factory"],["channels","📡 Channels"],["map","📐 Hierarchy"]].map(([v,lb])=>(<button key={v} onClick={()=>{setView(v);if(v!=="warehouse")setCh(null)}} style={{padding:"6px 16px",borderRadius:6,border:"none",background:view===v?"#1C49FF":"transparent",color:view===v?"#fff":"#7E7E96",fontSize:11,fontWeight:600,cursor:"pointer"}}>{lb}</button>))}
 <button onClick={()=>setShowKey(!showKey)} style={{padding:"6px 12px",borderRadius:6,border:"none",background:gk?"#10B98120":"#F59E0B20",color:gk?"#10B981":"#F59E0B",fontSize:11,fontWeight:600,cursor:"pointer",marginLeft:8}}>{gk?"🔑 Key ✓":"🔑 Set Key"}</button>
 </div>
 {showKey&&<div style={{marginTop:10,display:"flex",gap:6,alignItems:"center"}}>
@@ -763,73 +763,58 @@ return(<div style={{minHeight:"100vh",background:"#F8F9FB",color:"#1A1A1A",fontF
 
 
 
-{view==="about"&&<div style={{padding:"48px 40px",maxWidth:720,margin:"0 auto"}}>
+{view==="about"&&<div style={{padding:"36px 40px",maxWidth:860,margin:"0 auto"}}>
 
-<h2 style={{fontSize:32,fontWeight:700,fontFamily:"'Pretendard','Inter'",marginBottom:10,color:"#1A1A1A",letterSpacing:"-0.02em"}}>Speak Copy OS</h2>
-<p style={{fontSize:16,color:"#6B7280",lineHeight:1.6,marginBottom:48}}>A centralized copy system for Speak\'s marketing team.</p>
-
-<div style={{marginBottom:40}}>
-<h3 style={{fontSize:18,fontWeight:700,color:"#1C49FF",marginBottom:16}}>Why</h3>
-<p style={{fontSize:15,color:"#374151",lineHeight:1.9}}>
-Every new campaign used to start from scratch.
-</p>
-<p style={{fontSize:15,color:"#374151",lineHeight:1.9,marginTop:12}}>
-Proven copy, brand positioning, and USPs lived in people\'s heads or scattered docs.
-</p>
-<p style={{fontSize:15,color:"#374151",lineHeight:1.9,marginTop:12}}>
-Copy OS turns Speak\'s entire messaging history into a single, searchable system — so the team can find, reuse, and build on what already works.
-</p>
+<div style={{marginBottom:28}}>
+<h2 style={{fontSize:28,fontWeight:700,fontFamily:"'Pretendard','Inter'",color:"#1A1A1A",letterSpacing:"-0.02em",marginBottom:6}}>Speak Copy OS</h2>
+<p style={{fontSize:15,color:"#6B7280"}}>A centralized copy system for Speak marketing.</p>
 </div>
 
-<div style={{width:"100%",height:1,background:"#E2E4E8",marginBottom:40}}/>
+<div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16,marginBottom:24}}>
 
-<div style={{marginBottom:40}}>
-<h3 style={{fontSize:18,fontWeight:700,color:"#1C49FF",marginBottom:16}}>How it was built</h3>
-<p style={{fontSize:15,color:"#374151",lineHeight:1.9}}>
-We collected every existing message across all channels — website, app store, landing pages, paid ads, CRM, social, and press kit.
-</p>
-<p style={{fontSize:15,color:"#374151",lineHeight:1.9,marginTop:12}}>
-Then classified them into a 7-level message hierarchy:
-</p>
-<p style={{fontSize:14,color:"#1C49FF",lineHeight:1.9,marginTop:12,padding:"14px 20px",background:"#F0F4FF",borderRadius:10,fontWeight:500}}>
+<div style={{background:"#FFFFFF",borderRadius:10,padding:"20px 22px",border:"1px solid #E2E4E8"}}>
+<h3 style={{fontSize:14,fontWeight:700,color:"#1C49FF",marginBottom:10,textTransform:"uppercase",letterSpacing:"0.05em"}}>Why</h3>
+<p style={{fontSize:13,color:"#374151",lineHeight:1.75}}>Every campaign started from scratch. Proven copy and brand messages lived in scattered docs or people\'s heads.</p>
+<p style={{fontSize:13,color:"#374151",lineHeight:1.75,marginTop:8}}>Copy OS makes Speak\'s messaging history searchable and reusable — one system for every market.</p>
+</div>
+
+<div style={{background:"#FFFFFF",borderRadius:10,padding:"20px 22px",border:"1px solid #E2E4E8"}}>
+<h3 style={{fontSize:14,fontWeight:700,color:"#1C49FF",marginBottom:10,textTransform:"uppercase",letterSpacing:"0.05em"}}>How it was built</h3>
+<p style={{fontSize:13,color:"#374151",lineHeight:1.75}}>Collected every existing message across all channels — website, app store, LPs, paid ads, CRM, social, press kit.</p>
+<p style={{fontSize:13,color:"#374151",lineHeight:1.75,marginTop:8}}>Classified into a <strong>7-level hierarchy</strong> with 170+ copies, each tagged with source and positioning fit.</p>
+</div>
+
+</div>
+
+<div style={{background:"#FFFFFF",borderRadius:10,padding:"20px 22px",border:"1px solid #E2E4E8",marginBottom:24}}>
+<h3 style={{fontSize:14,fontWeight:700,color:"#1C49FF",marginBottom:14,textTransform:"uppercase",letterSpacing:"0.05em"}}>How to use</h3>
+<div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}}>
+<div>
+<p style={{fontSize:13,fontWeight:600,color:"#1A1A1A",marginBottom:4}}>📦 Warehouse</p>
+<p style={{fontSize:12,color:"#6B7280",lineHeight:1.6}}>Search and browse existing copy by hierarchy, keyword, or positioning.</p>
+</div>
+<div>
+<p style={{fontSize:13,fontWeight:600,color:"#1A1A1A",marginBottom:4}}>🏭 Factory</p>
+<p style={{fontSize:12,color:"#6B7280",lineHeight:1.6}}>Generate on-brand copy. Pick channel, angle, target — AI creates options from the warehouse.</p>
+</div>
+<div>
+<p style={{fontSize:13,fontWeight:600,color:"#1A1A1A",marginBottom:4}}>📡 Channels</p>
+<p style={{fontSize:12,color:"#6B7280",lineHeight:1.6}}>Which hierarchy levels apply to each marketing channel.</p>
+</div>
+<div>
+<p style={{fontSize:13,fontWeight:600,color:"#1A1A1A",marginBottom:4}}>📐 Hierarchy</p>
+<p style={{fontSize:12,color:"#6B7280",lineHeight:1.6}}>Visual map of the 7-level message structure with key copies.</p>
+</div>
+</div>
+</div>
+
+<div style={{background:"#F0F4FF",borderRadius:10,padding:"14px 20px",marginBottom:16}}>
+<p style={{fontSize:12,color:"#1C49FF",fontWeight:500,lineHeight:1.6}}>
 Vision → Philosophy → Definition → USP → Targeting → RTB → CTA
 </p>
-<p style={{fontSize:15,color:"#374151",lineHeight:1.9,marginTop:12}}>
-170+ copies — each tagged with source, English translation, and positioning fit.
-</p>
 </div>
 
-<div style={{width:"100%",height:1,background:"#E2E4E8",marginBottom:40}}/>
-
-<div style={{marginBottom:40}}>
-<h3 style={{fontSize:18,fontWeight:700,color:"#1C49FF",marginBottom:20}}>How to use</h3>
-
-<div style={{marginBottom:20}}>
-<p style={{fontSize:15,fontWeight:600,color:"#1A1A1A",marginBottom:6}}>📦 Warehouse</p>
-<p style={{fontSize:14,color:"#6B7280",lineHeight:1.7,paddingLeft:28}}>Search and browse all existing copy by hierarchy level, keyword, or positioning fit.</p>
-</div>
-
-<div style={{marginBottom:20}}>
-<p style={{fontSize:15,fontWeight:600,color:"#1A1A1A",marginBottom:6}}>🏭 Factory</p>
-<p style={{fontSize:14,color:"#6B7280",lineHeight:1.7,paddingLeft:28}}>Generate new on-brand copy.<br/>Pick a channel, message angle(s), and target audience — AI creates options grounded in the warehouse.</p>
-</div>
-
-<div style={{marginBottom:20}}>
-<p style={{fontSize:15,fontWeight:600,color:"#1A1A1A",marginBottom:6}}>📡 Channels</p>
-<p style={{fontSize:14,color:"#6B7280",lineHeight:1.7,paddingLeft:28}}>See which hierarchy levels apply to each marketing channel.</p>
-</div>
-
-<div style={{marginBottom:20}}>
-<p style={{fontSize:15,fontWeight:600,color:"#1A1A1A",marginBottom:6}}>📐 Hierarchy</p>
-<p style={{fontSize:14,color:"#6B7280",lineHeight:1.7,paddingLeft:28}}>Visual map of the full 7-level message structure with key copies.</p>
-</div>
-</div>
-
-<div style={{width:"100%",height:1,background:"#E2E4E8",marginBottom:24}}/>
-
-<p style={{fontSize:13,color:"#9CA3AF",lineHeight:1.6}}>
-Speak Marketing Team · AI Hackathon 2026
-</p>
+<p style={{fontSize:12,color:"#9CA3AF"}}>Speak Marketing Team · AI Hackathon 2026</p>
 </div>}
 
 {view==="channels"&&<div style={{padding:"28px 32px"}}><div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))",gap:12}}>{CHANNELS.map(c=>(<div key={c.name} onClick={()=>{setCh(c.name);setView("warehouse")}} style={{background:"#FFFFFF",borderRadius:10,padding:16,cursor:"pointer",border:"1px solid #E2E4E8",transition:"border-color 0.12s"}} onMouseEnter={e=>e.currentTarget.style.borderColor="#1C49FF"} onMouseLeave={e=>e.currentTarget.style.borderColor="#E2E4E8"}><div style={{fontSize:14,fontWeight:700,marginBottom:4}}>{c.name}</div><div style={{fontSize:11,color:"#6B7280",marginBottom:10}}>{c.desc}</div><div style={{display:"flex",flexWrap:"wrap",gap:4}}>{c.levels.map(lid=>{const lv=LEVELS.find(x=>x.id===lid);return<span key={lid} style={{fontSize:9,padding:"2px 7px",borderRadius:99,background:lv.color+"20",color:lv.color,fontWeight:600}}>{lid}. {lv.label}</span>})}</div></div>))}</div></div>}
