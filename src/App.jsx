@@ -868,6 +868,7 @@ Vision → Philosophy → Definition → USP → Targeting → RTB → CTA
 // ============================================================
 
 // JP components (imports shared with KR above)
+// JP uses shared Pretendard font from KR
 
 // =============================================================================
 // SPEAK JP — COPY WAREHOUSE v2
@@ -1612,16 +1613,16 @@ function generateCopy(brief, warehouseCopies) {
 // STYLING
 // =============================================================================
 const COLORS = {
-  bg: "#0A0A10", panel: "#111118", card: "#15151F", cardHover: "#1A1A27",
-  border: "#1A1A24", borderStrong: "#252535", text: "#E8E8F0",
-  textDim: "#9A9AB0", textMute: "#6A6A80",
-  accent: "#E11D48", accentSoft: "#BE123C",
+  bg: "#F8F9FB", panel: "#FFFFFF", card: "#FFFFFF", cardHover: "#F0F1F3",
+  border: "#E2E4E8", borderStrong: "#D1D5DB", text: "#1A1A1A",
+  textDim: "#6B7280", textMute: "#9CA3AF",
+  accent: "#1C49FF", accentSoft: "#3B5BFF",
   ok: "#10B981", warn: "#F59E0B", bad: "#EF4444",
-  motion: "#A855F7", // Motion/paid-ads color
-  insight: "#14B8A6", // Survey/insights color
+  motion: "#7C3AED",
+  insight: "#0D9488",
 };
-const FONT = "'IBM Plex Sans JP', 'Inter', system-ui, sans-serif";
-const MONO = "'JetBrains Mono', 'IBM Plex Mono', 'Courier New', monospace";
+const FONT = "'Pretendard', 'Inter', system-ui, sans-serif";
+const MONO = "'Pretendard', 'Inter', monospace";
 
 // =============================================================================
 // MAIN COMPONENT
@@ -1634,12 +1635,12 @@ function SpeakJP() {
       fontFamily: FONT, fontSize: 13, WebkitFontSmoothing: "antialiased" }}>
       {/* Header */}
       <div style={{ padding: "24px 34px 16px", borderBottom: `1px solid ${COLORS.border}`,
-        background: `linear-gradient(180deg, #13131D 0%, ${COLORS.bg} 100%)` }}>
+        background: `linear-gradient(180deg, #FFFFFF 0%, ${COLORS.bg} 100%)` }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <span style={{ fontSize: 26 }}>🗾</span>
           <h1 style={{ fontSize: 22, fontWeight: 700, letterSpacing: "-0.03em",
             fontFamily: MONO, margin: 0,
-            background: `linear-gradient(90deg, #FFFFFF 0%, ${COLORS.accent} 100%)`,
+            background: `linear-gradient(90deg, #1A1A1A 0%, ${COLORS.accent} 100%)`,
             WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
             Speak JP Copy Warehouse
           </h1>
@@ -1667,7 +1668,7 @@ function SpeakJP() {
             <button key={id} onClick={() => setTab(id)}
               style={{ padding: "7px 16px", borderRadius: 6, border: "none",
                 background: tab === id ? COLORS.accent : "transparent",
-                color: tab === id ? "#fff" : COLORS.textDim,
+                color: tab === id ? "#fff" : "#374151",
                 fontSize: 11, fontWeight: 600, cursor: "pointer", fontFamily: FONT,
                 letterSpacing: "-0.01em", transition: "all 120ms" }}>
               {label}
