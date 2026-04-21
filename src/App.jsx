@@ -307,7 +307,9 @@ function Evaluator(){
         })
       });
       const data=await res.json();
+      if(data.error){setError("API error: "+(data.error.message||JSON.stringify(data.error)));setLoading(false);return}
       const text=data.candidates?.[0]?.content?.parts?.[0]?.text||"";
+      if(!text){setError("Empty response from AI");setLoading(false);return}
       const clean=text.replace(/```json|```/g,"").trim();
       setResult(JSON.parse(clean));
     }catch(e){setError("Evaluation failed: "+e.message)}
@@ -631,15 +633,16 @@ ${getFormatSpec()}
 ${refCopyText}
 
 ═══ INSTRUCTIONS ═══
-Generate 5-10 Korean copy options. Vary from safest to boldest. Each must:
+Generate 5 Korean copy options. Vary from safest to boldest. Each must:
 1. Follow channel rules and format spec exactly
 2. Combine ALL selected message angles naturally
 3. Match target audience motivation
 4. Use ONLY data from DATA BANK
 5. Follow Honest × Witty tone
 6. Respect character limits
+7. Keep brand_note and en_translation SHORT (under 15 words each)
 
-Return ONLY a JSON array of 5-10 options.`;
+Return ONLY a JSON array of exactly 5 options.`;
 
     try{
       const GEMINI_KEY="AIzaSyBrUTwqcAWSf0hSk2bLHLzO7Rr0o3n0JVQ";
@@ -648,14 +651,16 @@ Return ONLY a JSON array of 5-10 options.`;
         body:JSON.stringify({
           system_instruction:{parts:[{text:SYSTEM_PROMPT}]},
           contents:[{parts:[{text:userMsg}]}],
-          generationConfig:{temperature:0.7,maxOutputTokens:4000,responseMimeType:"application/json"}
+          generationConfig:{temperature:0.7,maxOutputTokens:8000,responseMimeType:"application/json"}
         })
       });
       const data=await res.json();
+      if(data.error){setError("API error: "+(data.error.message||JSON.stringify(data.error)));setLoading(false);return}
       const text=data.candidates?.[0]?.content?.parts?.[0]?.text||"";
+      if(!text){setError("Empty response from AI");setLoading(false);return}
       const clean=text.replace(/```json|```/g,"").trim();
       const parsed=JSON.parse(clean);
-      setResults(parsed);
+      setResults(Array.isArray(parsed)?parsed:[parsed]);
     }catch(e){setError("Generation failed: "+e.message)}
     setLoading(false);
   };
