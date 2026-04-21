@@ -3437,6 +3437,7 @@ export default function App() {
         {[
           {id:"kr",flag:"🇰🇷",label:"Korea"},
           {id:"jp",flag:"🇯🇵",label:"Japan"},
+          {id:"tw",flag:"🇹🇼",label:"Taiwan"},
         ].map(m=>(
           <button key={m.id} onClick={()=>switchMarket(m.id)} style={{
             padding:"6px 16px",borderRadius:8,border:market===m.id?"2px solid #1C49FF":"1px solid #E2E4E8",
@@ -3452,6 +3453,7 @@ export default function App() {
       {/* Render selected market */}
       {market === "kr" && <SpeakKR />}
       {market === "jp" && <SpeakJP />}
+      {market === "tw" && <iframe src="/tw.html" style={{width:"100%",height:"calc(100vh - 50px)",border:"none"}}/>}
     </div>
   );
 }
