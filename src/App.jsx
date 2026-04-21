@@ -313,22 +313,22 @@ function Evaluator({gk}){
   };
 
   const verdictColor={"PASS":"#10B981","CAUTION":"#F59E0B","FAIL":"#EF4444"};
-  const ScoreBar=({label,score,max=10,color="#6366F1"})=>(<div style={{display:"flex",alignItems:"center",gap:8,marginBottom:6}}>
-    <span style={{fontSize:11,color:"#7E7E96",width:90,flexShrink:0}}>{label}</span>
-    <div style={{flex:1,height:6,background:"#1A1A24",borderRadius:99,overflow:"hidden"}}><div style={{height:"100%",width:`${(score/max)*100}%`,background:color,borderRadius:99,transition:"width 0.3s"}}/></div>
-    <span style={{fontSize:11,fontWeight:600,color,fontFamily:"'Space Mono'",width:24,textAlign:"right"}}>{score}</span>
+  const ScoreBar=({label,score,max=10,color="#1C49FF"})=>(<div style={{display:"flex",alignItems:"center",gap:8,marginBottom:6}}>
+    <span style={{fontSize:11,color:"#6B7280",width:90,flexShrink:0}}>{label}</span>
+    <div style={{flex:1,height:6,background:"#E8E9ED",borderRadius:99,overflow:"hidden"}}><div style={{height:"100%",width:`${(score/max)*100}%`,background:color,borderRadius:99,transition:"width 0.3s"}}/></div>
+    <span style={{fontSize:11,fontWeight:600,color,fontFamily:"'Pretendard','Inter'",width:24,textAlign:"right"}}>{score}</span>
   </div>);
 
   return(<div style={{padding:"28px 32px",maxWidth:800}}>
-    <h2 style={{fontSize:18,fontWeight:700,fontFamily:"'Space Mono',monospace",marginBottom:4}}>✅ Copy Evaluator</h2>
-    <p style={{fontSize:12,color:"#7E7E96",marginBottom:16}}>Paste any copy → Get a brand compliance score + improvement suggestions</p>
+    <h2 style={{fontSize:18,fontWeight:700,fontFamily:"'Pretendard','Inter',sans-serif",marginBottom:4}}>✅ Copy Evaluator</h2>
+    <p style={{fontSize:12,color:"#6B7280",marginBottom:16}}>Paste any copy → Get a brand compliance score + improvement suggestions</p>
 
     <div style={{marginBottom:20}}>
-      <label style={{fontSize:10,fontWeight:700,color:"#4A4A60",textTransform:"uppercase",letterSpacing:"0.1em",display:"block",marginBottom:6}}>Copy to evaluate</label>
-      <textarea value={input} onChange={e=>setInput(e.target.value)} placeholder="카피를 여기에 붙여넣으세요... (e.g. 영어가 쉬워지니까, 선택지가 무한대!)" rows={4} style={{width:"100%",padding:"14px 16px",borderRadius:10,border:"1px solid #1A1A24",background:"#0D0D14",color:"#EDEDF3",fontSize:15,outline:"none",resize:"vertical",fontFamily:"'Noto Sans KR','DM Sans',sans-serif",lineHeight:1.6}}/>
+      <label style={{fontSize:10,fontWeight:700,color:"#9CA3AF",textTransform:"uppercase",letterSpacing:"0.1em",display:"block",marginBottom:6}}>Copy to evaluate</label>
+      <textarea value={input} onChange={e=>setInput(e.target.value)} placeholder="카피를 여기에 붙여넣으세요... (e.g. 영어가 쉬워지니까, 선택지가 무한대!)" rows={4} style={{width:"100%",padding:"14px 16px",borderRadius:10,border:"1px solid #E2E4E8",background:"#F0F1F3",color:"#1A1A1A",fontSize:15,outline:"none",resize:"vertical",fontFamily:"'Noto Sans KR','DM Sans',sans-serif",lineHeight:1.6}}/>
     </div>
 
-    <button onClick={evaluate} disabled={loading||!input.trim()} style={{padding:"12px 32px",borderRadius:8,border:"none",background:loading?"#2A2A38":!input.trim()?"#1A1A24":"#10B981",color:!input.trim()?"#4A4A60":"#fff",fontSize:14,fontWeight:700,cursor:loading?"wait":!input.trim()?"default":"pointer",fontFamily:"'Space Mono',monospace",opacity:loading?0.7:1}}>
+    <button onClick={evaluate} disabled={loading||!input.trim()} style={{padding:"12px 32px",borderRadius:8,border:"none",background:loading?"#2A2A38":!input.trim()?"#E2E4E8":"#10B981",color:!input.trim()?"#4A4A60":"#fff",fontSize:14,fontWeight:700,cursor:loading?"wait":!input.trim()?"default":"pointer",fontFamily:"'Pretendard','Inter',sans-serif",opacity:loading?0.7:1}}>
       {loading?"Evaluating...":"✅ Evaluate Copy"}
     </button>
 
@@ -336,38 +336,38 @@ function Evaluator({gk}){
 
     {result&&<div style={{marginTop:28}}>
       {/* Overall verdict */}
-      <div style={{display:"flex",alignItems:"center",gap:16,marginBottom:24,padding:"20px 24px",background:"#111118",borderRadius:12,border:`1px solid ${verdictColor[result.overall_verdict]}44`}}>
+      <div style={{display:"flex",alignItems:"center",gap:16,marginBottom:24,padding:"20px 24px",background:"#FFFFFF",borderRadius:12,border:`1px solid ${verdictColor[result.overall_verdict]}44`}}>
         <div style={{width:64,height:64,borderRadius:99,background:verdictColor[result.overall_verdict]+"20",display:"flex",alignItems:"center",justifyContent:"center"}}>
-          <span style={{fontSize:28,fontWeight:700,color:verdictColor[result.overall_verdict],fontFamily:"'Space Mono'"}}>{result.overall_score}</span>
+          <span style={{fontSize:28,fontWeight:700,color:verdictColor[result.overall_verdict],fontFamily:"'Pretendard','Inter'"}}>{result.overall_score}</span>
         </div>
         <div>
-          <div style={{fontSize:20,fontWeight:700,color:verdictColor[result.overall_verdict],fontFamily:"'Space Mono'"}}>{result.overall_verdict}</div>
-          <div style={{fontSize:12,color:"#7E7E96",marginTop:2}}>Overall Brand Compliance Score</div>
+          <div style={{fontSize:20,fontWeight:700,color:verdictColor[result.overall_verdict],fontFamily:"'Pretendard','Inter'"}}>{result.overall_verdict}</div>
+          <div style={{fontSize:12,color:"#6B7280",marginTop:2}}>Overall Brand Compliance Score</div>
         </div>
       </div>
 
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}}>
         {/* Speakness */}
-        <div style={{background:"#111118",borderRadius:10,padding:"16px 18px"}}>
-          <div style={{fontSize:12,fontWeight:700,color:"#EDEDF3",marginBottom:12}}>Speakness Attributes</div>
+        <div style={{background:"#FFFFFF",borderRadius:10,padding:"16px 18px"}}>
+          <div style={{fontSize:12,fontWeight:700,color:"#1A1A1A",marginBottom:12}}>Speakness Attributes</div>
           <ScoreBar label="Confident" score={result.speakness.confident} color="#3B82F6"/>
           <ScoreBar label="Innovative" score={result.speakness.innovative} color="#8B5CF6"/>
           <ScoreBar label="Authentic" score={result.speakness.authentic} color="#10B981"/>
           <ScoreBar label="Witty" score={result.speakness.witty} color="#F59E0B"/>
-          <div style={{marginTop:8,fontSize:11,color:"#7E7E96"}}>Primary: <strong style={{color:"#EDEDF3"}}>{result.speakness.primary_attribute}</strong></div>
+          <div style={{marginTop:8,fontSize:11,color:"#6B7280"}}>Primary: <strong style={{color:"#1A1A1A"}}>{result.speakness.primary_attribute}</strong></div>
         </div>
 
         {/* Tone */}
-        <div style={{background:"#111118",borderRadius:10,padding:"16px 18px"}}>
-          <div style={{fontSize:12,fontWeight:700,color:"#EDEDF3",marginBottom:12}}>Tone Check (Honest × Witty)</div>
+        <div style={{background:"#FFFFFF",borderRadius:10,padding:"16px 18px"}}>
+          <div style={{fontSize:12,fontWeight:700,color:"#1A1A1A",marginBottom:12}}>Tone Check (Honest × Witty)</div>
           <ScoreBar label="Honest" score={result.tone_check.honest} color="#06B6D4"/>
           <ScoreBar label="Witty" score={result.tone_check.witty} color="#F59E0B"/>
-          <div style={{marginTop:8,fontSize:11,color:"#7E7E96",lineHeight:1.5}}>{result.tone_check.note}</div>
+          <div style={{marginTop:8,fontSize:11,color:"#6B7280",lineHeight:1.5}}>{result.tone_check.note}</div>
         </div>
 
         {/* Not Speakness */}
-        <div style={{background:"#111118",borderRadius:10,padding:"16px 18px"}}>
-          <div style={{fontSize:12,fontWeight:700,color:"#EDEDF3",marginBottom:12}}>Not Speakness Check</div>
+        <div style={{background:"#FFFFFF",borderRadius:10,padding:"16px 18px"}}>
+          <div style={{fontSize:12,fontWeight:700,color:"#1A1A1A",marginBottom:12}}>Not Speakness Check</div>
           {[["Frivolous",result.not_speakness.frivolous],["Sensational",result.not_speakness.sensational],["Authoritative",result.not_speakness.authoritative],["Gamification",result.not_speakness.gamification_first]].map(([label,flagged])=>(
             <div key={label} style={{display:"flex",alignItems:"center",gap:8,marginBottom:6}}>
               <span style={{width:20,height:20,borderRadius:5,background:flagged?"#EF444420":"#10B98120",display:"flex",alignItems:"center",justifyContent:"center",fontSize:12}}>{flagged?"✗":"✓"}</span>
@@ -378,19 +378,19 @@ function Evaluator({gk}){
         </div>
 
         {/* Positioning */}
-        <div style={{background:"#111118",borderRadius:10,padding:"16px 18px"}}>
-          <div style={{fontSize:12,fontWeight:700,color:"#EDEDF3",marginBottom:12}}>Positioning Fit</div>
+        <div style={{background:"#FFFFFF",borderRadius:10,padding:"16px 18px"}}>
+          <div style={{fontSize:12,fontWeight:700,color:"#1A1A1A",marginBottom:12}}>Positioning Fit</div>
           <ScoreBar label="TO-BE fit" score={result.positioning_fit.score} color={result.positioning_fit.is_tobe?"#10B981":"#EF4444"}/>
           <div style={{display:"flex",alignItems:"center",gap:6,marginTop:4,marginBottom:8}}>
             <span style={{fontSize:10,padding:"2px 8px",borderRadius:99,background:result.positioning_fit.is_tobe?"#10B98120":"#EF444420",color:result.positioning_fit.is_tobe?"#10B981":"#EF4444",fontWeight:600}}>{result.positioning_fit.is_tobe?"TO-BE aligned":"AS-IS / Off-brand"}</span>
           </div>
-          <div style={{fontSize:11,color:"#7E7E96",lineHeight:1.5}}>{result.positioning_fit.note}</div>
+          <div style={{fontSize:11,color:"#6B7280",lineHeight:1.5}}>{result.positioning_fit.note}</div>
         </div>
       </div>
 
       {/* Copy Rules */}
-      <div style={{background:"#111118",borderRadius:10,padding:"16px 18px",marginTop:16}}>
-        <div style={{fontSize:12,fontWeight:700,color:"#EDEDF3",marginBottom:12}}>Copy Rules Check</div>
+      <div style={{background:"#FFFFFF",borderRadius:10,padding:"16px 18px",marginTop:16}}>
+        <div style={{fontSize:12,fontWeight:700,color:"#1A1A1A",marginBottom:12}}>Copy Rules Check</div>
         <div style={{display:"flex",flexWrap:"wrap",gap:8}}>
           {[["Outcome-led",result.copy_rules.outcome_led],["Concise",result.copy_rules.concise],["No exaggeration",result.copy_rules.no_exaggeration],["Data-backed",result.copy_rules.data_backed],["Peer tone",result.copy_rules.peer_tone]].map(([label,pass])=>(
             <span key={label} style={{fontSize:11,padding:"4px 12px",borderRadius:99,background:pass?"#10B98115":"#EF444415",color:pass?"#10B981":"#EF4444",fontWeight:600}}>{pass?"✓":"✗"} {label}</span>
@@ -400,15 +400,15 @@ function Evaluator({gk}){
       </div>
 
       {/* Suggestions */}
-      {result.suggestions.length>0&&<div style={{background:"#111118",borderRadius:10,padding:"16px 18px",marginTop:16}}>
-        <div style={{fontSize:12,fontWeight:700,color:"#EDEDF3",marginBottom:10}}>💡 Improvement Suggestions</div>
-        {result.suggestions.map((s,i)=><div key={i} style={{fontSize:12,color:"#9CA3AF",lineHeight:1.6,marginBottom:4}}>• {s}</div>)}
+      {result.suggestions.length>0&&<div style={{background:"#FFFFFF",borderRadius:10,padding:"16px 18px",marginTop:16}}>
+        <div style={{fontSize:12,fontWeight:700,color:"#1A1A1A",marginBottom:10}}>💡 Improvement Suggestions</div>
+        {result.suggestions.map((s,i)=><div key={i} style={{fontSize:12,color:"#6B7280",lineHeight:1.6,marginBottom:4}}>• {s}</div>)}
       </div>}
 
       {/* Revised copy */}
       {result.revised_copy&&<div style={{background:"#10B98110",borderRadius:10,padding:"16px 18px",marginTop:16,border:"1px solid #10B98130"}}>
         <div style={{fontSize:12,fontWeight:700,color:"#10B981",marginBottom:8}}>✨ Suggested Revision</div>
-        <div style={{fontSize:16,fontWeight:600,color:"#EDEDF3",fontFamily:"'Noto Sans KR',sans-serif",lineHeight:1.6}}>{result.revised_copy}</div>
+        <div style={{fontSize:16,fontWeight:600,color:"#1A1A1A",fontFamily:"'Noto Sans KR',sans-serif",lineHeight:1.6}}>{result.revised_copy}</div>
       </div>}
     </div>}
   </div>);
@@ -652,28 +652,28 @@ Keep ALL values short. Return ONLY valid JSON array.`;
   const toneColors={"safe":"#10B981","balanced":"#F59E0B","bold":"#EF4444"};
 
   return(<div style={{padding:"28px 32px",maxWidth:900}}>
-    <h2 style={{fontSize:18,fontWeight:700,fontFamily:"'Space Mono',monospace",marginBottom:4}}>🏭 Copy Factory</h2>
-    <p style={{fontSize:12,color:"#7E7E96",marginBottom:16}}>Channel → Angle → Target → Tone → Generate on-brand options</p>
+    <h2 style={{fontSize:18,fontWeight:700,fontFamily:"'Pretendard','Inter',sans-serif",marginBottom:4}}>🏭 Copy Factory</h2>
+    <p style={{fontSize:12,color:"#6B7280",marginBottom:16}}>Channel → Angle → Target → Tone → Generate on-brand options</p>
 
     {/* ① Channel */}
     <div style={{marginBottom:20}}>
-      <label style={{fontSize:11,fontWeight:700,color:"#A5B4FC",textTransform:"uppercase",letterSpacing:"0.1em",display:"block",marginBottom:8}}>① Channel</label>
+      <label style={{fontSize:11,fontWeight:700,color:"#5B7AFF",textTransform:"uppercase",letterSpacing:"0.1em",display:"block",marginBottom:8}}>① Channel</label>
       <div style={{display:"flex",flexWrap:"wrap",gap:5}}>
-        {FACTORY_CHANNELS.map((c,ci)=><button key={c.id} onClick={()=>{setChannelIdx(ci);setFormatIdx(0);setResults(null)}} style={{padding:"8px 16px",borderRadius:8,border:`1px solid ${channelIdx===ci?"#6366F1":"#1A1A24"}`,background:channelIdx===ci?"#6366F120":"#0D0D14",color:channelIdx===ci?"#A5B4FC":"#7E7E96",fontSize:12,cursor:"pointer",fontWeight:channelIdx===ci?700:400}}>{c.label}</button>)}
+        {FACTORY_CHANNELS.map((c,ci)=><button key={c.id} onClick={()=>{setChannelIdx(ci);setFormatIdx(0);setResults(null)}} style={{padding:"8px 16px",borderRadius:8,border:`1px solid ${channelIdx===ci?"#1C49FF":"#E2E4E8"}`,background:channelIdx===ci?"#1C49FF20":"#F0F1F3",color:channelIdx===ci?"#5B7AFF":"#7E7E96",fontSize:12,cursor:"pointer",fontWeight:channelIdx===ci?700:400}}>{c.label}</button>)}
       </div>
       {/* Format sub-options */}
       <div style={{display:"flex",flexWrap:"wrap",gap:4,marginTop:8}}>
-        {ch.formats.map((f,fi)=><button key={f.id} onClick={()=>setFormatIdx(fi)} style={{padding:"5px 12px",borderRadius:6,border:`1px solid ${formatIdx===fi?"#6366F155":"#1A1A24"}`,background:formatIdx===fi?"#6366F110":"transparent",color:formatIdx===fi?"#A5B4FC":"#5A5A72",fontSize:10,cursor:"pointer",fontWeight:formatIdx===fi?600:400}}>{f.label}</button>)}
+        {ch.formats.map((f,fi)=><button key={f.id} onClick={()=>setFormatIdx(fi)} style={{padding:"5px 12px",borderRadius:6,border:`1px solid ${formatIdx===fi?"#1C49FF55":"#E2E4E8"}`,background:formatIdx===fi?"#1C49FF10":"transparent",color:formatIdx===fi?"#5B7AFF":"#5A5A72",fontSize:10,cursor:"pointer",fontWeight:formatIdx===fi?600:400}}>{f.label}</button>)}
       </div>
     </div>
 
     {/* ② Message Angle (multi-select) */}
     <div style={{marginBottom:20}}>
-      <label style={{fontSize:11,fontWeight:700,color:"#F59E0B",textTransform:"uppercase",letterSpacing:"0.1em",display:"block",marginBottom:8}}>② Message Angle <span style={{fontWeight:400,color:"#4A4A60"}}>— select one or more</span></label>
+      <label style={{fontSize:11,fontWeight:700,color:"#F59E0B",textTransform:"uppercase",letterSpacing:"0.1em",display:"block",marginBottom:8}}>② Message Angle <span style={{fontWeight:400,color:"#9CA3AF"}}>— select one or more</span></label>
       <div style={{display:"flex",flexWrap:"wrap",gap:5}}>
-        {FACTORY_ANGLES.map(a=>{const sel=angles.includes(a.id);return<button key={a.id} onClick={()=>toggleAngle(a.id)} style={{padding:"8px 16px",borderRadius:8,border:`1px solid ${sel?"#F59E0B":"#1A1A24"}`,background:sel?"#F59E0B15":"#0D0D14",color:sel?"#FCD34D":"#7E7E96",fontSize:12,cursor:"pointer",fontWeight:sel?700:400}}>{a.label}</button>})}
+        {FACTORY_ANGLES.map(a=>{const sel=angles.includes(a.id);return<button key={a.id} onClick={()=>toggleAngle(a.id)} style={{padding:"8px 16px",borderRadius:8,border:`1px solid ${sel?"#F59E0B":"#E2E4E8"}`,background:sel?"#F59E0B15":"#F0F1F3",color:sel?"#FCD34D":"#7E7E96",fontSize:12,cursor:"pointer",fontWeight:sel?700:400}}>{a.label}</button>})}
       </div>
-      <div style={{marginTop:6,fontSize:11,color:"#5A5A72"}}>{selectedAngles.map(a=>a.desc).join(" + ")}</div>
+      <div style={{marginTop:6,fontSize:11,color:"#9CA3AF"}}>{selectedAngles.map(a=>a.desc).join(" + ")}</div>
     </div>
 
     {/* ③ Target + ④ Tone */}
@@ -681,34 +681,34 @@ Keep ALL values short. Return ONLY valid JSON array.`;
       <div>
         <label style={{fontSize:11,fontWeight:700,color:"#F9A8D4",textTransform:"uppercase",letterSpacing:"0.1em",display:"block",marginBottom:8}}>③ Target</label>
         <div style={{display:"flex",flexWrap:"wrap",gap:4}}>
-          {FACTORY_TARGETS.map(t=><button key={t} onClick={()=>setTarget(t)} style={{padding:"6px 12px",borderRadius:7,border:`1px solid ${target===t?"#EC489944":"#1A1A24"}`,background:target===t?"#EC489915":"#0D0D14",color:target===t?"#F9A8D4":"#7E7E96",fontSize:11,cursor:"pointer",fontWeight:target===t?600:400}}>{t}</button>)}
+          {FACTORY_TARGETS.map(t=><button key={t} onClick={()=>setTarget(t)} style={{padding:"6px 12px",borderRadius:7,border:`1px solid ${target===t?"#EC489944":"#E2E4E8"}`,background:target===t?"#EC489915":"#F0F1F3",color:target===t?"#F9A8D4":"#7E7E96",fontSize:11,cursor:"pointer",fontWeight:target===t?600:400}}>{t}</button>)}
         </div>
       </div>
       <div>
         <label style={{fontSize:11,fontWeight:700,color:"#67E8F9",textTransform:"uppercase",letterSpacing:"0.1em",display:"block",marginBottom:8}}>④ Tone</label>
         <div style={{display:"flex",flexWrap:"wrap",gap:4}}>
-          {FACTORY_TONES.map(t=><button key={t} onClick={()=>setTone(t)} style={{padding:"6px 14px",borderRadius:7,border:`1px solid ${tone===t?"#06B6D444":"#1A1A24"}`,background:tone===t?"#06B6D415":"#0D0D14",color:tone===t?"#67E8F9":"#7E7E96",fontSize:11,cursor:"pointer",fontWeight:tone===t?600:400}}>{t}</button>)}
+          {FACTORY_TONES.map(t=><button key={t} onClick={()=>setTone(t)} style={{padding:"6px 14px",borderRadius:7,border:`1px solid ${tone===t?"#06B6D444":"#E2E4E8"}`,background:tone===t?"#06B6D415":"#F0F1F3",color:tone===t?"#67E8F9":"#7E7E96",fontSize:11,cursor:"pointer",fontWeight:tone===t?600:400}}>{t}</button>)}
         </div>
       </div>
     </div>
 
     {/* Additional context */}
     <div style={{marginBottom:20}}>
-      <label style={{fontSize:10,fontWeight:700,color:"#4A4A60",textTransform:"uppercase",letterSpacing:"0.1em",display:"block",marginBottom:6}}>Additional Context (optional)</label>
-      <textarea value={context} onChange={e=>setContext(e.target.value)} placeholder="e.g. Summer promo, emphasize travel English, 50% discount, 여행 시즌 강조..." rows={2} style={{width:"100%",padding:"10px 14px",borderRadius:8,border:"1px solid #1A1A24",background:"#0D0D14",color:"#EDEDF3",fontSize:12,outline:"none",resize:"vertical",fontFamily:"'DM Sans','Noto Sans KR',sans-serif"}}/>
+      <label style={{fontSize:10,fontWeight:700,color:"#9CA3AF",textTransform:"uppercase",letterSpacing:"0.1em",display:"block",marginBottom:6}}>Additional Context (optional)</label>
+      <textarea value={context} onChange={e=>setContext(e.target.value)} placeholder="e.g. Summer promo, emphasize travel English, 50% discount, 여행 시즌 강조..." rows={2} style={{width:"100%",padding:"10px 14px",borderRadius:8,border:"1px solid #E2E4E8",background:"#F0F1F3",color:"#1A1A1A",fontSize:12,outline:"none",resize:"vertical",fontFamily:"'Pretendard','Noto Sans KR',sans-serif"}}/>
     </div>
 
     {/* Reference copies preview */}
-    <div style={{marginBottom:20,padding:"12px 14px",background:"#0D0D14",borderRadius:8,border:"1px solid #1A1A24"}}>
-      <div style={{fontSize:10,fontWeight:700,color:"#4A4A60",textTransform:"uppercase",letterSpacing:"0.1em",marginBottom:8}}>Reference copies from warehouse ({relevantCopies.length})</div>
+    <div style={{marginBottom:20,padding:"12px 14px",background:"#F0F1F3",borderRadius:8,border:"1px solid #E2E4E8"}}>
+      <div style={{fontSize:10,fontWeight:700,color:"#9CA3AF",textTransform:"uppercase",letterSpacing:"0.1em",marginBottom:8}}>Reference copies from warehouse ({relevantCopies.length})</div>
       <div style={{display:"flex",flexWrap:"wrap",gap:4}}>
-        {relevantCopies.slice(0,8).map((c,i)=><span key={i} style={{fontSize:10,padding:"3px 8px",borderRadius:6,background:"#1A1A24",color:"#7E7E96",maxWidth:250,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.ko.slice(0,40)}...</span>)}
-        {relevantCopies.length>8&&<span style={{fontSize:10,color:"#4A4A60"}}>+{relevantCopies.length-8} more</span>}
+        {relevantCopies.slice(0,8).map((c,i)=><span key={i} style={{fontSize:10,padding:"3px 8px",borderRadius:6,background:"#E8E9ED",color:"#6B7280",maxWidth:250,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.ko.slice(0,40)}...</span>)}
+        {relevantCopies.length>8&&<span style={{fontSize:10,color:"#9CA3AF"}}>+{relevantCopies.length-8} more</span>}
       </div>
     </div>
 
     {/* Generate button */}
-    <button onClick={generate} disabled={loading} style={{padding:"14px 36px",borderRadius:8,border:"none",background:loading?"#2A2A38":"#6366F1",color:"#fff",fontSize:14,fontWeight:700,cursor:loading?"wait":"pointer",fontFamily:"'Space Mono',monospace",opacity:loading?0.7:1}}>
+    <button onClick={generate} disabled={loading} style={{padding:"14px 36px",borderRadius:8,border:"none",background:loading?"#2A2A38":"#1C49FF",color:"#fff",fontSize:14,fontWeight:700,cursor:loading?"wait":"pointer",fontFamily:"'Pretendard','Inter',sans-serif",opacity:loading?0.7:1}}>
       {loading?"Generating 5-10 options...":"⚡ Generate Copy Options (5-10)"}
     </button>
 
@@ -716,20 +716,20 @@ Keep ALL values short. Return ONLY valid JSON array.`;
 
     {/* Results */}
     {results&&<div style={{marginTop:28}}>
-      <div style={{fontSize:14,fontWeight:700,color:"#EDEDF3",marginBottom:4,fontFamily:"'Space Mono',monospace"}}>Generated: {results.length} options</div>
-      <div style={{fontSize:11,color:"#7E7E96",marginBottom:16}}>{ch.label} · {fmt.label} · {target} · {tone}</div>
+      <div style={{fontSize:14,fontWeight:700,color:"#1A1A1A",marginBottom:4,fontFamily:"'Pretendard','Inter',sans-serif"}}>Generated: {results.length} options</div>
+      <div style={{fontSize:11,color:"#6B7280",marginBottom:16}}>{ch.label} · {fmt.label} · {target} · {tone}</div>
       <div style={{display:"flex",flexDirection:"column",gap:12}}>
         {results.map((r,i)=>{const tc=toneColors[r.tone]||"#F59E0B";return(
-          <div key={i} style={{background:"#111118",borderRadius:10,padding:"16px 20px",borderLeft:`4px solid ${tc}`,position:"relative"}}>
+          <div key={i} style={{background:"#FFFFFF",borderRadius:10,padding:"16px 20px",borderLeft:`4px solid ${tc}`,position:"relative"}}>
             <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:10}}>
-              <span style={{fontSize:11,fontWeight:700,color:tc,fontFamily:"'Space Mono',monospace"}}>#{i+1}</span>
+              <span style={{fontSize:11,fontWeight:700,color:tc,fontFamily:"'Pretendard','Inter',sans-serif"}}>#{i+1}</span>
               <span style={{fontSize:10,padding:"2px 8px",borderRadius:99,background:tc+"18",color:tc,fontWeight:600}}>{r.tone}</span>
             </div>
-            <div style={{fontSize:17,fontWeight:700,lineHeight:1.5,color:"#EDEDF3",fontFamily:"'Noto Sans KR',sans-serif",letterSpacing:"-0.015em",paddingRight:60}}>{r.ko}</div>
-            {r.sub&&<div style={{fontSize:13,color:"#9CA3AF",marginTop:6,lineHeight:1.5}}>{r.sub}</div>}
-            {r.en&&<div style={{fontSize:12,color:"#5A5A72",marginTop:4,fontStyle:"italic"}}>{r.en}</div>}
-            {r.note&&<div style={{fontSize:11,color:"#4A4A60",marginTop:8}}>{r.note}</div>}
-            <button onClick={()=>{navigator.clipboard.writeText(r.ko+(r.sub?"\n"+r.sub:""));setCopiedIdx(i);setTimeout(()=>setCopiedIdx(null),1200)}} style={{position:"absolute",top:14,right:14,border:"none",background:copiedIdx===i?"#10B981":"#1A1A24",color:copiedIdx===i?"#fff":"#7E7E96",borderRadius:6,padding:"4px 12px",fontSize:11,cursor:"pointer",fontWeight:600}}>{copiedIdx===i?"✓ Copied":"Copy"}</button>
+            <div style={{fontSize:17,fontWeight:700,lineHeight:1.5,color:"#1A1A1A",fontFamily:"'Noto Sans KR',sans-serif",letterSpacing:"-0.015em",paddingRight:60}}>{r.ko}</div>
+            {r.sub&&<div style={{fontSize:13,color:"#6B7280",marginTop:6,lineHeight:1.5}}>{r.sub}</div>}
+            {r.en&&<div style={{fontSize:12,color:"#9CA3AF",marginTop:4,fontStyle:"italic"}}>{r.en}</div>}
+            {r.note&&<div style={{fontSize:11,color:"#9CA3AF",marginTop:8}}>{r.note}</div>}
+            <button onClick={()=>{navigator.clipboard.writeText(r.ko+(r.sub?"\n"+r.sub:""));setCopiedIdx(i);setTimeout(()=>setCopiedIdx(null),1200)}} style={{position:"absolute",top:14,right:14,border:"none",background:copiedIdx===i?"#10B981":"#E2E4E8",color:copiedIdx===i?"#fff":"#7E7E96",borderRadius:6,padding:"4px 12px",fontSize:11,cursor:"pointer",fontWeight:600}}>{copiedIdx===i?"✓ Copied":"Copy"}</button>
           </div>
         )})}
       </div>
@@ -737,7 +737,7 @@ Keep ALL values short. Return ONLY valid JSON array.`;
   </div>);
 }
 
-function Card({item,lv}){const[cp,setCp]=useState(false);const fc=item.f==="TO-BE aligned"?"#10B981":item.f==="AS-IS legacy"?"#EF4444":"#6B7280";return(<div style={{background:"#111118",borderRadius:10,padding:"14px 18px",borderLeft:`4px solid ${lv.color}`,position:"relative",transition:"transform 0.12s,box-shadow 0.12s"}} onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-1px)";e.currentTarget.style.boxShadow="0 6px 20px rgba(0,0,0,0.18)"}} onMouseLeave={e=>{e.currentTarget.style.transform="";e.currentTarget.style.boxShadow=""}}>{item.k&&<span style={{position:"absolute",top:10,right:52,fontSize:9,padding:"2px 7px",borderRadius:99,background:"#F59E0B20",color:"#F59E0B",fontWeight:700}}>★ KEY</span>}<div style={{fontSize:16,fontWeight:item.k?700:500,lineHeight:1.55,color:"#EDEDF3",fontFamily:"'Noto Sans KR',sans-serif",letterSpacing:"-0.015em",paddingRight:60}}>{item.ko}</div>{item.en&&<div style={{fontSize:12.5,color:"#7E7E96",marginTop:5,fontStyle:"italic",lineHeight:1.4}}>{item.en}</div>}<div style={{display:"flex",flexWrap:"wrap",gap:5,marginTop:10,alignItems:"center"}}><span style={{fontSize:10,padding:"2px 7px",borderRadius:99,background:lv.color+"18",color:lv.color,fontWeight:600}}>{lv.id}. {lv.label}</span>{item.g&&<span style={{fontSize:10,padding:"2px 7px",borderRadius:99,background:"#F3F4F612",color:"#9CA3AF"}}>{FEAT_TAGS.find(t=>t.tag===item.g)?.label}</span>}<span style={{fontSize:10,padding:"2px 7px",borderRadius:99,background:fc+"14",color:fc,fontWeight:600}}>{item.f}</span><span style={{fontSize:10,color:"#4A4A60",marginLeft:"auto"}}>{item.s}</span></div><button onClick={()=>{navigator.clipboard.writeText(item.ko);setCp(true);setTimeout(()=>setCp(false),1000)}} style={{position:"absolute",top:10,right:10,border:"none",background:cp?"#10B981":"#1A1A24",color:cp?"#fff":"#7E7E96",borderRadius:6,padding:"3px 9px",fontSize:10,cursor:"pointer",fontWeight:600}}>{cp?"✓":"Copy"}</button></div>)}
+function Card({item,lv}){const[cp,setCp]=useState(false);const fc=item.f==="TO-BE aligned"?"#10B981":item.f==="AS-IS legacy"?"#EF4444":"#6B7280";return(<div style={{background:"#FFFFFF",borderRadius:10,padding:"14px 18px",borderLeft:`4px solid ${lv.color}`,position:"relative",transition:"transform 0.12s,box-shadow 0.12s"}} onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-1px)";e.currentTarget.style.boxShadow="0 6px 20px rgba(0,0,0,0.18)"}} onMouseLeave={e=>{e.currentTarget.style.transform="";e.currentTarget.style.boxShadow=""}}>{item.k&&<span style={{position:"absolute",top:10,right:52,fontSize:9,padding:"2px 7px",borderRadius:99,background:"#F59E0B20",color:"#F59E0B",fontWeight:700}}>★ KEY</span>}<div style={{fontSize:16,fontWeight:item.k?700:500,lineHeight:1.55,color:"#1A1A1A",fontFamily:"'Noto Sans KR',sans-serif",letterSpacing:"-0.015em",paddingRight:60}}>{item.ko}</div>{item.en&&<div style={{fontSize:12.5,color:"#6B7280",marginTop:5,fontStyle:"italic",lineHeight:1.4}}>{item.en}</div>}<div style={{display:"flex",flexWrap:"wrap",gap:5,marginTop:10,alignItems:"center"}}><span style={{fontSize:10,padding:"2px 7px",borderRadius:99,background:lv.color+"18",color:lv.color,fontWeight:600}}>{lv.id}. {lv.label}</span>{item.g&&<span style={{fontSize:10,padding:"2px 7px",borderRadius:99,background:"#F3F4F612",color:"#6B7280"}}>{FEAT_TAGS.find(t=>t.tag===item.g)?.label}</span>}<span style={{fontSize:10,padding:"2px 7px",borderRadius:99,background:fc+"14",color:fc,fontWeight:600}}>{item.f}</span><span style={{fontSize:10,color:"#9CA3AF",marginLeft:"auto"}}>{item.s}</span></div><button onClick={()=>{navigator.clipboard.writeText(item.ko);setCp(true);setTimeout(()=>setCp(false),1000)}} style={{position:"absolute",top:10,right:10,border:"none",background:cp?"#10B981":"#E2E4E8",color:cp?"#fff":"#7E7E96",borderRadius:6,padding:"3px 9px",fontSize:10,cursor:"pointer",fontWeight:600}}>{cp?"✓":"Copy"}</button></div>)}
 
 export default function App(){const[sel,setSel]=useState("All");const[subSel,setSubSel]=useState(null);const[featTag,setFeatTag]=useState(null);const[fit,setFit]=useState("All");const[q,setQ]=useState("");const[ch,setCh]=useState(null);const[view,setView]=useState("warehouse");const[keyOnly,setKeyOnly]=useState(false);
 const[gk,setGk]=useState(()=>{try{return localStorage.getItem("gk")||""}catch{return""}});
@@ -752,69 +752,69 @@ const featCounts=useMemo(()=>{const c={};D.filter(d=>d.sub==="RTB-Features").for
 const showFeatTags=subSel==="RTB-Features";
 const handleLevelClick=(id)=>{if(sel===id){setSel("All");setSubSel(null);setFeatTag(null)}else{setSel(id);setSubSel(null);setFeatTag(null)}};
 
-return(<div style={{minHeight:"100vh",background:"#08080D",color:"#EDEDF3",fontFamily:"'DM Sans','Noto Sans KR',sans-serif"}}>
-<style>{`@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,500;9..40,700&family=Noto+Sans+KR:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');*{box-sizing:border-box;margin:0;padding:0}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#252535;border-radius:99px}`}</style>
+return(<div style={{minHeight:"100vh",background:"#F8F9FB",color:"#1A1A1A",fontFamily:"'Pretendard','Noto Sans KR',sans-serif"}}>
+<style>{`@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css');@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap');*{box-sizing:border-box;margin:0;padding:0}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#D1D5DB;border-radius:99px}`}</style>
 
-<div style={{padding:"24px 32px 18px",borderBottom:"1px solid #1A1A24"}}>
-<div style={{display:"flex",alignItems:"center",gap:10}}><span style={{fontSize:24}}>🏭</span><h1 style={{fontSize:20,fontWeight:700,letterSpacing:"-0.03em",fontFamily:"'Space Mono',monospace"}}>Speak KR Copy Warehouse</h1><span style={{fontSize:9,padding:"2px 8px",borderRadius:99,background:"#6366F1",color:"#fff",fontWeight:700}}>v8</span></div>
-<p style={{color:"#7E7E96",fontSize:12,marginTop:5}}>7-level hierarchy · {D.length} copies · Brand: 나를 끌어주는 영어 앱</p>
-<div style={{display:"flex",gap:3,marginTop:14,background:"#111118",borderRadius:8,padding:2,width:"fit-content"}}>
-{[["warehouse","📦 Warehouse"],["factory","🏭 Factory"],["evaluate","✅ Evaluate"],["channels","📡 Channels"],["map","📐 Hierarchy"]].map(([v,lb])=>(<button key={v} onClick={()=>{setView(v);if(v!=="warehouse")setCh(null)}} style={{padding:"6px 16px",borderRadius:6,border:"none",background:view===v?"#6366F1":"transparent",color:view===v?"#fff":"#7E7E96",fontSize:11,fontWeight:600,cursor:"pointer"}}>{lb}</button>))}
+<div style={{padding:"24px 32px 18px",borderBottom:"1px solid #E2E4E8"}}>
+<div style={{display:"flex",alignItems:"center",gap:10}}><span style={{fontSize:24}}>🏭</span><h1 style={{fontSize:20,fontWeight:700,letterSpacing:"-0.03em",fontFamily:"'Pretendard','Inter',sans-serif"}}>Speak KR Copy Warehouse</h1><span style={{fontSize:9,padding:"2px 8px",borderRadius:99,background:"#1C49FF",color:"#fff",fontWeight:700}}>v9</span></div>
+<p style={{color:"#6B7280",fontSize:12,marginTop:5}}>7-level hierarchy · {D.length} copies · Brand: 나를 끌어주는 영어 앱</p>
+<div style={{display:"flex",gap:3,marginTop:14,background:"#FFFFFF",borderRadius:8,padding:2,width:"fit-content"}}>
+{[["warehouse","📦 Warehouse"],["factory","🏭 Factory"],["evaluate","✅ Evaluate"],["channels","📡 Channels"],["map","📐 Hierarchy"]].map(([v,lb])=>(<button key={v} onClick={()=>{setView(v);if(v!=="warehouse")setCh(null)}} style={{padding:"6px 16px",borderRadius:6,border:"none",background:view===v?"#1C49FF":"transparent",color:view===v?"#fff":"#7E7E96",fontSize:11,fontWeight:600,cursor:"pointer"}}>{lb}</button>))}
 <button onClick={()=>setShowKey(!showKey)} style={{padding:"6px 12px",borderRadius:6,border:"none",background:gk?"#10B98120":"#F59E0B20",color:gk?"#10B981":"#F59E0B",fontSize:11,fontWeight:600,cursor:"pointer",marginLeft:8}}>{gk?"🔑 Key ✓":"🔑 Set Key"}</button>
 </div>
 {showKey&&<div style={{marginTop:10,display:"flex",gap:6,alignItems:"center"}}>
-<input value={gk} onChange={e=>saveGk(e.target.value)} placeholder="Gemini API Key (aistudio.google.com에서 무료 발급)" style={{flex:1,maxWidth:400,padding:"6px 10px",borderRadius:6,border:"1px solid #1A1A24",background:"#0D0D14",color:"#EDEDF3",fontSize:11,outline:"none",fontFamily:"'Space Mono',monospace"}}/>
-<span style={{fontSize:10,color:"#5A5A72"}}>Factory/Evaluate용 · <a href="https://aistudio.google.com" target="_blank" style={{color:"#A5B4FC"}}>무료 발급</a></span>
+<input value={gk} onChange={e=>saveGk(e.target.value)} placeholder="Gemini API Key (aistudio.google.com에서 무료 발급)" style={{flex:1,maxWidth:400,padding:"6px 10px",borderRadius:6,border:"1px solid #E2E4E8",background:"#F0F1F3",color:"#1A1A1A",fontSize:11,outline:"none",fontFamily:"'Pretendard','Inter',sans-serif"}}/>
+<span style={{fontSize:10,color:"#9CA3AF"}}>Factory/Evaluate용 · <a href="https://aistudio.google.com" target="_blank" style={{color:"#5B7AFF"}}>무료 발급</a></span>
 </div>}
 </div>
 
-{view==="map"&&<div style={{padding:"28px 32px",maxWidth:860}}>{LEVELS.map((l,i)=>{const keys=D.filter(d=>d.l===l.id&&d.k);return(<div key={l.id} style={{display:"flex",gap:14,marginBottom:4}}><div style={{width:36,display:"flex",flexDirection:"column",alignItems:"center"}}><div style={{width:28,height:28,borderRadius:99,background:l.color,display:"flex",alignItems:"center",justifyContent:"center",color:"#fff",fontSize:12,fontWeight:700,fontFamily:"'Space Mono'"}}>{l.id}</div>{i<LEVELS.length-1&&<div style={{width:2,flex:1,background:"#1A1A24",marginTop:2}}/>}</div><div style={{flex:1,background:"#111118",borderRadius:10,padding:"14px 18px",marginBottom:8,borderLeft:`3px solid ${l.color}`}}><div style={{display:"flex",alignItems:"center",gap:8,marginBottom:3}}><span style={{fontSize:14,fontWeight:700,color:l.color}}>{l.label}</span><span style={{fontSize:10,color:"#4A4A60",marginLeft:"auto"}}>{totalCounts[l.id]}</span></div><div style={{fontSize:11,color:"#7E7E96"}}>{l.desc}</div>{l.subs&&<div style={{display:"flex",flexWrap:"wrap",gap:4,marginTop:8}}>{l.subs.map(s=><span key={s.id} style={{fontSize:9,padding:"2px 7px",borderRadius:99,background:l.color+"15",color:l.color,fontWeight:500}}>{s.label} ({subCounts[s.tag]||0})</span>)}</div>}{keys.map((kc,ki)=>(<div key={ki} style={{display:"flex",alignItems:"center",gap:6,marginTop:6,paddingTop:ki===0?8:0,borderTop:ki===0?"1px solid #1A1A24":"none"}}><span style={{fontSize:8,padding:"1px 5px",borderRadius:99,background:"#F59E0B20",color:"#F59E0B",fontWeight:700}}>★</span><span style={{fontSize:13,fontWeight:600,fontFamily:"'Noto Sans KR'"}}>{kc.ko}</span></div>))}</div></div>)})}</div>}
+{view==="map"&&<div style={{padding:"28px 32px",maxWidth:860}}>{LEVELS.map((l,i)=>{const keys=D.filter(d=>d.l===l.id&&d.k);return(<div key={l.id} style={{display:"flex",gap:14,marginBottom:4}}><div style={{width:36,display:"flex",flexDirection:"column",alignItems:"center"}}><div style={{width:28,height:28,borderRadius:99,background:l.color,display:"flex",alignItems:"center",justifyContent:"center",color:"#fff",fontSize:12,fontWeight:700,fontFamily:"'Pretendard','Inter'"}}>{l.id}</div>{i<LEVELS.length-1&&<div style={{width:2,flex:1,background:"#E8E9ED",marginTop:2}}/>}</div><div style={{flex:1,background:"#FFFFFF",borderRadius:10,padding:"14px 18px",marginBottom:8,borderLeft:`3px solid ${l.color}`}}><div style={{display:"flex",alignItems:"center",gap:8,marginBottom:3}}><span style={{fontSize:14,fontWeight:700,color:l.color}}>{l.label}</span><span style={{fontSize:10,color:"#9CA3AF",marginLeft:"auto"}}>{totalCounts[l.id]}</span></div><div style={{fontSize:11,color:"#6B7280"}}>{l.desc}</div>{l.subs&&<div style={{display:"flex",flexWrap:"wrap",gap:4,marginTop:8}}>{l.subs.map(s=><span key={s.id} style={{fontSize:9,padding:"2px 7px",borderRadius:99,background:l.color+"15",color:l.color,fontWeight:500}}>{s.label} ({subCounts[s.tag]||0})</span>)}</div>}{keys.map((kc,ki)=>(<div key={ki} style={{display:"flex",alignItems:"center",gap:6,marginTop:6,paddingTop:ki===0?8:0,borderTop:ki===0?"1px solid #E2E4E8":"none"}}><span style={{fontSize:8,padding:"1px 5px",borderRadius:99,background:"#F59E0B20",color:"#F59E0B",fontWeight:700}}>★</span><span style={{fontSize:13,fontWeight:600,fontFamily:"'Noto Sans KR'"}}>{kc.ko}</span></div>))}</div></div>)})}</div>}
 
 {view==="factory"&&<Factory copies={D} gk={gk}/>}
 
 {view==="evaluate"&&<Evaluator gk={gk}/>}
 
-{view==="channels"&&<div style={{padding:"28px 32px"}}><div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))",gap:12}}>{CHANNELS.map(c=>(<div key={c.name} onClick={()=>{setCh(c.name);setView("warehouse")}} style={{background:"#111118",borderRadius:10,padding:16,cursor:"pointer",border:"1px solid #1A1A24",transition:"border-color 0.12s"}} onMouseEnter={e=>e.currentTarget.style.borderColor="#6366F1"} onMouseLeave={e=>e.currentTarget.style.borderColor="#1A1A24"}><div style={{fontSize:14,fontWeight:700,marginBottom:4}}>{c.name}</div><div style={{fontSize:11,color:"#7E7E96",marginBottom:10}}>{c.desc}</div><div style={{display:"flex",flexWrap:"wrap",gap:4}}>{c.levels.map(lid=>{const lv=LEVELS.find(x=>x.id===lid);return<span key={lid} style={{fontSize:9,padding:"2px 7px",borderRadius:99,background:lv.color+"20",color:lv.color,fontWeight:600}}>{lid}. {lv.label}</span>})}</div></div>))}</div></div>}
+{view==="channels"&&<div style={{padding:"28px 32px"}}><div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))",gap:12}}>{CHANNELS.map(c=>(<div key={c.name} onClick={()=>{setCh(c.name);setView("warehouse")}} style={{background:"#FFFFFF",borderRadius:10,padding:16,cursor:"pointer",border:"1px solid #E2E4E8",transition:"border-color 0.12s"}} onMouseEnter={e=>e.currentTarget.style.borderColor="#1C49FF"} onMouseLeave={e=>e.currentTarget.style.borderColor="#E2E4E8"}><div style={{fontSize:14,fontWeight:700,marginBottom:4}}>{c.name}</div><div style={{fontSize:11,color:"#6B7280",marginBottom:10}}>{c.desc}</div><div style={{display:"flex",flexWrap:"wrap",gap:4}}>{c.levels.map(lid=>{const lv=LEVELS.find(x=>x.id===lid);return<span key={lid} style={{fontSize:9,padding:"2px 7px",borderRadius:99,background:lv.color+"20",color:lv.color,fontWeight:600}}>{lid}. {lv.label}</span>})}</div></div>))}</div></div>}
 
 {view==="warehouse"&&<div style={{display:"flex",minHeight:"calc(100vh - 120px)"}}>
-<div style={{width:280,borderRight:"1px solid #1A1A24",padding:"16px 14px",flexShrink:0,overflowY:"auto"}}>
-<input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search..." style={{width:"100%",padding:"8px 11px",borderRadius:7,border:"1px solid #1A1A24",background:"#111118",color:"#EDEDF3",fontSize:12,outline:"none",marginBottom:10}}/>
-<button onClick={()=>setKeyOnly(!keyOnly)} style={{width:"100%",padding:"7px 11px",borderRadius:7,border:`1px solid ${keyOnly?"#F59E0B55":"#1A1A24"}`,background:keyOnly?"#F59E0B12":"transparent",color:keyOnly?"#F59E0B":"#7E7E96",fontSize:11,fontWeight:600,cursor:"pointer",marginBottom:12}}>★ Key Copies Only</button>
-{ch&&<div style={{marginBottom:12,padding:"7px 11px",background:"#6366F112",borderRadius:7,border:"1px solid #6366F133"}}><div style={{fontSize:10,color:"#6366F1",fontWeight:600}}>Channel: {ch}</div><button onClick={()=>setCh(null)} style={{fontSize:10,color:"#6366F1",background:"none",border:"none",cursor:"pointer",textDecoration:"underline",marginTop:2}}>Clear</button></div>}
-<div style={{fontSize:9,fontWeight:700,color:"#4A4A60",textTransform:"uppercase",letterSpacing:"0.1em",marginBottom:8}}>Message Hierarchy</div>
-<button onClick={()=>{setSel("All");setSubSel(null);setFeatTag(null)}} style={{display:"flex",alignItems:"center",width:"100%",padding:"8px 11px",borderRadius:7,border:sel==="All"?"1px solid #6366F144":"1px solid transparent",background:sel==="All"?"#6366F112":"transparent",color:sel==="All"?"#A5B4FC":"#7E7E96",fontSize:12,fontWeight:600,cursor:"pointer",marginBottom:6}}>All Levels<span style={{marginLeft:"auto",fontSize:11,fontFamily:"'Space Mono'",color:"#4A4A60"}}>{data.length}</span></button>
+<div style={{width:280,borderRight:"1px solid #E2E4E8",padding:"16px 14px",flexShrink:0,overflowY:"auto"}}>
+<input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search..." style={{width:"100%",padding:"8px 11px",borderRadius:7,border:"1px solid #E2E4E8",background:"#FFFFFF",color:"#1A1A1A",fontSize:12,outline:"none",marginBottom:10}}/>
+<button onClick={()=>setKeyOnly(!keyOnly)} style={{width:"100%",padding:"7px 11px",borderRadius:7,border:`1px solid ${keyOnly?"#F59E0B55":"#E2E4E8"}`,background:keyOnly?"#F59E0B12":"transparent",color:keyOnly?"#F59E0B":"#7E7E96",fontSize:11,fontWeight:600,cursor:"pointer",marginBottom:12}}>★ Key Copies Only</button>
+{ch&&<div style={{marginBottom:12,padding:"7px 11px",background:"#1C49FF12",borderRadius:7,border:"1px solid #1C49FF33"}}><div style={{fontSize:10,color:"#1C49FF",fontWeight:600}}>Channel: {ch}</div><button onClick={()=>setCh(null)} style={{fontSize:10,color:"#1C49FF",background:"none",border:"none",cursor:"pointer",textDecoration:"underline",marginTop:2}}>Clear</button></div>}
+<div style={{fontSize:9,fontWeight:700,color:"#9CA3AF",textTransform:"uppercase",letterSpacing:"0.1em",marginBottom:8}}>Message Hierarchy</div>
+<button onClick={()=>{setSel("All");setSubSel(null);setFeatTag(null)}} style={{display:"flex",alignItems:"center",width:"100%",padding:"8px 11px",borderRadius:7,border:sel==="All"?"1px solid #1C49FF44":"1px solid transparent",background:sel==="All"?"#1C49FF12":"transparent",color:sel==="All"?"#5B7AFF":"#7E7E96",fontSize:12,fontWeight:600,cursor:"pointer",marginBottom:6}}>All Levels<span style={{marginLeft:"auto",fontSize:11,fontFamily:"'Pretendard','Inter'",color:"#9CA3AF"}}>{data.length}</span></button>
 
 {LEVELS.map(l=>{const active=sel===l.id;const expanded=active&&l.subs;return(<div key={l.id} style={{marginBottom:4}}>
-<button onClick={()=>handleLevelClick(l.id)} style={{display:"flex",alignItems:"flex-start",gap:10,width:"100%",textAlign:"left",padding:"10px 11px",borderRadius:8,border:active?`1px solid ${l.color}44`:"1px solid transparent",background:active?l.color+"10":"#0D0D14",cursor:"pointer",transition:"all 0.12s"}} onMouseEnter={e=>{if(!active)e.currentTarget.style.background="#111118"}} onMouseLeave={e=>{if(!active)e.currentTarget.style.background="#0D0D14"}}>
-<div style={{width:24,height:24,borderRadius:6,background:active?l.color:l.color+"25",display:"flex",alignItems:"center",justifyContent:"center",color:active?"#fff":l.color,fontSize:11,fontWeight:700,fontFamily:"'Space Mono'",flexShrink:0,marginTop:1}}>{l.id}</div>
-<div style={{flex:1,minWidth:0}}><div style={{fontSize:12,fontWeight:600,color:active?l.color:"#EDEDF3"}}>{l.label}</div><div style={{fontSize:10,color:"#5A5A72",marginTop:1}}>{l.desc}</div></div>
-<span style={{fontSize:11,color:active?l.color:"#4A4A60",fontFamily:"'Space Mono'",fontWeight:600,flexShrink:0,marginTop:2}}>{counts[l.id]||0}</span></button>
+<button onClick={()=>handleLevelClick(l.id)} style={{display:"flex",alignItems:"flex-start",gap:10,width:"100%",textAlign:"left",padding:"10px 11px",borderRadius:8,border:active?`1px solid ${l.color}44`:"1px solid transparent",background:active?l.color+"10":"#F0F1F3",cursor:"pointer",transition:"all 0.12s"}} onMouseEnter={e=>{if(!active)e.currentTarget.style.background="#E8E9ED"}} onMouseLeave={e=>{if(!active)e.currentTarget.style.background="#F0F1F3"}}>
+<div style={{width:24,height:24,borderRadius:6,background:active?l.color:l.color+"25",display:"flex",alignItems:"center",justifyContent:"center",color:active?"#fff":l.color,fontSize:11,fontWeight:700,fontFamily:"'Pretendard','Inter'",flexShrink:0,marginTop:1}}>{l.id}</div>
+<div style={{flex:1,minWidth:0}}><div style={{fontSize:12,fontWeight:600,color:active?l.color:"#1A1A1A"}}>{l.label}</div><div style={{fontSize:10,color:"#9CA3AF",marginTop:1}}>{l.desc}</div></div>
+<span style={{fontSize:11,color:active?l.color:"#9CA3AF",fontFamily:"'Pretendard','Inter'",fontWeight:600,flexShrink:0,marginTop:2}}>{counts[l.id]||0}</span></button>
 {expanded&&<div style={{marginLeft:20,marginTop:4,marginBottom:4,paddingLeft:14,borderLeft:`2px solid ${l.color}30`}}>
-<button onClick={()=>{setSubSel(null);setFeatTag(null)}} style={{display:"flex",alignItems:"center",width:"100%",padding:"5px 10px",borderRadius:5,border:"none",background:!subSel?l.color+"15":"transparent",color:!subSel?l.color:"#5A5A72",fontSize:11,fontWeight:!subSel?600:400,cursor:"pointer",marginBottom:2}}>All {l.label}<span style={{marginLeft:"auto",fontSize:10,fontFamily:"'Space Mono'"}}>{counts[l.id]||0}</span></button>
-{l.subs.map(s=>{const sa=subSel===s.tag;return(<button key={s.id} onClick={()=>{setSubSel(sa?null:s.tag);setFeatTag(null)}} style={{display:"flex",alignItems:"center",width:"100%",padding:"5px 10px",borderRadius:5,border:"none",background:sa?l.color+"15":"transparent",color:sa?l.color:"#5A5A72",fontSize:11,fontWeight:sa?600:400,cursor:"pointer",marginBottom:2}}>{s.label}<span style={{marginLeft:"auto",fontSize:10,fontFamily:"'Space Mono'"}}>{filteredSubCounts[s.tag]||0}</span></button>)})}
+<button onClick={()=>{setSubSel(null);setFeatTag(null)}} style={{display:"flex",alignItems:"center",width:"100%",padding:"5px 10px",borderRadius:5,border:"none",background:!subSel?l.color+"15":"transparent",color:!subSel?l.color:"#9CA3AF",fontSize:11,fontWeight:!subSel?600:400,cursor:"pointer",marginBottom:2}}>All {l.label}<span style={{marginLeft:"auto",fontSize:10,fontFamily:"'Pretendard','Inter'"}}>{counts[l.id]||0}</span></button>
+{l.subs.map(s=>{const sa=subSel===s.tag;return(<button key={s.id} onClick={()=>{setSubSel(sa?null:s.tag);setFeatTag(null)}} style={{display:"flex",alignItems:"center",width:"100%",padding:"5px 10px",borderRadius:5,border:"none",background:sa?l.color+"15":"transparent",color:sa?l.color:"#9CA3AF",fontSize:11,fontWeight:sa?600:400,cursor:"pointer",marginBottom:2}}>{s.label}<span style={{marginLeft:"auto",fontSize:10,fontFamily:"'Pretendard','Inter'"}}>{filteredSubCounts[s.tag]||0}</span></button>)})}
 </div>}</div>)})}
 
-<div style={{marginTop:16,paddingTop:12,borderTop:"1px solid #1A1A24"}}>
-<div style={{fontSize:9,fontWeight:700,color:"#4A4A60",textTransform:"uppercase",letterSpacing:"0.1em",marginBottom:6}}>Positioning Fit</div>
-{FIT_TAGS.map(f=>(<button key={f} onClick={()=>setFit(fit===f?"All":f)} style={{display:"block",width:"100%",textAlign:"left",padding:"4px 10px",borderRadius:5,border:"none",background:fit===f?"#6366F115":"transparent",color:fit===f?(f==="AS-IS legacy"?"#EF4444":"#A5B4FC"):"#5A5A72",fontSize:11,cursor:"pointer",marginBottom:1}}>{f==="AS-IS legacy"?"⚠️ ":""}{f}</button>))}
+<div style={{marginTop:16,paddingTop:12,borderTop:"1px solid #E2E4E8"}}>
+<div style={{fontSize:9,fontWeight:700,color:"#9CA3AF",textTransform:"uppercase",letterSpacing:"0.1em",marginBottom:6}}>Positioning Fit</div>
+{FIT_TAGS.map(f=>(<button key={f} onClick={()=>setFit(fit===f?"All":f)} style={{display:"block",width:"100%",textAlign:"left",padding:"4px 10px",borderRadius:5,border:"none",background:fit===f?"#1C49FF15":"transparent",color:fit===f?(f==="AS-IS legacy"?"#EF4444":"#5B7AFF"):"#5A5A72",fontSize:11,cursor:"pointer",marginBottom:1}}>{f==="AS-IS legacy"?"⚠️ ":""}{f}</button>))}
 </div></div>
 
 <div style={{flex:1,padding:"16px 24px",overflowY:"auto"}}>
-<div style={{fontSize:12,color:"#7E7E96",marginBottom:showFeatTags?10:14}}>
+<div style={{fontSize:12,color:"#6B7280",marginBottom:showFeatTags?10:14}}>
 {data.length} {data.length===1?"copy":"copies"}
-{ch&&<> in <strong style={{color:"#A5B4FC"}}>{ch}</strong></>}
+{ch&&<> in <strong style={{color:"#5B7AFF"}}>{ch}</strong></>}
 {keyOnly&&<> · <span style={{color:"#F59E0B"}}>★ Key only</span></>}
 {sel!=="All"&&<> · <span style={{color:LEVELS.find(l=>l.id===sel)?.color}}>{LEVELS.find(l=>l.id===sel)?.label}</span></>}
-{subSel&&<> → <span style={{color:"#9CA3AF"}}>{LEVELS.flatMap(l=>l.subs||[]).find(s=>s.tag===subSel)?.label}</span></>}
+{subSel&&<> → <span style={{color:"#6B7280"}}>{LEVELS.flatMap(l=>l.subs||[]).find(s=>s.tag===subSel)?.label}</span></>}
 {featTag&&<> → <span style={{color:"#06B6D4"}}>{FEAT_TAGS.find(t=>t.tag===featTag)?.label}</span></>}
 </div>
 
-{showFeatTags&&<div style={{display:"flex",flexWrap:"wrap",gap:6,marginBottom:16,padding:"12px 14px",background:"#0D0D14",borderRadius:10,border:"1px solid #1A1A24"}}>
-<button onClick={()=>setFeatTag(null)} style={{padding:"5px 12px",borderRadius:99,border:"none",background:!featTag?"#06B6D4":"#1A1A24",color:!featTag?"#fff":"#7E7E96",fontSize:11,fontWeight:600,cursor:"pointer"}}>All</button>
-{FEAT_TAGS.map(ft=>{const c=featCounts[ft.tag]||0;const a=featTag===ft.tag;return(<button key={ft.tag} onClick={()=>setFeatTag(a?null:ft.tag)} style={{padding:"5px 12px",borderRadius:99,border:"none",background:a?"#06B6D4":"#1A1A24",color:a?"#fff":"#7E7E96",fontSize:11,fontWeight:a?600:400,cursor:"pointer"}}>{ft.label} ({c})</button>)})}
+{showFeatTags&&<div style={{display:"flex",flexWrap:"wrap",gap:6,marginBottom:16,padding:"12px 14px",background:"#F0F1F3",borderRadius:10,border:"1px solid #E2E4E8"}}>
+<button onClick={()=>setFeatTag(null)} style={{padding:"5px 12px",borderRadius:99,border:"none",background:!featTag?"#06B6D4":"#E2E4E8",color:!featTag?"#fff":"#7E7E96",fontSize:11,fontWeight:600,cursor:"pointer"}}>All</button>
+{FEAT_TAGS.map(ft=>{const c=featCounts[ft.tag]||0;const a=featTag===ft.tag;return(<button key={ft.tag} onClick={()=>setFeatTag(a?null:ft.tag)} style={{padding:"5px 12px",borderRadius:99,border:"none",background:a?"#06B6D4":"#E2E4E8",color:a?"#fff":"#7E7E96",fontSize:11,fontWeight:a?600:400,cursor:"pointer"}}>{ft.label} ({c})</button>)})}
 </div>}
 
 <div style={{display:"flex",flexDirection:"column",gap:8}}>
-{data.length===0?<div style={{textAlign:"center",padding:50,color:"#4A4A60"}}><div style={{fontSize:32,marginBottom:8}}>🔍</div>No copies match</div>:data.map((item,i)=><Card key={i} item={item} lv={LEVELS.find(l=>l.id===item.l)}/>)}
+{data.length===0?<div style={{textAlign:"center",padding:50,color:"#9CA3AF"}}><div style={{fontSize:32,marginBottom:8}}>🔍</div>No copies match</div>:data.map((item,i)=><Card key={i} item={item} lv={LEVELS.find(l=>l.id===item.l)}/>)}
 </div></div></div>}
 </div>)}
