@@ -297,11 +297,17 @@ function Evaluator(){
     if(!input.trim())return;
     setLoading(true);setError(null);setResult(null);
     try{
-      const res=await fetch("/api/claude",{
+      const GEMINI_KEY="AIzaSyBrUTwqcAWSf0hSk2bLHLzO7Rr0o3n0JVQ";
+      const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`,{
         method:"POST",headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({system:EVAL_PROMPT,prompt:`Evaluate this Korean marketing copy for Speak:\n\n"${input}"`})      });
+        body:JSON.stringify({
+          system_instruction:{parts:[{text:EVAL_PROMPT}]},
+          contents:[{parts:[{text:`Evaluate this Korean marketing copy for Speak:\n\n"${input}"`}]}],
+          generationConfig:{temperature:0.7,maxOutputTokens:2000,responseMimeType:"application/json"}
+        })
+      });
       const data=await res.json();
-      const text=data.content?.map(b=>b.type==="text"?b.text:"").join("")||"";
+      const text=data.candidates?.[0]?.content?.parts?.[0]?.text||"";
       const clean=text.replace(/```json|```/g,"").trim();
       setResult(JSON.parse(clean));
     }catch(e){setError("Evaluation failed: "+e.message)}
@@ -636,12 +642,17 @@ Generate 5-10 Korean copy options. Vary from safest to boldest. Each must:
 Return ONLY a JSON array of 5-10 options.`;
 
     try{
-      const res=await fetch("/api/claude",{
+      const GEMINI_KEY="AIzaSyBrUTwqcAWSf0hSk2bLHLzO7Rr0o3n0JVQ";
+      const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`,{
         method:"POST",headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({system:SYSTEM_PROMPT,prompt:userMsg})
+        body:JSON.stringify({
+          system_instruction:{parts:[{text:SYSTEM_PROMPT}]},
+          contents:[{parts:[{text:userMsg}]}],
+          generationConfig:{temperature:0.7,maxOutputTokens:4000,responseMimeType:"application/json"}
+        })
       });
       const data=await res.json();
-      const text=data.content?.map(b=>b.type==="text"?b.text:"").join("")||"";
+      const text=data.candidates?.[0]?.content?.parts?.[0]?.text||"";
       const clean=text.replace(/```json|```/g,"").trim();
       const parsed=JSON.parse(clean);
       setResults(parsed);
