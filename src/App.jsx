@@ -763,37 +763,73 @@ return(<div style={{minHeight:"100vh",background:"#F8F9FB",color:"#1A1A1A",fontF
 
 
 
-{view==="about"&&<div style={{padding:"40px 32px",maxWidth:720}}>
-<h2 style={{fontSize:28,fontWeight:700,fontFamily:"'Pretendard','Inter'",marginBottom:6,color:"#1A1A1A"}}>Speak Copy OS</h2>
-<p style={{fontSize:14,color:"#6B7280",marginBottom:32}}>A centralized copy system for Speak's marketing team.</p>
+{view==="about"&&<div style={{padding:"48px 40px",maxWidth:720,margin:"0 auto"}}>
 
-<div style={{background:"#FFFFFF",borderRadius:12,padding:"24px 28px",marginBottom:16,border:"1px solid #E2E4E8"}}>
-<h3 style={{fontSize:15,fontWeight:700,color:"#1C49FF",marginBottom:10}}>Why</h3>
-<p style={{fontSize:14,color:"#374151",lineHeight:1.7}}>
-Every new campaign used to start from scratch. Proven copy, brand positioning, and USPs lived in people's heads or scattered docs. Copy OS turns Speak's entire messaging history into a single, searchable system — so the team can find, reuse, and build on what already works.
+<h2 style={{fontSize:32,fontWeight:700,fontFamily:"'Pretendard','Inter'",marginBottom:10,color:"#1A1A1A",letterSpacing:"-0.02em"}}>Speak Copy OS</h2>
+<p style={{fontSize:16,color:"#6B7280",lineHeight:1.6,marginBottom:48}}>A centralized copy system for Speak\'s marketing team.</p>
+
+<div style={{marginBottom:40}}>
+<h3 style={{fontSize:18,fontWeight:700,color:"#1C49FF",marginBottom:16}}>Why</h3>
+<p style={{fontSize:15,color:"#374151",lineHeight:1.9}}>
+Every new campaign used to start from scratch.
+</p>
+<p style={{fontSize:15,color:"#374151",lineHeight:1.9,marginTop:12}}>
+Proven copy, brand positioning, and USPs lived in people\'s heads or scattered docs.
+</p>
+<p style={{fontSize:15,color:"#374151",lineHeight:1.9,marginTop:12}}>
+Copy OS turns Speak\'s entire messaging history into a single, searchable system — so the team can find, reuse, and build on what already works.
 </p>
 </div>
 
-<div style={{background:"#FFFFFF",borderRadius:12,padding:"24px 28px",marginBottom:16,border:"1px solid #E2E4E8"}}>
-<h3 style={{fontSize:15,fontWeight:700,color:"#1C49FF",marginBottom:10}}>How it was built</h3>
-<p style={{fontSize:14,color:"#374151",lineHeight:1.7}}>
-We collected every existing message across all channels — website, app store, landing pages, paid ads, CRM, social, press kit — and classified them into a 7-level message hierarchy: Vision → Philosophy → Definition → USP → Targeting → RTB → CTA. 170+ copies, each tagged with source, English translation, and positioning fit.
+<div style={{width:"100%",height:1,background:"#E2E4E8",marginBottom:40}}/>
+
+<div style={{marginBottom:40}}>
+<h3 style={{fontSize:18,fontWeight:700,color:"#1C49FF",marginBottom:16}}>How it was built</h3>
+<p style={{fontSize:15,color:"#374151",lineHeight:1.9}}>
+We collected every existing message across all channels — website, app store, landing pages, paid ads, CRM, social, and press kit.
+</p>
+<p style={{fontSize:15,color:"#374151",lineHeight:1.9,marginTop:12}}>
+Then classified them into a 7-level message hierarchy:
+</p>
+<p style={{fontSize:14,color:"#1C49FF",lineHeight:1.9,marginTop:12,padding:"14px 20px",background:"#F0F4FF",borderRadius:10,fontWeight:500}}>
+Vision → Philosophy → Definition → USP → Targeting → RTB → CTA
+</p>
+<p style={{fontSize:15,color:"#374151",lineHeight:1.9,marginTop:12}}>
+170+ copies — each tagged with source, English translation, and positioning fit.
 </p>
 </div>
 
-<div style={{background:"#FFFFFF",borderRadius:12,padding:"24px 28px",marginBottom:16,border:"1px solid #E2E4E8"}}>
-<h3 style={{fontSize:15,fontWeight:700,color:"#1C49FF",marginBottom:10}}>How to use</h3>
-<div style={{fontSize:14,color:"#374151",lineHeight:1.7}}>
-<p><strong>📦 Warehouse</strong> — Search and browse all existing copy by hierarchy level, keyword, or positioning fit.</p>
-<p style={{marginTop:8}}><strong>🏭 Factory</strong> — Generate new on-brand copy. Pick a channel, message angle(s), and target audience — AI creates options grounded in the warehouse.</p>
-<p style={{marginTop:8}}><strong>📡 Channels</strong> — See which hierarchy levels apply to each marketing channel.</p>
-<p style={{marginTop:8}}><strong>📐 Hierarchy</strong> — Visual map of the full 7-level message structure with key copies.</p>
+<div style={{width:"100%",height:1,background:"#E2E4E8",marginBottom:40}}/>
+
+<div style={{marginBottom:40}}>
+<h3 style={{fontSize:18,fontWeight:700,color:"#1C49FF",marginBottom:20}}>How to use</h3>
+
+<div style={{marginBottom:20}}>
+<p style={{fontSize:15,fontWeight:600,color:"#1A1A1A",marginBottom:6}}>📦 Warehouse</p>
+<p style={{fontSize:14,color:"#6B7280",lineHeight:1.7,paddingLeft:28}}>Search and browse all existing copy by hierarchy level, keyword, or positioning fit.</p>
+</div>
+
+<div style={{marginBottom:20}}>
+<p style={{fontSize:15,fontWeight:600,color:"#1A1A1A",marginBottom:6}}>🏭 Factory</p>
+<p style={{fontSize:14,color:"#6B7280",lineHeight:1.7,paddingLeft:28}}>Generate new on-brand copy.<br/>Pick a channel, message angle(s), and target audience — AI creates options grounded in the warehouse.</p>
+</div>
+
+<div style={{marginBottom:20}}>
+<p style={{fontSize:15,fontWeight:600,color:"#1A1A1A",marginBottom:6}}>📡 Channels</p>
+<p style={{fontSize:14,color:"#6B7280",lineHeight:1.7,paddingLeft:28}}>See which hierarchy levels apply to each marketing channel.</p>
+</div>
+
+<div style={{marginBottom:20}}>
+<p style={{fontSize:15,fontWeight:600,color:"#1A1A1A",marginBottom:6}}>📐 Hierarchy</p>
+<p style={{fontSize:14,color:"#6B7280",lineHeight:1.7,paddingLeft:28}}>Visual map of the full 7-level message structure with key copies.</p>
 </div>
 </div>
 
-<div style={{padding:"16px 0",fontSize:13,color:"#9CA3AF"}}>
+<div style={{width:"100%",height:1,background:"#E2E4E8",marginBottom:24}}/>
+
+<p style={{fontSize:13,color:"#9CA3AF",lineHeight:1.6}}>
 Speak Marketing Team · AI Hackathon 2026
-</div>
+</p>
 </div>}
 
 {view==="channels"&&<div style={{padding:"28px 32px"}}><div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))",gap:12}}>{CHANNELS.map(c=>(<div key={c.name} onClick={()=>{setCh(c.name);setView("warehouse")}} style={{background:"#FFFFFF",borderRadius:10,padding:16,cursor:"pointer",border:"1px solid #E2E4E8",transition:"border-color 0.12s"}} onMouseEnter={e=>e.currentTarget.style.borderColor="#1C49FF"} onMouseLeave={e=>e.currentTarget.style.borderColor="#E2E4E8"}><div style={{fontSize:14,fontWeight:700,marginBottom:4}}>{c.name}</div><div style={{fontSize:11,color:"#6B7280",marginBottom:10}}>{c.desc}</div><div style={{display:"flex",flexWrap:"wrap",gap:4}}>{c.levels.map(lid=>{const lv=LEVELS.find(x=>x.id===lid);return<span key={lid} style={{fontSize:9,padding:"2px 7px",borderRadius:99,background:lv.color+"20",color:lv.color,fontWeight:600}}>{lid}. {lv.label}</span>})}</div></div>))}</div></div>}
