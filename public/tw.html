@@ -17,7 +17,7 @@ button,select,input,textarea{font-family:inherit}
 .logo small{font-family:'DM Mono',monospace;font-size:10px;color:var(--tx3);font-style:normal}
 .nav-tabs{display:flex;gap:2px;flex:1}
 .ntab{padding:6px 15px;border-radius:6px;font-size:12px;font-weight:500;color:var(--tx2);transition:all .15s;border:none;background:transparent;display:flex;align-items:center;gap:6px;white-space:nowrap;cursor:pointer}
-.ntab:hover{background:var(--s3);color:var(--tx)}.ntab.active{background:rgba(28,73,255,.15);color:#1C49FF}
+.ntab:hover{background:var(--s3);color:var(--tx)}.ntab.active{background:rgba(28,73,255,.15);color:var(--ach)}
 .tnum{background:var(--s3);border-radius:10px;padding:1px 6px;font-family:'DM Mono',monospace;font-size:9px;color:var(--tx3)}
 .nav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
 .uitoggle{display:flex;background:var(--s2);border-radius:6px;padding:2px;border:1px solid var(--bd)}
@@ -30,7 +30,7 @@ button,select,input,textarea{font-family:inherit}
 .sidebar.vis{display:block}
 .sbg{padding:11px 12px 3px;font-family:'DM Mono',monospace;font-size:8.5px;color:var(--tx3);letter-spacing:1.5px;text-transform:uppercase;margin-top:6px}
 .si{display:flex;align-items:center;gap:6px;padding:5px 13px;border-left:2px solid transparent;font-size:12px;color:var(--tx2);transition:all .12s;cursor:pointer}
-.si:hover{background:var(--s2);color:var(--tx)}.si.on{background:rgba(28,73,255,.08);border-left-color:var(--acc);color:#1C49FF}
+.si:hover{background:var(--s2);color:var(--tx)}.si.on{background:rgba(28,73,255,.08);border-left-color:var(--acc);color:var(--ach)}
 .scnt{margin-left:auto;font-family:'DM Mono',monospace;font-size:9px;color:var(--tx3)}
 .content{flex:1;overflow-y:auto}
 .panel{display:none;padding:22px}.panel.active{display:block}
@@ -45,7 +45,7 @@ button,select,input,textarea{font-family:inherit}
 .ri.ok::before{content:'✓';color:var(--gr);font-size:10px;left:2px}
 .ri.no::before{content:'✕';color:var(--rd);font-size:10px;left:2px}
 .chip{padding:3px 10px;border-radius:20px;border:1px solid var(--bd);font-size:10px;color:var(--tx2);white-space:nowrap;transition:all .12s;cursor:pointer;background:transparent}
-.chip:hover{border-color:var(--acc);color:#1C49FF}.chip.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.chip:hover{border-color:var(--acc);color:var(--ach)}.chip.on{background:var(--acc);border-color:var(--acc);color:#fff}
 .ltb{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap}
 .sbox{position:relative;flex:1;min-width:180px}
 .sbox svg{position:absolute;left:9px;top:50%;transform:translateY(-50%);width:12px;height:12px;color:var(--tx3);pointer-events:none}
@@ -70,7 +70,7 @@ button,select,input,textarea{font-family:inherit}
 .tag-Meta{background:rgba(59,130,246,.1);color:#60a5fa;border-color:rgba(59,130,246,.2)}
 .tag-TikTok{background:rgba(244,63,94,.08);color:#fb7185;border-color:rgba(244,63,94,.15)}
 .tag-Google{background:rgba(16,185,129,.08);color:#34d399;border-color:rgba(16,185,129,.15)}
-.tag-AppStore{background:rgba(28,73,255,.1);color:#1C49FF;border-color:rgba(99,102,241,.2)}
+.tag-AppStore{background:rgba(28,73,255,.1);color:var(--ach);border-color:rgba(99,102,241,.2)}
 .tag-IGOrganic{background:rgba(167,139,250,.08);color:var(--pu);border-color:rgba(167,139,250,.15)}
 .tag-Web{background:rgba(245,158,11,.08);color:#fbbf24;border-color:rgba(245,158,11,.15)}
 .tag-CRM{background:rgba(16,185,129,.08);color:var(--gr);border-color:rgba(16,185,129,.15)}
@@ -97,7 +97,7 @@ mark{background:rgba(28,73,255,.28);color:inherit;border-radius:2px}
 .mwhat{font-size:11px;color:var(--tx2);line-height:1.5;margin-bottom:7px;padding:6px 9px;background:var(--s2);border-radius:5px;border-left:2px solid var(--acc)}
 .mtags{display:flex;gap:3px;flex-wrap:wrap}
 .mt{font-size:9px;padding:2px 6px;border-radius:3px;font-family:'DM Mono',monospace;border:1px solid;white-space:nowrap}
-.mt-a{background:rgba(28,73,255,.08);color:#1C49FF;border-color:rgba(99,102,241,.17)}
+.mt-a{background:rgba(28,73,255,.08);color:var(--ach);border-color:rgba(99,102,241,.17)}
 .mt-h{background:rgba(245,158,11,.07);color:#fbbf24;border-color:rgba(245,158,11,.14)}
 .mt-m{background:rgba(16,185,129,.06);color:var(--gr);border-color:rgba(16,185,129,.12)}
 .mt-f{background:rgba(244,63,94,.06);color:#f87171;border-color:rgba(244,63,94,.12)}
@@ -113,7 +113,7 @@ mark{background:rgba(28,73,255,.28);color:inherit;border-radius:2px}
 .fsel:focus,.ftxt:focus{border-color:var(--acc)}.ftxt{resize:vertical;min-height:60px;line-height:1.6}
 .mchips{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
 .mc2{padding:3px 8px;border-radius:4px;border:1px solid var(--bd);font-size:10px;color:var(--tx2);transition:all .12s;background:transparent;cursor:pointer}
-.mc2:hover{border-color:var(--acc);color:#1C49FF}.mc2.on{background:rgba(28,73,255,.14);border-color:var(--acc);color:#1C49FF}
+.mc2:hover{border-color:var(--acc);color:var(--ach)}.mc2.on{background:rgba(28,73,255,.14);border-color:var(--acc);color:var(--ach)}
 .base-wrap{background:var(--s2);border:1px solid var(--bd);border-radius:6px;overflow:hidden;margin-top:5px}
 .base-hdr{display:flex;align-items:center;justify-content:space-between;padding:6px 9px 4px;border-bottom:1px solid var(--bd)}
 .base-lbl{font-size:9px;font-family:'DM Mono',monospace;color:var(--tx3);text-transform:uppercase;letter-spacing:.5px}
@@ -129,7 +129,7 @@ mark{background:rgba(28,73,255,.28);color:inherit;border-radius:2px}
 .rhleft{display:flex;flex-direction:column;gap:3px}
 .rbadge{font-size:10px;font-weight:700;padding:3px 9px;border-radius:4px;font-family:'DM Mono',monospace}
 .rca .rbadge{background:rgba(16,185,129,.1);color:var(--gr);border:1px solid rgba(16,185,129,.2)}
-.rcb .rbadge{background:rgba(28,73,255,.1);color:#1C49FF;border:1px solid rgba(99,102,241,.2)}
+.rcb .rbadge{background:rgba(28,73,255,.1);color:var(--ach);border:1px solid rgba(99,102,241,.2)}
 .rcc .rbadge{background:rgba(245,158,11,.1);color:var(--yl);border:1px solid rgba(245,158,11,.2)}
 .rcd .rbadge{background:rgba(244,63,94,.08);color:var(--rd);border:1px solid rgba(244,63,94,.15)}
 .rce .rbadge{background:rgba(167,139,250,.08);color:var(--pu);border:1px solid rgba(167,139,250,.15)}
@@ -138,7 +138,7 @@ mark{background:rgba(28,73,255,.28);color:inherit;border-radius:2px}
 .racts{display:flex;gap:4px;align-items:center;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
 .ract{padding:3px 9px;border-radius:4px;border:1px solid var(--bd);background:transparent;font-size:10px;color:var(--tx2);cursor:pointer;transition:all .12s}
 .ract:hover{background:var(--s3);color:var(--tx)}.ract.starred{color:var(--star);border-color:var(--star)}
-.regen-btn{padding:2px 7px;border-radius:4px;border:1px solid rgba(99,102,241,.3);background:rgba(28,73,255,.07);font-size:9px;color:#1C49FF;cursor:pointer;transition:all .12s;font-family:'DM Mono',monospace;font-weight:600}
+.regen-btn{padding:2px 7px;border-radius:4px;border:1px solid rgba(99,102,241,.3);background:rgba(28,73,255,.07);font-size:9px;color:var(--ach);cursor:pointer;transition:all .12s;font-family:'DM Mono',monospace;font-weight:600}
 .regen-btn:hover{background:rgba(28,73,255,.15)}
 .rbody{padding:13px 15px}
 .csec{margin-bottom:11px}.csec:last-child{margin-bottom:0}
@@ -164,7 +164,7 @@ mark{background:rgba(28,73,255,.28);color:inherit;border-radius:2px}
 .rgpicker-title{font-size:9px;font-family:'DM Mono',monospace;color:var(--tx3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px}
 .rgpicker-opt{padding:8px 10px;border-radius:5px;cursor:pointer;background:var(--s2);margin-bottom:4px;border:1px solid var(--bd);transition:border-color .12s}
 .rgpicker-opt:hover{border-color:var(--acc)}
-.rgpicker-angle{font-size:9px;font-family:'DM Mono',monospace;color:#1C49FF;margin-bottom:2px}
+.rgpicker-angle{font-size:9px;font-family:'DM Mono',monospace;color:var(--ach);margin-bottom:2px}
 .rgpicker-text{font-size:12px;color:var(--tx);line-height:1.55;white-space:pre-wrap}
 .toast{position:fixed;bottom:18px;right:18px;background:var(--gr);color:#000;padding:7px 14px;border-radius:7px;font-size:11px;font-weight:700;font-family:'DM Mono',monospace;transform:translateY(50px);opacity:0;transition:all .2s;z-index:999}
 .toast.show{transform:translateY(0);opacity:1}
@@ -234,7 +234,7 @@ mark{background:rgba(28,73,255,.28);color:inherit;border-radius:2px}
   <div style="font-size:12px;color:var(--tx);font-style:italic;margin-bottom:8px;padding:7px 10px;background:var(--s2);border-radius:5px;border-left:2px solid var(--acc)">"像走在你前面的嚮導，拉你前進。"</div>
   <div class="ri"><strong>Confident</strong> — 直接陳述，讓數據說話</div>
   <div class="ri"><strong>Innovative</strong> — AI 服務成果，不為 AI 而 AI</div>
-  <div class="ri"><strong style="color:#1C49FF">Authentic ★</strong> — 不誇大、不過度承諾</div>
+  <div class="ri"><strong style="color:var(--ach)">Authentic ★</strong> — 不誇大、不過度承諾</div>
   <div class="ri"><strong>Witty</strong> — 讓人會心一笑，真實才有力度</div>
 </div>
 <div class="card">
@@ -329,10 +329,7 @@ mark{background:rgba(28,73,255,.28);color:inherit;border-radius:2px}
   <div class="bform">
     <div class="btitle">✨ AI 文案生成器</div>
     <div class="bsub">填 brief → 生成完整廣告組合。貼入基礎版本，AI 會從多個角度生成變體。</div>
-    <div class="fsec" style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:6px;padding:9px 11px;margin-bottom:14px">
-      <div class="flabel" style="color:var(--yl)">🔑 Anthropic API Key <span class="fhint" style="color:var(--tx3)">stored in memory only</span></div>
-      <input type="password" class="sinput" id="api-key" placeholder="sk-ant-..." style="padding-left:9px;margin-top:4px">
-    </div>
+
     <div class="fsec">
       <div class="flabel"><span class="i18n" data-zh="投放版位" data-en="Placement">投放版位</span> <span class="fhint">* required</span></div>
       <select class="fsel" id="g-surf">
@@ -700,7 +697,7 @@ async function doGen(){
   var sys='You are CopyOS TW, Speak Taiwan copywriter.\nSpeak = AI English speaking app. Tagline: 讓英文一切好說. Persona: Honest x Witty guide.\nDO NOT: "fluent in 30 days", generic phrases, gamification jargon, ALL CAPS, emoji stuffing, shame marketing.\nTW: learners have foundation but cannot speak. Empowerment over anxiety.\nChannel: '+(specs[surf]||surf)+'\nAd image copy (imageText): complete visual hierarchy — main headline (4-8 chars) + subtitle (8-15 chars) + CTA text, separated by real newlines.\n'+(hasBase?'BASE MODE: given base copy. Output 5-6 variants from different angles (audience, hook, theme, tone, format, feature).':'STANDARD MODE: Output 3 options A(safest), B(Authentic+Witty), C(Bold).')+'\nOutput ONLY valid JSON array. Each object must have all keys: {"label":"","angle":"","tone":"","attribute":"","primaryText":"","headline":"","imageText":"","cta":"","note":"","flag":""}\nNo text before or after the JSON array.';
   var usr='Channel: '+surf+'\nAudience: '+(audMap[aud]||'general')+'\nAngle: '+(angle||'unspecified')+'\nFeature: '+(fMap[feature]||'none')+'\nHook strategy: '+(curHook||'unspecified')+'\nFormat: '+(curFmt||'unspecified')+(extra?'\nExtra: '+extra:'')+(hasBase?'\nBase copy: "'+base+'"\nOutput 5-6 variants.':'\nOutput 3 options.')+'\nTraditional Chinese. JSON array only.';
   try{
-    var r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true','x-api-key':(document.getElementById('api-key').value||'')},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2500,system:sys,messages:[{role:'user',content:usr}]})});
+    var r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2500,system:sys,messages:[{role:'user',content:usr}]})});
     var data=await r.json();
     var raw=(data.content||[]).map(function(b){return b.text||'';}).join('');
     var opts;try{var m=raw.match(/\[[\s\S]*\]/);opts=JSON.parse(m?m[0]:raw);}catch(e){opts=null;}
@@ -724,7 +721,7 @@ function renderResults(opts,surf){
     html+='<span class="rbadge">'+esc(o.label||'Variant '+(ci+1))+'</span>';
     html+='<span class="rangle">'+esc(o.angle||o.tone||'')+'</span>';
     html+='</div><div class="racts">';
-    html+='<span style="font-size:9px;padding:2px 7px;border-radius:3px;background:rgba(28,73,255,.1);color:#1C49FF;border:1px solid rgba(99,102,241,.2);font-family:\'DM Mono\',monospace">'+esc(o.attribute||'')+'</span>';
+    html+='<span style="font-size:9px;padding:2px 7px;border-radius:3px;background:rgba(28,73,255,.1);color:var(--ach);border:1px solid rgba(99,102,241,.2);font-family:\'DM Mono\',monospace">'+esc(o.attribute||'')+'</span>';
     html+='<button class="ract" data-raction="copy-all" data-ci="'+ci+'">⎘</button>';
     html+='<button class="ract" data-raction="star-result" data-ri="'+ci+'">⭐</button>';
     html+='</div></div><div class="rbody">';
@@ -758,7 +755,7 @@ async function regenField(btn,ci,field,ri,surf){
   var sys='You are CopyOS TW. Regenerate only the "'+field+'" field for a Speak ad on "'+surf+'". Return ONLY a JSON array of 3 objects: [{"angle":"2-3 words","text":"new copy"},...]  No other text.';
   var usr='Current '+field+': "'+currentText+'"\nGenerate 3 alternatives in Traditional Chinese. JSON array only.';
   try{
-    var r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true','x-api-key':(document.getElementById('api-key').value||'')},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:600,system:sys,messages:[{role:'user',content:usr}]})});
+    var r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:600,system:sys,messages:[{role:'user',content:usr}]})});
     var data=await r.json();var raw=(data.content||[]).map(function(b){return b.text||'';}).join('');
     var opts;try{var m=raw.match(/\[[\s\S]*\]/);opts=JSON.parse(m?m[0]:raw);}catch(e){opts=null;}
     if(opts&&Array.isArray(opts))showRegenPicker(btn,ci,field,opts);else toast('⚠️ Regen failed');
