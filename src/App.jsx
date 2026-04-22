@@ -20,9 +20,25 @@ const LEVELS = [
   ]},
 ];
 
-const FEAT_TAGS = [
-  {tag:"feat-freetalk",label:"AI Free Talk"},{tag:"feat-tutor",label:"AI Tutor"},{tag:"feat-mylesson",label:"My Lesson"},{tag:"feat-smartreview",label:"Smart Review"},{tag:"feat-pronunciation",label:"Pronunciation Coach"},{tag:"feat-personalization",label:"Personalization"},{tag:"feat-3step",label:"3-Step Method"},{tag:"feat-curriculum",label:"Curriculum"},{tag:"feat-tracking",label:"Level Tracking"},{tag:"feat-circular",label:"Circular Learning"},{tag:"feat-gamification",label:"Gamification"},{tag:"feat-b2b",label:"B2B (S4B)"},
+const RTB_TAGS = [
+  // Features (기능)
+  {cat:"feature",tag:"feat-freetalk",label:"AI Free Talk"},
+  {cat:"feature",tag:"feat-tutor",label:"AI Tutor"},
+  {cat:"feature",tag:"feat-mylesson",label:"My Lesson"},
+  {cat:"feature",tag:"feat-smartreview",label:"Smart Review"},
+  {cat:"feature",tag:"feat-pronunciation",label:"Pronunciation Coach"},
+  {cat:"feature",tag:"feat-personalization",label:"Personalization"},
+  {cat:"feature",tag:"feat-3step",label:"3-Step Method"},
+  {cat:"feature",tag:"feat-curriculum",label:"Curriculum"},
+  // RTB categories
+  {cat:"tech",tag:"RTB-Tech",label:"🔬 기술력 (음성인식, AI)"},
+  {cat:"reviews",tag:"RTB-Reviews",label:"💬 사용자 후기"},
+  {cat:"awards",tag:"RTB-Awards",label:"🏆 수상/권위"},
+  {cat:"scale",tag:"RTB-Scale",label:"📊 규모/숫자"},
+  {cat:"team",tag:"RTB-Team",label:"👨‍🔬 팀/연구진"},
+  {cat:"price",tag:"RTB-Price",label:"💰 가격/프로모"},
 ];
+const FEAT_TAGS = RTB_TAGS;
 
 const FIT_TAGS = ["All","TO-BE aligned","Universal","AS-IS legacy"];
 const CHANNELS = [
@@ -255,6 +271,43 @@ const D=[
 {l:"7",sub:"CTA-Trial",g:null,ko:"오늘 첫 수업 무료",en:"First lesson free today",s:"Copy OS Generated",f:"Universal",k:false,ch:"generated",promo:true,tone:"neutral"},
 {l:"7",sub:"CTA-Channel",g:null,ko:"영어, 오늘부터 시작 →",en:"English, starting today →",s:"Copy OS Generated",f:"Universal",k:false,ch:"generated",promo:false,tone:"neutral"},
 {l:"7",sub:"CTA-Channel",g:null,ko:"3분이면 첫 수업 끝",en:"First lesson done in 3 min",s:"Copy OS Generated",f:"Universal",k:false,ch:"generated",promo:false,tone:"neutral"},
+,
+
+// === RTB EXPANSION: Tech, Reviews, Price, Awards, Scale, Team ===
+// --- RTB-Tech (기술력) ---
+{l:"6",sub:"RTB-Tech",g:null,ko:"음소 단위 발음 분석으로 원어민과의 차이를 정확히 짚어줍니다",en:"Phoneme-level pronunciation analysis pinpoints exact differences from native speech",s:"Copy OS Generated",f:"TO-BE aligned",k:true,ch:"generated",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Tech",g:null,ko:"0.1초 안에 음성을 인식하고 실시간 피드백을 제공합니다",en:"Recognizes speech in 0.1 seconds with real-time feedback",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Tech",g:null,ko:"GPT-4 기반 AI 튜터가 당신의 대화를 분석하고 맞춤 커리큘럼을 생성합니다",en:"GPT-4 based AI tutor analyzes your conversation and creates personalized curriculum",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Tech",g:null,ko:"93% 이상의 음성 인식 정확도로 발음을 실시간 교정",en:"Real-time pronunciation correction with 93%+ speech recognition accuracy",s:"Copy OS Generated",f:"TO-BE aligned",k:true,ch:"generated",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Tech",g:null,ko:"간격 반복 알고리즘이 당신이 까먹기 직전에 복습시켜줍니다",en:"Spaced repetition algorithm reviews right before you forget",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+// --- RTB-Reviews (사용자 후기) ---
+{l:"6",sub:"RTB-Reviews",g:null,ko:"출근길 10분씩 했더니 한 달 만에 회의에서 한마디 했어요 — 직장인 K",en:"10 min on commute, spoke in meeting after a month — Worker K",s:"Copy OS Generated",f:"TO-BE aligned",k:true,ch:"generated",promo:false,tone:"casual"},
+{l:"6",sub:"RTB-Reviews",g:null,ko:"AI랑 대화하는 느낌이라 부담이 없어요. 선생님 앞에선 못 했는데 — 대학생 P",en:"No pressure talking to AI. Couldn't before a teacher — Student P",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"casual"},
+{l:"6",sub:"RTB-Reviews",g:null,ko:"여행 가기 전에 2주 했는데, 공항에서 안 떨렸어요 — 여행러 M",en:"2 weeks before trip, wasn't nervous at airport — Traveler M",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"casual"},
+{l:"6",sub:"RTB-Reviews",g:null,ko:"애가 옆에서 보더니 자기도 하겠다고 해요 — 학부모 J",en:"My kid watched and wants to try too — Parent J",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"casual"},
+{l:"6",sub:"RTB-Reviews",g:null,ko:"6개월 했더니 넷플릭스 자막 없이 60% 알아들어요 — 자기계발러 S",en:"After 6 months, 60% Netflix without subs — Growth-seeker S",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"casual"},
+{l:"6",sub:"RTB-Reviews",g:null,ko:"OPIc IH 받았어요. 스픽 없었으면 불가능했을 거예요 — 취준생 L",en:"Got OPIc IH. Wouldn't have been possible without Speak — Job seeker L",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"casual"},
+{l:"6",sub:"RTB-Reviews",g:null,ko:"해외 살면서 처음으로 이웃이랑 대화했어요 — 이민 2년차 H",en:"First time talking to my neighbor abroad — 2-year immigrant H",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"casual"},
+// --- RTB-Awards (수상/권위) ---
+{l:"6",sub:"RTB-Awards",g:null,ko:"Forbes AI 50 선정",en:"Forbes AI 50",s:"Copy OS Generated",f:"Universal",k:true,ch:"generated",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Awards",g:null,ko:"App Store 올해의 앱 수상",en:"App Store App of the Year",s:"Copy OS Generated",f:"Universal",k:true,ch:"generated",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Awards",g:null,ko:"Fast Company 가장 혁신적인 AI 기업 선정",en:"Fast Company Most Innovative AI Company",s:"Copy OS Generated",f:"Universal",k:false,ch:"generated",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Awards",g:null,ko:"OpenAI 1조 토큰 파트너십",en:"OpenAI 1 Trillion Token Partnership",s:"Copy OS Generated",f:"Universal",k:false,ch:"generated",promo:false,tone:"formal"},
+// --- RTB-Scale (규모/숫자) ---
+{l:"6",sub:"RTB-Scale",g:null,ko:"전 세계 1,500만 다운로드",en:"15 million downloads worldwide",s:"Copy OS Generated",f:"Universal",k:true,ch:"generated",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Scale",g:null,ko:"하루 평균 100문장 이상 스피킹 연습",en:"Average 100+ sentences of speaking practice per day",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Scale",g:null,ko:"구독 30일 후 50% 이상 활성 유지율",en:"50%+ active retention rate after 30 days",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Scale",g:null,ko:"App Store 평점 4.7 / 리뷰 10만+",en:"App Store 4.7 rating / 100K+ reviews",s:"Copy OS Generated",f:"Universal",k:true,ch:"generated",promo:false,tone:"neutral"},
+// --- RTB-Team (팀/권위) ---
+{l:"6",sub:"RTB-Team",g:null,ko:"하버드·MIT 출신 연구진이 개발",en:"Developed by Harvard and MIT researchers",s:"Copy OS Generated",f:"Universal",k:true,ch:"generated",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Team",g:null,ko:"실리콘밸리 AI 스타트업, OpenAI 기술 제휴",en:"Silicon Valley AI startup, OpenAI technology partnership",s:"Copy OS Generated",f:"Universal",k:false,ch:"generated",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Team",g:null,ko:"언어학 박사 + AI 엔지니어가 함께 설계한 커리큘럼",en:"Curriculum designed by linguistics PhDs + AI engineers",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"formal"},
+// --- RTB-Price (가격/프로모) ---
+{l:"6",sub:"RTB-Price",g:null,ko:"프리미엄 월 10,750원 — 커피 한 잔 값",en:"Premium ₩10,750/mo — price of one coffee",s:"Copy OS Generated",f:"Universal",k:true,ch:"generated",promo:true,tone:"direct"},
+{l:"6",sub:"RTB-Price",g:null,ko:"7일 무료 체험 — 부담 없이 시작",en:"7-day free trial — start with no pressure",s:"Copy OS Generated",f:"Universal",k:true,ch:"generated",promo:true,tone:"direct"},
+{l:"6",sub:"RTB-Price",g:null,ko:"영어 학원 한 달 vs 스픽 1년. 선택은 쉽다.",en:"One month of English class vs one year of Speak. Easy choice.",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:true,tone:"direct"},
+{l:"6",sub:"RTB-Price",g:null,ko:"지금 가입하면 연간 요금제 최대 60% 할인",en:"Sign up now for up to 60% off annual plan",s:"Copy OS Generated",f:"Universal",k:false,ch:"generated",promo:true,tone:"direct"},
+{l:"6",sub:"RTB-Price",g:null,ko:"하루 358원으로 무제한 AI 영어 회화",en:"Unlimited AI English conversation for ₩358/day",s:"Copy OS Generated",f:"Universal",k:false,ch:"generated",promo:true,tone:"direct"},
 ];
 
 const EVAL_PROMPT = `You are Speak's Brand Copy Evaluator. You evaluate Korean marketing copy against Speak's brand guidelines.
@@ -612,7 +665,7 @@ function krBrandCheck(t) {
 
 // KR Copy generation — logic-based, no API needed
 function krGenerateCopy(brief, copies) {
-  const { audience, persona, intent, channel, format, promo, pain, feature } = brief;
+  const { audience, persona, intent, channel, format, promo, pain, feature, rtbTags: selectedRtbs = [] } = brief;
   
   const audTag = audience.replace("Career / Business","T-Career").replace("Travel","T-Travel")
     .replace("Growth","T-Growth").replace("Life Overseas","T-Overseas")
@@ -721,11 +774,17 @@ function krGenerateCopy(brief, copies) {
   // Audience + feature
   const targetLines = byLevelSub("5", audTag);
   const allTargets = targetLines.length ? targetLines : byLevel("5");
-  const selectedFeat = feature ? copies.filter(c => c.g === feature) : [];
+  // ★ RTB TAGS: pull from ALL selected RTB categories
+  const selectedRtbCopies = selectedRtbs.length > 0 
+    ? copies.filter(c => selectedRtbs.includes(c.g) || selectedRtbs.includes(c.sub))
+    : [];
   const allFeat = byLevelSub("6","RTB-Features");
-  const featLines = selectedFeat.length ? selectedFeat : allFeat;
-  const reviews = byLevelSub("6","RTB-Reviews");
-  const prices = byLevelSub("6","RTB-Price");
+  const featLines = selectedRtbCopies.length ? selectedRtbCopies : allFeat;
+  const reviews = selectedRtbs.includes("RTB-Reviews") ? byLevelSub("6","RTB-Reviews") : byLevelSub("6","RTB-Reviews");
+  const techLines = selectedRtbs.includes("RTB-Tech") ? byLevelSub("6","RTB-Tech") : byLevelSub("6","RTB-Tech");
+  const awardLines = selectedRtbs.includes("RTB-Awards") ? byLevelSub("6","RTB-Awards") : byLevelSub("6","RTB-Awards");
+  const scaleLines = selectedRtbs.includes("RTB-Scale") ? byLevelSub("6","RTB-Scale") : byLevelSub("6","RTB-Scale");
+  const teamLines = selectedRtbs.includes("RTB-Team") ? byLevelSub("6","RTB-Team") : byLevelSub("6","RTB-Team");
   const dataLines = byLevelSub("6","RTB-Tech").concat(byLevelSub("6","RTB-Scale"));
   const usps = byLevel("4");
   const keyUsps = usps.filter(c => c.k);
@@ -1027,7 +1086,7 @@ function Factory({copies, gk}) {
   const [intent, setIntent] = useState("consideration");
   const [channel, setChannel] = useState("paid");
   const [format, setFormat] = useState("meta-static");
-  const [feature, setFeature] = useState("");
+  const [rtbTags, setRtbTags] = useState([]);
   const [promo, setPromo] = useState(false);
   const [pain, setPain] = useState("");
   const [generated, setGenerated] = useState(null);
@@ -1038,7 +1097,7 @@ function Factory({copies, gk}) {
   const personaList = KR_PERSONAS[audience] || [];
   const formatList = KR_CHANNEL_FORMATS[channel] || [];
   const audienceSubs = Object.keys(KR_PERSONAS);
-  const featureChoices = [{ tag: "", label: "— 없음 —" }, ...FEAT_TAGS];
+  // RTB_TAGS used directly in UI as multi-select checkboxes
 
   useEffect(() => {
     if (personaList.length && !personaList.find(p => p.id === persona)) setPersona(personaList[0].id);
@@ -1054,7 +1113,7 @@ function Factory({copies, gk}) {
   const [aiResults, setAiResults] = useState(null);
 
   const generate = () => {
-    const brief = { audience, persona, intent, channel, format, promo, pain: pain.trim(), feature };
+    const brief = { audience, persona, intent, channel, format, promo, pain: pain.trim(), feature: rtbTags.length === 1 ? rtbTags[0] : '', rtbTags };
     const variants = krGenerateCopy(brief, copies);
     setGenerated({ brief, variants, at: new Date().toISOString() });
     setAiResults(null);
@@ -1244,10 +1303,14 @@ JSON only, no other text.`;
 
           {/* Content options */}
           <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr", gap: 10, marginBottom: 14 }}>
-            <KR_FIELD label="Feature to highlight (optional)">
-              <select value={feature} onChange={e => setFeature(e.target.value)} style={krSelect}>
-                {featureChoices.map(f => <option key={f.tag} value={f.tag}>{f.label}</option>)}
-              </select>
+            <KR_FIELD label="RTB 강조 (복수 선택 가능)">
+              <div style={{display:"flex",flexWrap:"wrap",gap:4,maxHeight:120,overflowY:"auto",padding:"6px 0"}}>
+                {RTB_TAGS.map(t => {
+                  const on = rtbTags.includes(t.tag);
+                  return <button key={t.tag} onClick={() => setRtbTags(prev => on ? prev.filter(x=>x!==t.tag) : [...prev, t.tag])} style={{padding:"4px 10px",borderRadius:6,border:on?"1.5px solid #1C49FF":"1px solid #E2E4E8",background:on?"#1C49FF10":"#fff",color:on?"#1C49FF":"#374151",fontSize:11,cursor:"pointer",fontWeight:on?600:400,fontFamily:"'Pretendard'"}}>{t.label}</button>
+                })}
+              </div>
+              {rtbTags.length > 0 && <div style={{fontSize:10,color:"#1C49FF",marginTop:4}}>{rtbTags.length}개 선택됨</div>}
             </KR_FIELD>
             <KR_FIELD label="Promotional use">
               <label style={{ display: "flex", alignItems: "center", gap: 8, padding: "9px 12px", background: "#FFFFFF", border: "1px solid #E2E4E8", borderRadius: 6, cursor: "pointer" }}>
