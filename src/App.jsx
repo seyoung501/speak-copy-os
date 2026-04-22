@@ -789,11 +789,12 @@ function krGenerateCopy(brief, copies) {
   const usps = byLevel("4");
   const keyUsps = usps.filter(c => c.k);
   const ctas = byLevel("7");
+  const prices = byLevelSub("6","RTB-Price");
 
   // Smart picks
   const rTarget = rand(targetLines) || rand(allTargets);
   const rTarget2 = rand((targetLines.length > 1 ? targetLines : allTargets).filter(c => c !== rTarget)) || rTarget;
-  const rFeat = rand(selectedFeat) || rand(allFeat);
+  const rFeat = rand(selectedRtbCopies.length ? selectedRtbCopies : allFeat);
   const rFeat2 = rand(featLines.filter(c => c !== rFeat)) || rFeat;
   const rReview = rand(reviews);
   const rReview2 = rand(reviews.filter(c => c !== rReview)) || rReview;
@@ -834,7 +835,7 @@ function krGenerateCopy(brief, copies) {
     "T-General": "바쁜 일상에 5분, 영어 습관."
   };
 
-  const featLabel = feature ? (FEAT_TAGS.find(f => f.tag === feature)?.label || feature) : "";
+  const featLabel = selectedRtbs.length > 0 ? selectedRtbs.map(t => RTB_TAGS.find(r => r.tag === t)?.label || t).join(", ") : "";
   const intentLabel = intent === "awareness" ? "인지" : intent === "conversion" ? "전환" : "고려";
 
   // ============================================================
@@ -851,7 +852,7 @@ function krGenerateCopy(brief, copies) {
   v1h = effectivePain || rTarget?.ko || rUsp?.ko || "몇 년을 공부해도 말이 안 나온다면";
   v1s = intent === "conversion" ? (rReview?.ko || rPrice?.ko || "7일 무료로 직접 확인하세요.")
       : intent === "awareness" ? (rAware?.ko || "나를 끌어주는 영어 앱.")
-      : (feature && rFeat ? rFeat.ko : rUsp?.ko || "AI와 하루 100문장.");
+      : (selectedRtbs.length > 0 && rFeat ? rFeat.ko : rUsp?.ko || "AI와 하루 100문장.");
 
   // ARCHETYPE 2: Channel×Format-native (채널+포맷에 맞는 카피)
   const fmtId = formatObj?.id || "";
@@ -864,10 +865,10 @@ function krGenerateCopy(brief, copies) {
     } else if (fmtId === "naver") {
       // 네이버 검색광고: 키워드 중심
       v2h = "AI 영어 회화 앱 스픽 | 스피킹 특화";
-      v2s = feature && rFeat ? rFeat.ko : "하루 10분 AI 영어 회화 연습. 7일 무료.";
+      v2s = selectedRtbs.length > 0 && rFeat ? rFeat.ko : "하루 10분 AI 영어 회화 연습. 7일 무료.";
     } else {
       v2h = rTarget?.ko || effectivePain || "아직도 영어 말하기 두려워?";
-      v2s = feature && rFeat ? rFeat.ko : (rUsp?.ko || "지금 시작하면 달라져요.");
+      v2s = selectedRtbs.length > 0 && rFeat ? rFeat.ko : (rUsp?.ko || "지금 시작하면 달라져요.");
     }
   } else if (channel === "crm") {
     if (fmtId === "push" || fmtId === "push-title-body") {
@@ -881,7 +882,7 @@ function krGenerateCopy(brief, copies) {
     } else {
       // 카카오톡: 친구 톤
       v2h = personaObj?.pain ? personaObj.pain + " 😅" : "요즘 영어 공부 어떻게 하고 있어요?";
-      v2s = feature && rFeat ? rFeat.ko : "스픽 한번 써보세요. 진짜 달라요.";
+      v2s = selectedRtbs.length > 0 && rFeat ? rFeat.ko : "스픽 한번 써보세요. 진짜 달라요.";
     }
   } else if (channel === "social") {
     if (fmtId === "ig-story" || fmtId === "ig-reel") {
@@ -894,7 +895,7 @@ function krGenerateCopy(brief, copies) {
     } else {
       // IG 캡션: 공감+길게
       v2h = rTarget?.ko || "영어, 진짜 입에서 나오게 하는 법";
-      v2s = feature && rFeat ? rFeat.ko + " ✨" : "써본 사람만 아는 차이 ✨";
+      v2s = selectedRtbs.length > 0 && rFeat ? rFeat.ko + " ✨" : "써본 사람만 아는 차이 ✨";
     }
   } else if (channel === "influencer") {
     if (fmtId === "inf-hook") {
@@ -903,7 +904,7 @@ function krGenerateCopy(brief, copies) {
     } else if (fmtId === "inf-script") {
       // 전체 대본 30-60초: 도입(공감) → 전환(스픽) → 근거(기능/효과) → CTA
       const painLine = effectivePain || personaObj?.pain || "영어 학원 다녀봤는데 말이 안 되더라고요";
-      const featLine = feature && rFeat ? rFeat.ko : (rand(allFeat)?.ko || "AI 튜터가 실시간으로 피드백을 줘요");
+      const featLine = selectedRtbs.length > 0 && rFeat ? rFeat.ko : (rand(allFeat)?.ko || "AI 튜터가 실시간으로 피드백을 줘요");
       const reviewLine = rReview?.ko || "한 달 하니까 진짜 회의에서 한마디 했어요";
       const uspLine = rUsp?.ko || "스픽은 진짜 말하게 만들어요";
       v2h = "[도입] 솔직히 저도 " + painLine + ". 영어 공부 몇 번을 시작했다 포기했는지 모르겠어요.";
@@ -911,7 +912,7 @@ function krGenerateCopy(brief, copies) {
     } else {
       // 토킹포인트 3-4개
       const tpPain = effectivePain || personaObj?.pain || "영어 말하기가 어려운 이유";
-      const tpFeat = feature && rFeat ? rFeat.ko : (rand(allFeat)?.ko || "AI가 실시간 피드백");
+      const tpFeat = selectedRtbs.length > 0 && rFeat ? rFeat.ko : (rand(allFeat)?.ko || "AI가 실시간 피드백");
       const tpProof = rReview?.ko || rData?.ko || "1,500만 다운로드";
       v2h = "1. " + tpPain;
       v2s = "2. 스픽이 다른 이유: " + tpFeat + "\n3. 실제 효과: " + tpProof + "\n4. CTA: 7일 무료 체험, 링크는 프로필에";
@@ -930,12 +931,12 @@ function krGenerateCopy(brief, copies) {
   } else if (channel === "lp") {
     if (fmtId === "lp-hero") {
       v2h = rMain?.ko || rUsp?.ko || "왜 1,500만이 스픽을 선택했을까?";
-      v2s = feature && rFeat ? rFeat.ko : "AI와 하루 100문장. 말이 트입니다.";
+      v2s = selectedRtbs.length > 0 && rFeat ? rFeat.ko : "AI와 하루 100문장. 말이 트입니다.";
     } else if (fmtId === "lp-cta") {
       v2h = "지금 시작하면 달라집니다.";
       v2s = rPrice?.ko || "7일 무료 체험. 부담 없이.";
     } else {
-      v2h = feature && rFeat ? rFeat.ko : (rUsp?.ko || "왜 스픽이 다를까?");
+      v2h = selectedRtbs.length > 0 && rFeat ? rFeat.ko : (rUsp?.ko || "왜 스픽이 다를까?");
       v2s = rData?.ko || "하루 평균 100문장, AI와 실전 연습.";
     }
   } else if (channel === "appstore") {
@@ -943,11 +944,11 @@ function krGenerateCopy(brief, copies) {
       v2h = "스픽 Speak — AI 영어 회화 스피킹";
       v2s = null;
     } else if (fmtId === "as-subtitle") {
-      v2h = feature && rFeat ? rFeat.ko?.slice(0, 28) : "AI 튜터와 매일 영어 말하기 연습";
+      v2h = selectedRtbs.length > 0 && rFeat ? rFeat.ko?.slice(0, 28) : "AI 튜터와 매일 영어 말하기 연습";
       v2s = null;
     } else {
       v2h = rUsp?.ko || "1,500만이 선택한 AI 영어 회화 앱";
-      v2s = (feature && rFeat ? rFeat.ko + ". " : "") + (rData?.ko || "올해의 앱 수상. 93% 발음 인식 정확도.");
+      v2s = (selectedRtbs.length > 0 && rFeat ? rFeat.ko + ". " : "") + (rData?.ko || "올해의 앱 수상. 93% 발음 인식 정확도.");
     }
   }
 
@@ -959,7 +960,7 @@ function krGenerateCopy(brief, copies) {
     v3h = rReview?.ko || "진짜 말이 트이더라고요";
     v3s = rReview2?.ko || rPrice?.ko || "7일 무료 체험. 부담 없이.";
   } else {
-    v3h = feature && rFeat ? rFeat.ko : (rUsp?.ko || "실수를 건너뛰면 성장은 없다");
+    v3h = selectedRtbs.length > 0 && rFeat ? rFeat.ko : (rUsp?.ko || "실수를 건너뛰면 성장은 없다");
     v3s = rFeat2?.ko || rData?.ko || "AI 튜터와 하루 100문장.";
   }
 
@@ -979,7 +980,7 @@ function krGenerateCopy(brief, copies) {
     v5s = rReview?.ko || "시작이 반이에요.";
   } else {
     v5h = lifestyleMap[audTag] || "바쁜 일상에 5분, 영어 습관.";
-    v5s = feature && rFeat ? rFeat.ko : (rUsp?.ko || "양치질처럼 당연한 습관.");
+    v5s = selectedRtbs.length > 0 && rFeat ? rFeat.ko : (rUsp?.ko || "양치질처럼 당연한 습관.");
   }
 
   // === CHANNEL TRANSFORM: 채널에 맞게 글자수 + 톤 조정 ===
@@ -1009,7 +1010,7 @@ function krGenerateCopy(brief, copies) {
   // Long-format override: 인플루언서 대본, 매니페스토 등
   if (fmtId === "inf-script") {
     const painLine = effectivePain || personaObj?.pain || "영어 공부 몇 번 포기했는지 모르겠어요";
-    const featLine = feature && rFeat ? rFeat.ko : (rand(allFeat)?.ko || "AI 튜터가 실시간 피드백");
+    const featLine = selectedRtbs.length > 0 && rFeat ? rFeat.ko : (rand(allFeat)?.ko || "AI 튜터가 실시간 피드백");
     const revLine = rReview?.ko || "한 달 하니까 진짜 달라졌어요";
     const uspLine = rUsp?.ko || "스픽은 진짜 말하게 만들어요";
     const ctaLine = rCta?.ko || "7일 무료 체험";
