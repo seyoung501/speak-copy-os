@@ -38,161 +38,161 @@ const CHANNELS = [
 
 const D=[
 // ===1 VISION===
-{l:"1",sub:null,g:null,ko:"To reinvent the way people learn, starting with language.",en:"",s:"Press Kit — Vision",f:"TO-BE aligned",k:true},
-{l:"1",sub:null,g:null,ko:"스픽은 언어 교육의 혁신을 만들고 있습니다",en:"Speak is creating an innovation in language education",s:"Website — Brand Story",f:"Universal",k:false},
-{l:"1",sub:null,g:null,ko:"언제, 어디서든, 누구나 쉽게 언어를 배울 수 있도록",en:"So that anyone, anywhere, can learn a language easily",s:"Website — Brand Story",f:"Universal",k:false},
-{l:"1",sub:null,g:null,ko:"스픽은 이미 영어 학습의 새로운 패러다임이 되었습니다",en:"Speak has already become a new paradigm",s:"Website — Brand Story",f:"Universal",k:false},
+{l:"1",sub:null,g:null,ko:"To reinvent the way people learn, starting with language.",en:"",s:"Press Kit — Vision",f:"TO-BE aligned",k:true,ch:"pr",promo:false,tone:"brand"},
+{l:"1",sub:null,g:null,ko:"스픽은 언어 교육의 혁신을 만들고 있습니다",en:"Speak is creating an innovation in language education",s:"Website — Brand Story",f:"Universal",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"1",sub:null,g:null,ko:"언제, 어디서든, 누구나 쉽게 언어를 배울 수 있도록",en:"So that anyone, anywhere, can learn a language easily",s:"Website — Brand Story",f:"Universal",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"1",sub:null,g:null,ko:"스픽은 이미 영어 학습의 새로운 패러다임이 되었습니다",en:"Speak has already become a new paradigm",s:"Website — Brand Story",f:"Universal",k:false,ch:"web",promo:false,tone:"neutral"},
 {l:"1",sub:null,g:null,ko:"\"앞으로 10년 안에 언어 학습 방식은 완전히 달라질 겁니다.\"",en:"In 10 years, language learning will be completely different.",s:"Connor Zwick — Press Kit",f:"TO-BE aligned",k:false},
 {l:"1",sub:null,g:null,ko:"\"스픽은 언어 학습을 누구에게나 평등하게 만들고 싶어요.\"",en:"We want to make language learning equal for everyone.",s:"Connor Zwick — EO Korea 2025",f:"TO-BE aligned",k:false},
 {l:"1",sub:null,g:null,ko:"\"더 많은 사람들에게 기회의 문을 열어주고 싶어요.\"",en:"We want to open more doors of opportunity.",s:"Connor Zwick — EO Korea 2025",f:"TO-BE aligned",k:false},
 {l:"1",sub:null,g:null,ko:"\"저희 목표는 언어를 배울 때 가장 먼저 떠올리는 기본 수단이 되는 거예요.\"",en:"Our goal: become the default way people learn a language.",s:"Connor Zwick — EO Korea 2025",f:"TO-BE aligned",k:false},
-{l:"1",sub:null,g:null,ko:"언어 숙달의 길을 재정의하여, 언어 장벽을 넘어 나아가려는 삶을 지원한다.",en:"Redefine the path to fluency beyond the language barrier",s:"Brand Bible — Vision v0.2",f:"Universal",k:false},
+{l:"1",sub:null,g:null,ko:"언어 숙달의 길을 재정의하여, 언어 장벽을 넘어 나아가려는 삶을 지원한다.",en:"Redefine the path to fluency beyond the language barrier",s:"Brand Bible — Vision v0.2",f:"Universal",k:false,ch:"brand",promo:false,tone:"brand"},
 // ===2 PHILOSOPHY===
-{l:"2",sub:null,g:null,ko:"틀려라, 트일 것이다!",en:"Make mistakes — you'll break through!",s:"Press Kit — Philosophy",f:"TO-BE aligned",k:true},
-{l:"2",sub:null,g:null,ko:"영어, 새해엔 트일 것이다",en:"English — it'll break through this new year",s:"Press Kit — 2026 Campaign",f:"TO-BE aligned",k:false},
-{l:"2",sub:null,g:null,ko:"올해는 트일 것이다",en:"This year, it'll break through",s:"Press Kit — 2026 Campaign",f:"TO-BE aligned",k:false},
-{l:"2",sub:null,g:null,ko:"틀려라 ▶ 된다!",en:"Make mistakes ▶ It works!",s:"Press Kit — 2026 Sub",f:"TO-BE aligned",k:false},
-{l:"2",sub:null,g:null,ko:"언어는 지식이 아니라 '말하기 경험'입니다.",en:"Language is not knowledge — it's a 'speaking experience.'",s:"Press Kit — Philosophy",f:"TO-BE aligned",k:false},
+{l:"2",sub:null,g:null,ko:"틀려라, 트일 것이다!",en:"Make mistakes — you'll break through!",s:"Press Kit — Philosophy",f:"TO-BE aligned",k:true,ch:"pr",promo:false,tone:"formal"},
+{l:"2",sub:null,g:null,ko:"영어, 새해엔 트일 것이다",en:"English — it'll break through this new year",s:"Press Kit — 2026 Campaign",f:"TO-BE aligned",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"2",sub:null,g:null,ko:"올해는 트일 것이다",en:"This year, it'll break through",s:"Press Kit — 2026 Campaign",f:"TO-BE aligned",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"2",sub:null,g:null,ko:"틀려라 ▶ 된다!",en:"Make mistakes ▶ It works!",s:"Press Kit — 2026 Sub",f:"TO-BE aligned",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"2",sub:null,g:null,ko:"언어는 지식이 아니라 '말하기 경험'입니다.",en:"Language is not knowledge — it's a 'speaking experience.'",s:"Press Kit — Philosophy",f:"TO-BE aligned",k:false,ch:"pr",promo:false,tone:"formal"},
 {l:"2",sub:null,g:null,ko:"\"틀리는 것을 두려워하지 않는 용기\"가 영어를 잘하는 유일한 길",en:"Courage to not fear mistakes is the only path to fluency.",s:"Press Kit — 2026",f:"TO-BE aligned",k:false},
-{l:"2",sub:null,g:null,ko:"틀려도 괜찮습니다. AI와의 안전한 환경에서 두려움 없이 말합니다.",en:"It's okay to make mistakes. Speak without fear in AI's safe environment.",s:"Press Kit — Key Messages",f:"TO-BE aligned",k:false},
-{l:"2",sub:null,g:null,ko:"언어를 배우려면 소리 내어 말해야 합니다.",en:"To learn a language, you must speak out loud.",s:"Website",f:"TO-BE aligned",k:false},
-{l:"2",sub:null,g:null,ko:"스픽의 핵심 철학은 당신이 소리내어 말하게 하는 데 있어요. 최대한 많이요!",en:"Speak's core philosophy: getting you to speak out loud. As much as possible!",s:"Website",f:"TO-BE aligned",k:false},
+{l:"2",sub:null,g:null,ko:"틀려도 괜찮습니다. AI와의 안전한 환경에서 두려움 없이 말합니다.",en:"It's okay to make mistakes. Speak without fear in AI's safe environment.",s:"Press Kit — Key Messages",f:"TO-BE aligned",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"2",sub:null,g:null,ko:"언어를 배우려면 소리 내어 말해야 합니다.",en:"To learn a language, you must speak out loud.",s:"Website",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"2",sub:null,g:null,ko:"스픽의 핵심 철학은 당신이 소리내어 말하게 하는 데 있어요. 최대한 많이요!",en:"Speak's core philosophy: getting you to speak out loud. As much as possible!",s:"Website",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
 {l:"2",sub:null,g:null,ko:"\"To Speak, You Must Speak!\"",en:"",s:"Brand Bible",f:"TO-BE aligned",k:false},
-{l:"2",sub:null,g:null,ko:"We do not overpromise. We support sustainable language learning.",en:"",s:"Brand Bible — 2021",f:"TO-BE aligned",k:false},
+{l:"2",sub:null,g:null,ko:"We do not overpromise. We support sustainable language learning.",en:"",s:"Brand Bible — 2021",f:"TO-BE aligned",k:false,ch:"brand",promo:false,tone:"brand"},
 // ===3 DEFINITION===
-{l:"3",sub:null,g:null,ko:"따라오면, 말이 된다 스픽",en:"Follow along — you'll speak. Speak.",s:"Refined Brand Positioning",f:"TO-BE aligned",k:true},
-{l:"3",sub:null,g:null,ko:"나를 끌어주는 영어 앱",en:"The English app that pulls me along",s:"Brand Definition",f:"TO-BE aligned",k:true},
-{l:"3",sub:null,g:null,ko:"당신을 말하게 할 영어 앱",en:"The English app that will make you speak",s:"Legacy key copy",f:"Universal",k:false},
-{l:"3",sub:null,g:null,ko:"당신을 실제로 말하게 하는 영어 앱",en:"The app that actually makes you speak",s:"Website — Main",f:"Universal",k:false},
-{l:"3",sub:null,g:null,ko:"스픽은 당신을 말하게 합니다",en:"Speak makes you speak",s:"Bloo Outcome LP",f:"Universal",k:false},
-{l:"3",sub:null,g:null,ko:"입이 트이는 영어 앱",en:"The English app that opens your mouth",s:"App Store",f:"Universal",k:false},
-{l:"3",sub:null,g:null,ko:"이제 영어는 스픽입니다",en:"Now English is Speak",s:"Campaign LP",f:"AS-IS legacy",k:false},
-{l:"3",sub:null,g:null,ko:"AI 영어 스피킹 앱",en:"AI English speaking app",s:"Press Kit",f:"AS-IS legacy",k:false},
-{l:"3",sub:null,g:null,ko:"영어 스피킹은 스픽",en:"English speaking is Speak",s:"YouTube",f:"AS-IS legacy",k:false},
+{l:"3",sub:null,g:null,ko:"따라오면, 말이 된다 스픽",en:"Follow along — you'll speak. Speak.",s:"Refined Brand Positioning",f:"TO-BE aligned",k:true,ch:"brand",promo:false,tone:"brand"},
+{l:"3",sub:null,g:null,ko:"나를 끌어주는 영어 앱",en:"The English app that pulls me along",s:"Brand Definition",f:"TO-BE aligned",k:true,ch:"brand",promo:false,tone:"brand"},
+{l:"3",sub:null,g:null,ko:"당신을 말하게 할 영어 앱",en:"The English app that will make you speak",s:"Legacy key copy",f:"Universal",k:false,ch:"etc",promo:false,tone:"neutral"},
+{l:"3",sub:null,g:null,ko:"당신을 실제로 말하게 하는 영어 앱",en:"The app that actually makes you speak",s:"Website — Main",f:"Universal",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"3",sub:null,g:null,ko:"스픽은 당신을 말하게 합니다",en:"Speak makes you speak",s:"Bloo Outcome LP",f:"Universal",k:false,ch:"lp",promo:false,tone:"direct"},
+{l:"3",sub:null,g:null,ko:"입이 트이는 영어 앱",en:"The English app that opens your mouth",s:"App Store",f:"Universal",k:false,ch:"appstore",promo:false,tone:"neutral"},
+{l:"3",sub:null,g:null,ko:"이제 영어는 스픽입니다",en:"Now English is Speak",s:"Campaign LP",f:"AS-IS legacy",k:false,ch:"lp",promo:false,tone:"direct"},
+{l:"3",sub:null,g:null,ko:"AI 영어 스피킹 앱",en:"AI English speaking app",s:"Press Kit",f:"AS-IS legacy",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"3",sub:null,g:null,ko:"영어 스피킹은 스픽",en:"English speaking is Speak",s:"YouTube",f:"AS-IS legacy",k:false,ch:"etc",promo:false,tone:"neutral"},
 // ===4 USP===
-{l:"4",sub:"USP1",g:null,ko:"몇 년을 공부했는데도 아직 말을 못 합니다. → 스픽은 말하기를 끌어냅니다.",en:"Years of studying, still can't speak → Speak pulls speech out.",s:"Refined Positioning",f:"TO-BE aligned",k:true},
-{l:"4",sub:"USP1",g:null,ko:"한국 사람들은 왜 영어를 몇십 년씩 배워도 말하기를 어려워할까?",en:"Why do Koreans struggle to speak after decades?",s:"Website",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP1",g:null,ko:"이제 말 못하는 영어는 버려야 합니다",en:"Time to drop the English you can't speak",s:"Campaign LP",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP1",g:null,ko:"영어는 말해야 늡니다",en:"English improves only when you speak",s:"Bloo Outcome LP",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP1",g:null,ko:"수업 1일차부터 미친듯이 말하게 합니다",en:"From day 1, makes you speak like crazy",s:"Campaign LP",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP1",g:null,ko:"누구라도 말을 할 수 밖에 없는 환경",en:"An environment where anyone must speak",s:"Campaign LP",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP1",g:null,ko:"7일만에 1,000문장 발화",en:"1,000 sentences in 7 days",s:"Playstore",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP1",g:null,ko:"하루 10분만 투자하면 150문장",en:"10 min/day → 150 sentences",s:"Performance",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP1",g:null,ko:"30분에 150문장, 영어 스피킹 끝판왕",en:"150 sentences in 30 min",s:"Performance",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP1",g:null,ko:"수영 인강이 아니라 물에 들어가야 하는 것처럼",en:"Like swimming — get in the water",s:"App Store",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP1",g:null,ko:"영어로 말하게 너무 어렵다 → 이제는 두렵지않아요!",en:"So hard to speak → Not scared anymore!",s:"Performance (B/A)",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP1",g:null,ko:"미드 보는 건 좋아하는데, 직접 말하는 건 어려운 사람?",en:"Love watching shows, can't speak?",s:"Performance",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP1",g:null,ko:"말하면서 배워야 실제로 응용할 수 있어요!",en:"Learn by speaking to apply it!",s:"Performance",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP2",g:null,ko:"실수를 건너뛰면 성장은 없습니다. → 스픽은 될 때까지 마주하게 만듭니다.",en:"Skipping mistakes = skipping growth → Speak makes you face them.",s:"Refined Positioning",f:"TO-BE aligned",k:true},
-{l:"4",sub:"USP2",g:null,ko:"틀려도 괜찮아요 — 실시간 AI 피드백",en:"It's okay to make mistakes — real-time AI feedback",s:"Press Kit / Playstore",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP2",g:null,ko:"모든 문장을 즉각적으로 교정해주는 AI 피드백",en:"AI feedback corrects every sentence instantly",s:"Performance sub",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP2",g:null,ko:"피드백 기반 복습 시스템",en:"Review system based on feedback",s:"Performance sub",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP2",g:null,ko:"원어민 발음으로 만들어주는 AI 발음 코치",en:"AI pronunciation coach for native pronunciation",s:"Performance sub",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP3",g:null,ko:"교과서 영어는 실제 상황에서 통하지 않습니다. → 스픽은 실제로 쓸 수 있는 언어를 가르칩니다.",en:"Textbook English doesn't work → Speak teaches usable language.",s:"Refined Positioning",f:"TO-BE aligned",k:true},
-{l:"4",sub:"USP3",g:null,ko:"배운대로만 말하는 게 아니라, 말하고 싶은대로 배울 수 있는 곳",en:"Learn what you want to say, not just what you were taught",s:"App Store",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP3",g:null,ko:"AI 롤플레이로 실전 같은 대화 연습",en:"Real conversation practice through AI roleplay",s:"Performance sub",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP3",g:null,ko:"내 상황과 경험을 바탕으로 생성된 맞춤 수업",en:"Custom lessons based on my situation",s:"Performance sub",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP3",g:null,ko:"머릿 속 번역 없이 바로 말하게 됩니다",en:"Speak without translating in your head",s:"Business LP",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP4",g:null,ko:"의지만으로는 지속할 수 없습니다. → 스픽은 멈추지 않게 만듭니다.",en:"Willpower alone can't keep you going → Speak won't let you stop.",s:"Refined Positioning",f:"TO-BE aligned",k:true},
-{l:"4",sub:"USP4",g:null,ko:"⚠ error: 올해 영어공부도 미루시겠습니까? YES / NO",en:"Will you put off English again this year?",s:"Performance",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP4",g:null,ko:"영어 공부가 양치질처럼 당연한 습관이 됐어요",en:"English became as natural as brushing teeth",s:"SNS habit ad",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP4",g:null,ko:"하루에 딱 10분, 한 달 습관 완성!",en:"10 min/day, one month habit!",s:"Performance",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP4",g:null,ko:"출근길 인스타 대신 20분 영어 공부",en:"20 min English instead of Instagram",s:"Performance (Kim Woo-bin)",f:"TO-BE aligned",k:false},
-{l:"4",sub:"USP4",g:null,ko:"영어공부와 습관을 한번에!",en:"English study + habit at once!",s:"Travel LP",f:"TO-BE aligned",k:false},
+{l:"4",sub:"USP1",g:null,ko:"몇 년을 공부했는데도 아직 말을 못 합니다. → 스픽은 말하기를 끌어냅니다.",en:"Years of studying, still can't speak → Speak pulls speech out.",s:"Refined Positioning",f:"TO-BE aligned",k:true,ch:"brand",promo:false,tone:"brand"},
+{l:"4",sub:"USP1",g:null,ko:"한국 사람들은 왜 영어를 몇십 년씩 배워도 말하기를 어려워할까?",en:"Why do Koreans struggle to speak after decades?",s:"Website",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"4",sub:"USP1",g:null,ko:"이제 말 못하는 영어는 버려야 합니다",en:"Time to drop the English you can't speak",s:"Campaign LP",f:"TO-BE aligned",k:false,ch:"lp",promo:false,tone:"direct"},
+{l:"4",sub:"USP1",g:null,ko:"영어는 말해야 늡니다",en:"English improves only when you speak",s:"Bloo Outcome LP",f:"TO-BE aligned",k:false,ch:"lp",promo:false,tone:"direct"},
+{l:"4",sub:"USP1",g:null,ko:"수업 1일차부터 미친듯이 말하게 합니다",en:"From day 1, makes you speak like crazy",s:"Campaign LP",f:"TO-BE aligned",k:false,ch:"lp",promo:false,tone:"direct"},
+{l:"4",sub:"USP1",g:null,ko:"누구라도 말을 할 수 밖에 없는 환경",en:"An environment where anyone must speak",s:"Campaign LP",f:"TO-BE aligned",k:false,ch:"lp",promo:false,tone:"direct"},
+{l:"4",sub:"USP1",g:null,ko:"7일만에 1,000문장 발화",en:"1,000 sentences in 7 days",s:"Playstore",f:"TO-BE aligned",k:false,ch:"appstore",promo:false,tone:"neutral"},
+{l:"4",sub:"USP1",g:null,ko:"하루 10분만 투자하면 150문장",en:"10 min/day → 150 sentences",s:"Performance",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"4",sub:"USP1",g:null,ko:"30분에 150문장, 영어 스피킹 끝판왕",en:"150 sentences in 30 min",s:"Performance",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"4",sub:"USP1",g:null,ko:"수영 인강이 아니라 물에 들어가야 하는 것처럼",en:"Like swimming — get in the water",s:"App Store",f:"TO-BE aligned",k:false,ch:"appstore",promo:false,tone:"neutral"},
+{l:"4",sub:"USP1",g:null,ko:"영어로 말하게 너무 어렵다 → 이제는 두렵지않아요!",en:"So hard to speak → Not scared anymore!",s:"Performance (B/A)",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"4",sub:"USP1",g:null,ko:"미드 보는 건 좋아하는데, 직접 말하는 건 어려운 사람?",en:"Love watching shows, can't speak?",s:"Performance",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"4",sub:"USP1",g:null,ko:"말하면서 배워야 실제로 응용할 수 있어요!",en:"Learn by speaking to apply it!",s:"Performance",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"4",sub:"USP2",g:null,ko:"실수를 건너뛰면 성장은 없습니다. → 스픽은 될 때까지 마주하게 만듭니다.",en:"Skipping mistakes = skipping growth → Speak makes you face them.",s:"Refined Positioning",f:"TO-BE aligned",k:true,ch:"brand",promo:false,tone:"brand"},
+{l:"4",sub:"USP2",g:null,ko:"틀려도 괜찮아요 — 실시간 AI 피드백",en:"It's okay to make mistakes — real-time AI feedback",s:"Press Kit / Playstore",f:"TO-BE aligned",k:false,ch:"appstore",promo:false,tone:"formal"},
+{l:"4",sub:"USP2",g:null,ko:"모든 문장을 즉각적으로 교정해주는 AI 피드백",en:"AI feedback corrects every sentence instantly",s:"Performance sub",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"4",sub:"USP2",g:null,ko:"피드백 기반 복습 시스템",en:"Review system based on feedback",s:"Performance sub",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"4",sub:"USP2",g:null,ko:"원어민 발음으로 만들어주는 AI 발음 코치",en:"AI pronunciation coach for native pronunciation",s:"Performance sub",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"4",sub:"USP3",g:null,ko:"교과서 영어는 실제 상황에서 통하지 않습니다. → 스픽은 실제로 쓸 수 있는 언어를 가르칩니다.",en:"Textbook English doesn't work → Speak teaches usable language.",s:"Refined Positioning",f:"TO-BE aligned",k:true,ch:"brand",promo:false,tone:"brand"},
+{l:"4",sub:"USP3",g:null,ko:"배운대로만 말하는 게 아니라, 말하고 싶은대로 배울 수 있는 곳",en:"Learn what you want to say, not just what you were taught",s:"App Store",f:"TO-BE aligned",k:false,ch:"appstore",promo:false,tone:"neutral"},
+{l:"4",sub:"USP3",g:null,ko:"AI 롤플레이로 실전 같은 대화 연습",en:"Real conversation practice through AI roleplay",s:"Performance sub",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"4",sub:"USP3",g:null,ko:"내 상황과 경험을 바탕으로 생성된 맞춤 수업",en:"Custom lessons based on my situation",s:"Performance sub",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"4",sub:"USP3",g:null,ko:"머릿 속 번역 없이 바로 말하게 됩니다",en:"Speak without translating in your head",s:"Business LP",f:"TO-BE aligned",k:false,ch:"lp",promo:false,tone:"direct"},
+{l:"4",sub:"USP4",g:null,ko:"의지만으로는 지속할 수 없습니다. → 스픽은 멈추지 않게 만듭니다.",en:"Willpower alone can't keep you going → Speak won't let you stop.",s:"Refined Positioning",f:"TO-BE aligned",k:true,ch:"brand",promo:false,tone:"brand"},
+{l:"4",sub:"USP4",g:null,ko:"⚠ error: 올해 영어공부도 미루시겠습니까? YES / NO",en:"Will you put off English again this year?",s:"Performance",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"4",sub:"USP4",g:null,ko:"영어 공부가 양치질처럼 당연한 습관이 됐어요",en:"English became as natural as brushing teeth",s:"SNS habit ad",f:"TO-BE aligned",k:false,ch:"etc",promo:false,tone:"neutral"},
+{l:"4",sub:"USP4",g:null,ko:"하루에 딱 10분, 한 달 습관 완성!",en:"10 min/day, one month habit!",s:"Performance",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"4",sub:"USP4",g:null,ko:"출근길 인스타 대신 20분 영어 공부",en:"20 min English instead of Instagram",s:"Performance (Kim Woo-bin)",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"4",sub:"USP4",g:null,ko:"영어공부와 습관을 한번에!",en:"English study + habit at once!",s:"Travel LP",f:"TO-BE aligned",k:false,ch:"lp",promo:false,tone:"direct"},
 // ===5 TARGETING===
 // Career / Business
-{l:"5",sub:"T-Career",g:null,ko:"외국계처럼 말하는 한 끗 차이",en:"The subtle difference — foreign company level",s:"Performance (biz)",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Career",g:null,ko:"영어 하나로 바뀌는 내 연봉 앞자리",en:"First digit of my salary changes with English",s:"Performance (Kim Woo-bin)",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Career",g:null,ko:"미팅 때 할 수 있는 말이 많아졌어요!",en:"I can say so much more in meetings now!",s:"Instagram biz ad",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Career",g:null,ko:"아무 말도 못하던 미팅에서 의견제시 명확하게 하는 미팅으로!",en:"From silent meetings to clearly stating my opinions!",s:"Instagram biz ad",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Career",g:null,ko:"스픽으로 비즈니스 영어 시작하기→",en:"Start business English with Speak→",s:"Instagram CTA",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Career",g:null,ko:"하버드 출신 연구진이 개발, OpenAI 기술 제휴로 실리콘밸리에서도 주목",en:"Developed by Harvard researchers, noted in Silicon Valley via OpenAI partnership",s:"Business LP",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Career",g:null,ko:"직장인을 위한 비즈니스 영어",en:"Business English for working professionals",s:"Website — Curriculum",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Career",g:null,ko:"영어면접: 이젠 두렵지 않다!",en:"English interviews: no longer scary!",s:"Website — Curriculum",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-Career",g:null,ko:"외국계처럼 말하는 한 끗 차이",en:"The subtle difference — foreign company level",s:"Performance (biz)",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"5",sub:"T-Career",g:null,ko:"영어 하나로 바뀌는 내 연봉 앞자리",en:"First digit of my salary changes with English",s:"Performance (Kim Woo-bin)",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"5",sub:"T-Career",g:null,ko:"미팅 때 할 수 있는 말이 많아졌어요!",en:"I can say so much more in meetings now!",s:"Instagram biz ad",f:"TO-BE aligned",k:false,ch:"social",promo:false,tone:"casual"},
+{l:"5",sub:"T-Career",g:null,ko:"아무 말도 못하던 미팅에서 의견제시 명확하게 하는 미팅으로!",en:"From silent meetings to clearly stating my opinions!",s:"Instagram biz ad",f:"TO-BE aligned",k:false,ch:"social",promo:false,tone:"casual"},
+{l:"5",sub:"T-Career",g:null,ko:"스픽으로 비즈니스 영어 시작하기→",en:"Start business English with Speak→",s:"Instagram CTA",f:"TO-BE aligned",k:false,ch:"social",promo:false,tone:"casual"},
+{l:"5",sub:"T-Career",g:null,ko:"하버드 출신 연구진이 개발, OpenAI 기술 제휴로 실리콘밸리에서도 주목",en:"Developed by Harvard researchers, noted in Silicon Valley via OpenAI partnership",s:"Business LP",f:"TO-BE aligned",k:false,ch:"lp",promo:false,tone:"direct"},
+{l:"5",sub:"T-Career",g:null,ko:"직장인을 위한 비즈니스 영어",en:"Business English for working professionals",s:"Website — Curriculum",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"5",sub:"T-Career",g:null,ko:"영어면접: 이젠 두렵지 않다!",en:"English interviews: no longer scary!",s:"Website — Curriculum",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
 // Travel
-{l:"5",sub:"T-Travel",g:null,ko:"여행에서 만날 수 있는 모든 상황 대비",en:"Prepared for every travel situation",s:"Travel LP",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Travel",g:null,ko:"비행기까지 딱 남았는데 시간을 되돌릴수는 없잖아요 ✈",en:"Flight's coming and you can't turn back time ✈",s:"Travel Performance",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Travel",g:null,ko:"상상할 수 있는 모든 여행 상황 스픽 하나로 완벽 미리 준비하기",en:"Prepare for every imaginable travel scenario with Speak",s:"Travel Performance",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Travel",g:null,ko:"여행가서 바로 써먹는 해외 필수 표현.zip ✈",en:"Essential overseas expressions you'll use right away.zip ✈",s:"Travel Performance",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Travel",g:null,ko:"여행 떠나기 전 궁극적 여행 준비",en:"The ultimate travel prep before departure",s:"Travel Performance",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Travel",g:null,ko:"해외여행 계획하고 있으면 딱 하나만 준비하세요",en:"Planning a trip? Just prepare one thing",s:"Travel Performance",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Travel",g:null,ko:"여행 필수 표현 이제 스픽 하나로 끝내세요!",en:"End travel expression prep with just Speak!",s:"Travel Performance",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Travel",g:null,ko:"해외여행 완벽대비, 만족 후기 폭발! 딱 하루 10분 스픽 여행 영어",en:"Perfect trip prep, reviews exploding! Just 10 min/day Speak travel English",s:"Travel LP Ad",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Travel",g:null,ko:"🏆 BEST 여행 영어 코스 41강의",en:"🏆 BEST travel English course — 41 lessons",s:"Travel LP",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Travel",g:null,ko:"여행 전 벼락치기 스픽에서 완벽대비",en:"Last-minute cramming? Perfect prep with Speak",s:"Travel LP",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-Travel",g:null,ko:"여행에서 만날 수 있는 모든 상황 대비",en:"Prepared for every travel situation",s:"Travel LP",f:"TO-BE aligned",k:false,ch:"lp",promo:false,tone:"direct"},
+{l:"5",sub:"T-Travel",g:null,ko:"비행기까지 딱 남았는데 시간을 되돌릴수는 없잖아요 ✈",en:"Flight's coming and you can't turn back time ✈",s:"Travel Performance",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"5",sub:"T-Travel",g:null,ko:"상상할 수 있는 모든 여행 상황 스픽 하나로 완벽 미리 준비하기",en:"Prepare for every imaginable travel scenario with Speak",s:"Travel Performance",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"5",sub:"T-Travel",g:null,ko:"여행가서 바로 써먹는 해외 필수 표현.zip ✈",en:"Essential overseas expressions you'll use right away.zip ✈",s:"Travel Performance",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"5",sub:"T-Travel",g:null,ko:"여행 떠나기 전 궁극적 여행 준비",en:"The ultimate travel prep before departure",s:"Travel Performance",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"5",sub:"T-Travel",g:null,ko:"해외여행 계획하고 있으면 딱 하나만 준비하세요",en:"Planning a trip? Just prepare one thing",s:"Travel Performance",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"5",sub:"T-Travel",g:null,ko:"여행 필수 표현 이제 스픽 하나로 끝내세요!",en:"End travel expression prep with just Speak!",s:"Travel Performance",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"5",sub:"T-Travel",g:null,ko:"해외여행 완벽대비, 만족 후기 폭발! 딱 하루 10분 스픽 여행 영어",en:"Perfect trip prep, reviews exploding! Just 10 min/day Speak travel English",s:"Travel LP Ad",f:"TO-BE aligned",k:false,ch:"lp",promo:false,tone:"direct"},
+{l:"5",sub:"T-Travel",g:null,ko:"🏆 BEST 여행 영어 코스 41강의",en:"🏆 BEST travel English course — 41 lessons",s:"Travel LP",f:"TO-BE aligned",k:false,ch:"lp",promo:false,tone:"direct"},
+{l:"5",sub:"T-Travel",g:null,ko:"여행 전 벼락치기 스픽에서 완벽대비",en:"Last-minute cramming? Perfect prep with Speak",s:"Travel LP",f:"TO-BE aligned",k:false,ch:"lp",promo:false,tone:"direct"},
 // Growth / Self-improvement
-{l:"5",sub:"T-Growth",g:null,ko:"10년 넘게 영어 공부를 해도 스피킹은 힘드신가요?",en:"Still struggling with speaking after 10+ years?",s:"App Store",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Growth",g:null,ko:"영어가 쉬워지니까, 선택지가 무한대!",en:"When English gets easier, choices become infinite!",s:"Performance",f:"AS-IS legacy",k:false},
-{l:"5",sub:"T-Growth",g:null,ko:"영어가 트이면 인생이 트인다",en:"When English opens up, life opens up",s:"Performance / KakaoTalk",f:"AS-IS legacy",k:false},
-{l:"5",sub:"T-Growth",g:null,ko:"전화영어 효과에 실망했다면? 딱 1달만 이거 해보세요",en:"Disappointed by phone English? Try this for 1 month",s:"Performance",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Growth",g:null,ko:"스픽을 꾸준히 하니까 내 영어가 고급지게 바뀜!",en:"Consistent Speak use made my English more sophisticated!",s:"User story video ad",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Growth",g:null,ko:"자꾸만 막히는 영어, '이렇게' 하면 입에 붙습니다.",en:"English keeps getting stuck? Do 'this' and it sticks.",s:"SNS Ad",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-Growth",g:null,ko:"10년 넘게 영어 공부를 해도 스피킹은 힘드신가요?",en:"Still struggling with speaking after 10+ years?",s:"App Store",f:"TO-BE aligned",k:false,ch:"appstore",promo:false,tone:"neutral"},
+{l:"5",sub:"T-Growth",g:null,ko:"영어가 쉬워지니까, 선택지가 무한대!",en:"When English gets easier, choices become infinite!",s:"Performance",f:"AS-IS legacy",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"5",sub:"T-Growth",g:null,ko:"영어가 트이면 인생이 트인다",en:"When English opens up, life opens up",s:"Performance / KakaoTalk",f:"AS-IS legacy",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"5",sub:"T-Growth",g:null,ko:"전화영어 효과에 실망했다면? 딱 1달만 이거 해보세요",en:"Disappointed by phone English? Try this for 1 month",s:"Performance",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"5",sub:"T-Growth",g:null,ko:"스픽을 꾸준히 하니까 내 영어가 고급지게 바뀜!",en:"Consistent Speak use made my English more sophisticated!",s:"User story video ad",f:"TO-BE aligned",k:false,ch:"etc",promo:false,tone:"neutral"},
+{l:"5",sub:"T-Growth",g:null,ko:"자꾸만 막히는 영어, '이렇게' 하면 입에 붙습니다.",en:"English keeps getting stuck? Do 'this' and it sticks.",s:"SNS Ad",f:"TO-BE aligned",k:false,ch:"etc",promo:false,tone:"neutral"},
 // Life Overseas
-{l:"5",sub:"T-Overseas",g:null,ko:"해외에서 영어가 안 되면 아무것도 안 된다",en:"Without English overseas, nothing works",s:"Influencer LP (life-overseas)",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Overseas",g:null,ko:"해외 생활 영어, 스픽으로 미리 준비하세요",en:"Prep your overseas life English with Speak",s:"Influencer LP (life-overseas)",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-Overseas",g:null,ko:"해외에서 영어가 안 되면 아무것도 안 된다",en:"Without English overseas, nothing works",s:"Influencer LP (life-overseas)",f:"TO-BE aligned",k:false,ch:"lp",promo:false,tone:"direct"},
+{l:"5",sub:"T-Overseas",g:null,ko:"해외 생활 영어, 스픽으로 미리 준비하세요",en:"Prep your overseas life English with Speak",s:"Influencer LP (life-overseas)",f:"TO-BE aligned",k:false,ch:"lp",promo:false,tone:"direct"},
 // Test Prep (OPIc / TOEIC Speaking)
-{l:"5",sub:"T-Test",g:null,ko:"시험 점수는 높은데 말은 안 나온다",en:"High test scores but can't speak",s:"Audience Deep Dive",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Test",g:null,ko:"상황별 대화 구성으로 시험 대비는 물론 현실 변수까지 연습",en:"Situational conversations prep for tests AND real-life variables",s:"Website — Curriculum",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-Test",g:null,ko:"시험 점수는 높은데 말은 안 나온다",en:"High test scores but can't speak",s:"Audience Deep Dive",f:"TO-BE aligned",k:false,ch:"etc",promo:false,tone:"neutral"},
+{l:"5",sub:"T-Test",g:null,ko:"상황별 대화 구성으로 시험 대비는 물론 현실 변수까지 연습",en:"Situational conversations prep for tests AND real-life variables",s:"Website — Curriculum",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
 // Parents
-{l:"5",sub:"T-Parents",g:null,ko:"엄마빠 영어",en:"Mom & Dad English",s:"Website — Curriculum (Course name)",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Parents",g:null,ko:"자녀에게 영어로 말하고 싶은 부모",en:"Parents who want to speak English to their kids",s:"Audience Deep Dive",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-Parents",g:null,ko:"엄마빠 영어",en:"Mom & Dad English",s:"Website — Curriculum (Course name)",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"5",sub:"T-Parents",g:null,ko:"자녀에게 영어로 말하고 싶은 부모",en:"Parents who want to speak English to their kids",s:"Audience Deep Dive",f:"TO-BE aligned",k:false,ch:"etc",promo:false,tone:"neutral"},
 // General
-{l:"5",sub:"T-General",g:null,ko:"영어 좀 하는 사람은 다 아는 스픽!",en:"Everyone who speaks English knows Speak!",s:"Campaign LP",f:"AS-IS legacy",k:false},
-{l:"5",sub:"T-General",g:null,ko:"꼼꼼히 따져볼 수록 영어는 스픽이 답이다",en:"The more you compare, the more Speak is the answer",s:"Performance (Kim Woo-bin)",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-General",g:null,ko:"올해, 영어부터 트이자!",en:"This year, let's start by breaking through English!",s:"Performance",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-General",g:null,ko:"이제 진짜 제대로 영어 스피킹 뽀개보자!",en:"Let's really crush English speaking for real!",s:"Performance",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-General",g:null,ko:"영어로 말하기 부끄러운 사람들",en:"People embarrassed to speak English",s:"SNS Ad",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-General",g:null,ko:"영어 좀 하는 사람은 다 아는 스픽!",en:"Everyone who speaks English knows Speak!",s:"Campaign LP",f:"AS-IS legacy",k:false,ch:"lp",promo:false,tone:"direct"},
+{l:"5",sub:"T-General",g:null,ko:"꼼꼼히 따져볼 수록 영어는 스픽이 답이다",en:"The more you compare, the more Speak is the answer",s:"Performance (Kim Woo-bin)",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"5",sub:"T-General",g:null,ko:"올해, 영어부터 트이자!",en:"This year, let's start by breaking through English!",s:"Performance",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"5",sub:"T-General",g:null,ko:"이제 진짜 제대로 영어 스피킹 뽀개보자!",en:"Let's really crush English speaking for real!",s:"Performance",f:"TO-BE aligned",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"5",sub:"T-General",g:null,ko:"영어로 말하기 부끄러운 사람들",en:"People embarrassed to speak English",s:"SNS Ad",f:"TO-BE aligned",k:false,ch:"etc",promo:false,tone:"neutral"},
 // ===6 RTB===
 // RTB-Features
-{l:"6",sub:"RTB-Features",g:"feat-freetalk",ko:"원어민 없이도 가능한 자유로운 대화 연습",en:"Free conversation practice without a native speaker",s:"Press Kit",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-freetalk",ko:"원하는 주제로 말하면 AI가 피드백 + 맞춤 수업 자동 생성",en:"AI gives feedback + auto-generates custom lessons",s:"Press Kit",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-freetalk",ko:"언제 어디서든, 어떤 주제에 대해서든 대화하세요",en:"Talk about any topic, anytime, anywhere",s:"Website",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-freetalk",ko:"AI 프리톡이 '비주얼 모드'로 더 몰입감있게 돌아왔습니다.",en:"AI Free Talk — now with immersive Visual Mode.",s:"Website — Curriculum",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-freetalk",ko:"원하는 상황과 주제로 대화하며 실시간 피드백, 맞춤형 수업 생성",en:"Converse freely, get feedback, generate lessons from mistakes.",s:"Website — Curriculum",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-tutor",ko:"스픽 튜터는 오로지 당신만을 위한 언어 선생님",en:"Speak Tutor is a language teacher exclusively for you.",s:"Website",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-tutor",ko:"스픽 튜터와 함께라면 당신은 혼자가 아닙니다.",en:"With Speak Tutor, you're not alone.",s:"Website",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-mylesson",ko:"'나만의 수업' — 당장 내일 필요한 영어를 배울 수 있는 기능",en:"'My Lesson' — learn the English you need tomorrow.",s:"App Store",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-mylesson",ko:"배운 패턴을 '실제 내 상황'에 적용해 실시간 생성되는 수업",en:"Lessons generated real-time from your actual situation.",s:"Website",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-smartreview",ko:"간격 반복 알고리즘으로 최적 타이밍에 복습 → 장기 기억화",en:"Spaced repetition → optimal review → long-term memory.",s:"Press Kit",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-smartreview",ko:"배운 패턴을 자동 복습 항목으로 저장, 맞는 복습 수업 제공",en:"Auto-saves patterns, provides tailored review lessons.",s:"Website",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-pronunciation",ko:"학습자의 발음을 음소 단위로 정밀 분석",en:"Analyzes pronunciation at phoneme level.",s:"Press Kit",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-pronunciation",ko:"원어민 발음과 실시간 대조 → 교정 가이드",en:"Real-time native comparison → correction guide.",s:"Press Kit",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-personalization",ko:"나에게 딱 맞는 나만을 위한 맞춤 수업",en:"Lessons tailored just for me",s:"Press Kit",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-personalization",ko:"목표/수준/관심사/학습 속도에 맞춰 계속 조정",en:"Continuously adjusts to goals, level, interests, pace.",s:"Press Kit — AI",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-personalization",ko:"여행/비즈니스/면접 등 목표에 맞는 수업을 AI가 추천",en:"AI recommends courses for travel, business, interviews.",s:"Press Kit",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-3step",ko:"나도 모르게 체득되는 3단계 학습법",en:"3-step method — internalize without realizing",s:"Press Kit",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-3step",ko:"20분 동안 100문장 이상을 소리 내어 말하게 됩니다",en:"100+ sentences out loud in 20 minutes.",s:"Press Kit",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-3step",ko:"1단계 배우기 → 2단계 스피킹 연습 → 3단계 실전 대화",en:"Step 1 Learn → Step 2 Practice → Step 3 Real Conversation",s:"Press Kit",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-curriculum",ko:"왕초보부터 마스터까지 500일 분량 커리큘럼",en:"Beginner to master — 500 days of courses",s:"Website",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-curriculum",ko:"왕초보부터 비즈니스까지 무제한 영어 수업",en:"Unlimited: beginner to business English",s:"Bloo Outcome LP",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-curriculum",ko:"한국인 대상 10년+ 교육 전문가가 직접 기획",en:"Planned by 10+ year experts for Koreans.",s:"Website",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-curriculum",ko:"현재 원어민이 사용하는 자연스러운 영어 표현",en:"Natural expressions currently used by natives.",s:"Website",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-tracking",ko:"'대화 유창성' 중심으로 학습 진전을 시각화",en:"Visualizes progress around conversation fluency.",s:"Press Kit",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-tracking",ko:"CEFR 기반 내 영어 레벨 체크",en:"Check your level based on CEFR.",s:"Interview materials",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-circular",ko:"영어는 결국 말해야 트입니다. 스픽은 정말 말을 많이 시킵니다.",en:"English opens when you speak. Speak makes you speak a lot.",s:"Website",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-gamification",ko:"매일 불꽃이 켜집니다. 100일 연속이면 특별한 선물!",en:"Daily streak flame. 100 days? Special gift!",s:"Website",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-gamification",ko:"매월 학습 챌린지에 참가, 아이패드 경품",en:"Monthly challenges, win iPad prizes.",s:"Website",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-b2b",ko:"기업 맞춤형 영어 교육 'S4B'",en:"Enterprise English 'S4B'",s:"Press Kit",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Features",g:"feat-b2b",ko:"S4B 도입 기업 300+, 10대 대기업 채택률 80%",en:"300+ companies, 80% top 10 conglomerates",s:"Press Kit",f:"Universal",k:false},
+{l:"6",sub:"RTB-Features",g:"feat-freetalk",ko:"원어민 없이도 가능한 자유로운 대화 연습",en:"Free conversation practice without a native speaker",s:"Press Kit",f:"TO-BE aligned",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Features",g:"feat-freetalk",ko:"원하는 주제로 말하면 AI가 피드백 + 맞춤 수업 자동 생성",en:"AI gives feedback + auto-generates custom lessons",s:"Press Kit",f:"TO-BE aligned",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Features",g:"feat-freetalk",ko:"언제 어디서든, 어떤 주제에 대해서든 대화하세요",en:"Talk about any topic, anytime, anywhere",s:"Website",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Features",g:"feat-freetalk",ko:"AI 프리톡이 '비주얼 모드'로 더 몰입감있게 돌아왔습니다.",en:"AI Free Talk — now with immersive Visual Mode.",s:"Website — Curriculum",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Features",g:"feat-freetalk",ko:"원하는 상황과 주제로 대화하며 실시간 피드백, 맞춤형 수업 생성",en:"Converse freely, get feedback, generate lessons from mistakes.",s:"Website — Curriculum",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Features",g:"feat-tutor",ko:"스픽 튜터는 오로지 당신만을 위한 언어 선생님",en:"Speak Tutor is a language teacher exclusively for you.",s:"Website",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Features",g:"feat-tutor",ko:"스픽 튜터와 함께라면 당신은 혼자가 아닙니다.",en:"With Speak Tutor, you're not alone.",s:"Website",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Features",g:"feat-mylesson",ko:"'나만의 수업' — 당장 내일 필요한 영어를 배울 수 있는 기능",en:"'My Lesson' — learn the English you need tomorrow.",s:"App Store",f:"TO-BE aligned",k:false,ch:"appstore",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Features",g:"feat-mylesson",ko:"배운 패턴을 '실제 내 상황'에 적용해 실시간 생성되는 수업",en:"Lessons generated real-time from your actual situation.",s:"Website",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Features",g:"feat-smartreview",ko:"간격 반복 알고리즘으로 최적 타이밍에 복습 → 장기 기억화",en:"Spaced repetition → optimal review → long-term memory.",s:"Press Kit",f:"TO-BE aligned",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Features",g:"feat-smartreview",ko:"배운 패턴을 자동 복습 항목으로 저장, 맞는 복습 수업 제공",en:"Auto-saves patterns, provides tailored review lessons.",s:"Website",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Features",g:"feat-pronunciation",ko:"학습자의 발음을 음소 단위로 정밀 분석",en:"Analyzes pronunciation at phoneme level.",s:"Press Kit",f:"TO-BE aligned",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Features",g:"feat-pronunciation",ko:"원어민 발음과 실시간 대조 → 교정 가이드",en:"Real-time native comparison → correction guide.",s:"Press Kit",f:"TO-BE aligned",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Features",g:"feat-personalization",ko:"나에게 딱 맞는 나만을 위한 맞춤 수업",en:"Lessons tailored just for me",s:"Press Kit",f:"TO-BE aligned",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Features",g:"feat-personalization",ko:"목표/수준/관심사/학습 속도에 맞춰 계속 조정",en:"Continuously adjusts to goals, level, interests, pace.",s:"Press Kit — AI",f:"TO-BE aligned",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Features",g:"feat-personalization",ko:"여행/비즈니스/면접 등 목표에 맞는 수업을 AI가 추천",en:"AI recommends courses for travel, business, interviews.",s:"Press Kit",f:"TO-BE aligned",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Features",g:"feat-3step",ko:"나도 모르게 체득되는 3단계 학습법",en:"3-step method — internalize without realizing",s:"Press Kit",f:"TO-BE aligned",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Features",g:"feat-3step",ko:"20분 동안 100문장 이상을 소리 내어 말하게 됩니다",en:"100+ sentences out loud in 20 minutes.",s:"Press Kit",f:"TO-BE aligned",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Features",g:"feat-3step",ko:"1단계 배우기 → 2단계 스피킹 연습 → 3단계 실전 대화",en:"Step 1 Learn → Step 2 Practice → Step 3 Real Conversation",s:"Press Kit",f:"TO-BE aligned",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Features",g:"feat-curriculum",ko:"왕초보부터 마스터까지 500일 분량 커리큘럼",en:"Beginner to master — 500 days of courses",s:"Website",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Features",g:"feat-curriculum",ko:"왕초보부터 비즈니스까지 무제한 영어 수업",en:"Unlimited: beginner to business English",s:"Bloo Outcome LP",f:"TO-BE aligned",k:false,ch:"lp",promo:false,tone:"direct"},
+{l:"6",sub:"RTB-Features",g:"feat-curriculum",ko:"한국인 대상 10년+ 교육 전문가가 직접 기획",en:"Planned by 10+ year experts for Koreans.",s:"Website",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Features",g:"feat-curriculum",ko:"현재 원어민이 사용하는 자연스러운 영어 표현",en:"Natural expressions currently used by natives.",s:"Website",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Features",g:"feat-tracking",ko:"'대화 유창성' 중심으로 학습 진전을 시각화",en:"Visualizes progress around conversation fluency.",s:"Press Kit",f:"TO-BE aligned",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Features",g:"feat-tracking",ko:"CEFR 기반 내 영어 레벨 체크",en:"Check your level based on CEFR.",s:"Interview materials",f:"TO-BE aligned",k:false,ch:"etc",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Features",g:"feat-circular",ko:"영어는 결국 말해야 트입니다. 스픽은 정말 말을 많이 시킵니다.",en:"English opens when you speak. Speak makes you speak a lot.",s:"Website",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Features",g:"feat-gamification",ko:"매일 불꽃이 켜집니다. 100일 연속이면 특별한 선물!",en:"Daily streak flame. 100 days? Special gift!",s:"Website",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Features",g:"feat-gamification",ko:"매월 학습 챌린지에 참가, 아이패드 경품",en:"Monthly challenges, win iPad prizes.",s:"Website",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Features",g:"feat-b2b",ko:"기업 맞춤형 영어 교육 'S4B'",en:"Enterprise English 'S4B'",s:"Press Kit",f:"TO-BE aligned",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Features",g:"feat-b2b",ko:"S4B 도입 기업 300+, 10대 대기업 채택률 80%",en:"300+ companies, 80% top 10 conglomerates",s:"Press Kit",f:"Universal",k:false,ch:"pr",promo:false,tone:"formal"},
 // RTB-Tech
-{l:"6",sub:"RTB-Tech",g:null,ko:"세계 최고 수준의 AI 음성 인식 기술",en:"World-class AI speech recognition",s:"Press Kit",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Tech",g:null,ko:"한국인 영어 음성 데이터 100만 명+ 학습",en:"Trained on 1M+ Korean voice data",s:"Website",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Tech",g:null,ko:"93% 이상 ASR 정확도",en:"93%+ ASR accuracy",s:"Website",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Tech",g:null,ko:"실리콘 밸리 자체 개발 AI 기술",en:"AI developed in-house in Silicon Valley",s:"Website",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Tech",g:null,ko:"한국인 영어 학습 데이터 2만 시간+ 분석",en:"20,000+ hours Korean English data analyzed",s:"Website",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Tech",g:null,ko:"영어교육학 박사가 만든 커리큘럼",en:"Curriculum by PhD in English education",s:"Press Kit",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Tech",g:null,ko:"100% LA 자체 스튜디오 제작",en:"100% LA studio-produced",s:"Website",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Tech",g:null,ko:"하루 평균 100문장, 주 1,000문장",en:"100 sentences/day, 1,000/week",s:"Press Kit",f:"TO-BE aligned",k:false},
+{l:"6",sub:"RTB-Tech",g:null,ko:"세계 최고 수준의 AI 음성 인식 기술",en:"World-class AI speech recognition",s:"Press Kit",f:"TO-BE aligned",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Tech",g:null,ko:"한국인 영어 음성 데이터 100만 명+ 학습",en:"Trained on 1M+ Korean voice data",s:"Website",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Tech",g:null,ko:"93% 이상 ASR 정확도",en:"93%+ ASR accuracy",s:"Website",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Tech",g:null,ko:"실리콘 밸리 자체 개발 AI 기술",en:"AI developed in-house in Silicon Valley",s:"Website",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Tech",g:null,ko:"한국인 영어 학습 데이터 2만 시간+ 분석",en:"20,000+ hours Korean English data analyzed",s:"Website",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Tech",g:null,ko:"영어교육학 박사가 만든 커리큘럼",en:"Curriculum by PhD in English education",s:"Press Kit",f:"TO-BE aligned",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Tech",g:null,ko:"100% LA 자체 스튜디오 제작",en:"100% LA studio-produced",s:"Website",f:"TO-BE aligned",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Tech",g:null,ko:"하루 평균 100문장, 주 1,000문장",en:"100 sentences/day, 1,000/week",s:"Press Kit",f:"TO-BE aligned",k:false,ch:"pr",promo:false,tone:"formal"},
 // RTB-Awards
-{l:"6",sub:"RTB-Awards",g:null,ko:"구글 '올해를 빛낸 자기계발 앱'",en:"Google 'Best Self-improvement App'",s:"Press Kit (2019-20)",f:"Universal",k:false},
-{l:"6",sub:"RTB-Awards",g:null,ko:"구글플레이 '올해의 베스트앱'",en:"Google Play 'Best App' 2024",s:"Press Kit (2024)",f:"Universal",k:false},
-{l:"6",sub:"RTB-Awards",g:null,ko:"美 포브스 'AI 50' 유일 선정",en:"Forbes 'AI 50' — only language co.",s:"Press Kit (2025)",f:"Universal",k:false},
-{l:"6",sub:"RTB-Awards",g:null,ko:"유튜브 웍스 어워드 '베스트 AI 파이오니어'",en:"YouTube Works 'Best AI Pioneer'",s:"Press Kit (2025)",f:"Universal",k:false},
+{l:"6",sub:"RTB-Awards",g:null,ko:"구글 '올해를 빛낸 자기계발 앱'",en:"Google 'Best Self-improvement App'",s:"Press Kit (2019-20)",f:"Universal",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Awards",g:null,ko:"구글플레이 '올해의 베스트앱'",en:"Google Play 'Best App' 2024",s:"Press Kit (2024)",f:"Universal",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Awards",g:null,ko:"美 포브스 'AI 50' 유일 선정",en:"Forbes 'AI 50' — only language co.",s:"Press Kit (2025)",f:"Universal",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Awards",g:null,ko:"유튜브 웍스 어워드 '베스트 AI 파이오니어'",en:"YouTube Works 'Best AI Pioneer'",s:"Press Kit (2025)",f:"Universal",k:false,ch:"pr",promo:false,tone:"formal"},
 // RTB-Scale
-{l:"6",sub:"RTB-Scale",g:null,ko:"글로벌 1,500만 다운로드",en:"15M global downloads",s:"Press Kit",f:"Universal",k:false},
-{l:"6",sub:"RTB-Scale",g:null,ko:"평점 4.8 (17만개 평가)",en:"4.8 rating (170K reviews)",s:"App Store",f:"Universal",k:false},
-{l:"6",sub:"RTB-Scale",g:null,ko:"15만 개의 유저 후기가 증명하는 1위 앱",en:"#1 app proven by 150K reviews",s:"LP/Ads",f:"Universal",k:false},
-{l:"6",sub:"RTB-Scale",g:null,ko:"구독 30일 후 50%+ 활성 유지율",en:"50%+ retention 30 days after sub",s:"EO Korea 2025",f:"Universal",k:false},
+{l:"6",sub:"RTB-Scale",g:null,ko:"글로벌 1,500만 다운로드",en:"15M global downloads",s:"Press Kit",f:"Universal",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Scale",g:null,ko:"평점 4.8 (17만개 평가)",en:"4.8 rating (170K reviews)",s:"App Store",f:"Universal",k:false,ch:"appstore",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Scale",g:null,ko:"15만 개의 유저 후기가 증명하는 1위 앱",en:"#1 app proven by 150K reviews",s:"LP/Ads",f:"Universal",k:false,ch:"paid",promo:false,tone:"direct"},
+{l:"6",sub:"RTB-Scale",g:null,ko:"구독 30일 후 50%+ 활성 유지율",en:"50%+ retention 30 days after sub",s:"EO Korea 2025",f:"Universal",k:false,ch:"brand",promo:true,tone:"neutral"},
 // RTB-Reviews
 {l:"6",sub:"RTB-Reviews",g:null,ko:"\"영어 실력이 고급지게 레벨업한 느낌!\"",en:"English leveled up!",s:"User: 엘리",f:"TO-BE aligned",k:false},
 {l:"6",sub:"RTB-Reviews",g:null,ko:"\"자연스럽게 영어 공부 습관을 만들어 주더라고요!\"",en:"Naturally built a study habit!",s:"User: 킴벌리",f:"TO-BE aligned",k:false},
@@ -202,59 +202,59 @@ const D=[
 {l:"6",sub:"RTB-Reviews",g:null,ko:"\"영어 울렁증이라 망설이다 해보니 놀라울정도로 편안\"",en:"Had anxiety, surprisingly comfortable",s:"User (Anon)",f:"TO-BE aligned",k:false},
 {l:"6",sub:"RTB-Reviews",g:null,ko:"\"이것저것 시도만 하다 끝내길 반복, 현재 너무 재밌게 하고 있습니다\"",en:"Kept trying/quitting, now really enjoying it",s:"User (Anon)",f:"TO-BE aligned",k:false},
 // RTB-Team
-{l:"6",sub:"RTB-Team",g:null,ko:"하버드, 스탠포드, 예일 출신 창업자들",en:"Founders from Harvard, Stanford, Yale",s:"Website",f:"Universal",k:false},
-{l:"6",sub:"RTB-Team",g:null,ko:"OpenAI 기술 제휴 + 스타트업 펀드 투자",en:"OpenAI partnership + Startup Fund investment",s:"Press Kit",f:"Universal",k:false},
-{l:"6",sub:"RTB-Team",g:null,ko:"누적 투자 2,274억원 · 유니콘 1.4조",en:"₩227.4B invested · ₩1.4T unicorn",s:"Press Kit / Website",f:"Universal",k:false},
+{l:"6",sub:"RTB-Team",g:null,ko:"하버드, 스탠포드, 예일 출신 창업자들",en:"Founders from Harvard, Stanford, Yale",s:"Website",f:"Universal",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Team",g:null,ko:"OpenAI 기술 제휴 + 스타트업 펀드 투자",en:"OpenAI partnership + Startup Fund investment",s:"Press Kit",f:"Universal",k:false,ch:"pr",promo:false,tone:"formal"},
+{l:"6",sub:"RTB-Team",g:null,ko:"누적 투자 2,274억원 · 유니콘 1.4조",en:"₩227.4B invested · ₩1.4T unicorn",s:"Press Kit / Website",f:"Universal",k:false,ch:"web",promo:false,tone:"formal"},
 // RTB-Price
-{l:"6",sub:"RTB-Price",g:null,ko:"매일 수업해도 월 1만원대",en:"Daily lessons at ₩10K/month",s:"LP common",f:"Universal",k:false},
-{l:"6",sub:"RTB-Price",g:null,ko:"월 1만원대 무제한 스피킹",en:"Unlimited speaking at ₩10K/month",s:"Campaign LP",f:"Universal",k:false},
-{l:"6",sub:"RTB-Price",g:null,ko:"대방어 중사이즈 = 스픽 3달 무제한",en:"Yellowtail sashimi = 3 months Speak",s:"Instagram",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Price",g:null,ko:"프리미엄 연간 ₩129,000 (60% OFF) — 월 ₩10,750",en:"Premium: ₩129K (60% OFF)",s:"App Store/LP",f:"Universal",k:false},
-{l:"6",sub:"RTB-Price",g:null,ko:"프리미엄 플러스 연간 ₩299,000 (68% OFF) — 월 ₩19,916",en:"Premium+: ₩299K (68% OFF)",s:"App Store/LP",f:"Universal",k:false},
-{l:"6",sub:"RTB-Price",g:null,ko:"10명 중 8명은 프리미엄 플러스 선택",en:"8/10 choose Premium Plus",s:"Interview",f:"Universal",k:false},
+{l:"6",sub:"RTB-Price",g:null,ko:"매일 수업해도 월 1만원대",en:"Daily lessons at ₩10K/month",s:"LP common",f:"Universal",k:false,ch:"etc",promo:true,tone:"direct"},
+{l:"6",sub:"RTB-Price",g:null,ko:"월 1만원대 무제한 스피킹",en:"Unlimited speaking at ₩10K/month",s:"Campaign LP",f:"Universal",k:false,ch:"lp",promo:true,tone:"direct"},
+{l:"6",sub:"RTB-Price",g:null,ko:"대방어 중사이즈 = 스픽 3달 무제한",en:"Yellowtail sashimi = 3 months Speak",s:"Instagram",f:"TO-BE aligned",k:false,ch:"social",promo:false,tone:"casual"},
+{l:"6",sub:"RTB-Price",g:null,ko:"프리미엄 연간 ₩129,000 (60% OFF) — 월 ₩10,750",en:"Premium: ₩129K (60% OFF)",s:"App Store/LP",f:"Universal",k:false,ch:"appstore",promo:false,tone:"direct"},
+{l:"6",sub:"RTB-Price",g:null,ko:"프리미엄 플러스 연간 ₩299,000 (68% OFF) — 월 ₩19,916",en:"Premium+: ₩299K (68% OFF)",s:"App Store/LP",f:"Universal",k:false,ch:"appstore",promo:false,tone:"direct"},
+{l:"6",sub:"RTB-Price",g:null,ko:"10명 중 8명은 프리미엄 플러스 선택",en:"8/10 choose Premium Plus",s:"Interview",f:"Universal",k:false,ch:"etc",promo:false,tone:"neutral"},
 // ===7 CTA===
-{l:"7",sub:"CTA-General",g:null,ko:"지금 시작하기",en:"Start now",s:"Website",f:"Universal",k:false},
-{l:"7",sub:"CTA-General",g:null,ko:"스피킹 시작",en:"Start speaking",s:"Website",f:"Universal",k:false},
-{l:"7",sub:"CTA-General",g:null,ko:"구매하기",en:"Purchase",s:"LP common",f:"Universal",k:false},
-{l:"7",sub:"CTA-Price",g:null,ko:"지금 할인가로 시작하기",en:"Start at discount now",s:"Campaign LP",f:"Universal",k:false},
-{l:"7",sub:"CTA-Price",g:null,ko:"지금 최저가에 구매하기 →",en:"Buy at lowest price →",s:"Bloo Outcome LP",f:"Universal",k:false},
-{l:"7",sub:"CTA-Price",g:null,ko:"올해 마지막 최저가, 구매하기",en:"Last lowest price — buy now",s:"SMS",f:"Universal",k:false},
-{l:"7",sub:"CTA-Channel",g:null,ko:"월 1만원대 무제한 영어 공부 시작 →",en:"Start unlimited English ₩10K/mo →",s:"Instagram",f:"Universal",k:false},
-{l:"7",sub:"CTA-Channel",g:null,ko:"지금 할인가에 스픽 시작하기→",en:"Start Speak at discount →",s:"Travel LP",f:"Universal",k:false},
+{l:"7",sub:"CTA-General",g:null,ko:"지금 시작하기",en:"Start now",s:"Website",f:"Universal",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"7",sub:"CTA-General",g:null,ko:"스피킹 시작",en:"Start speaking",s:"Website",f:"Universal",k:false,ch:"web",promo:false,tone:"neutral"},
+{l:"7",sub:"CTA-General",g:null,ko:"구매하기",en:"Purchase",s:"LP common",f:"Universal",k:false,ch:"etc",promo:true,tone:"direct"},
+{l:"7",sub:"CTA-Price",g:null,ko:"지금 할인가로 시작하기",en:"Start at discount now",s:"Campaign LP",f:"Universal",k:false,ch:"lp",promo:true,tone:"direct"},
+{l:"7",sub:"CTA-Price",g:null,ko:"지금 최저가에 구매하기 →",en:"Buy at lowest price →",s:"Bloo Outcome LP",f:"Universal",k:false,ch:"lp",promo:true,tone:"direct"},
+{l:"7",sub:"CTA-Price",g:null,ko:"올해 마지막 최저가, 구매하기",en:"Last lowest price — buy now",s:"SMS",f:"Universal",k:false,ch:"crm",promo:true,tone:"personal"},
+{l:"7",sub:"CTA-Channel",g:null,ko:"월 1만원대 무제한 영어 공부 시작 →",en:"Start unlimited English ₩10K/mo →",s:"Instagram",f:"Universal",k:false,ch:"social",promo:true,tone:"casual"},
+{l:"7",sub:"CTA-Channel",g:null,ko:"지금 할인가에 스픽 시작하기→",en:"Start Speak at discount →",s:"Travel LP",f:"Universal",k:false,ch:"lp",promo:true,tone:"direct"},
 ,
 
 // === BOOSTED COPIES: Weak targets + more variety (Copy OS Generated) ===
-{l:"5",sub:"T-Overseas",g:null,ko:"해외에서 한마디도 못 하면 그건 여행이 아니라 생존이다",en:"If you can't say a word abroad, that's not traveling — it's surviving",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Overseas",g:null,ko:"이민 서류는 준비했는데, 입은 준비 안 됐다면",en:"You prepped the immigration papers but not your mouth",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Overseas",g:null,ko:"해외 살면서 영어 안 느는 진짜 이유: 말할 기회가 없어서",en:"The real reason English doesn't improve abroad: no chance to speak",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Overseas",g:null,ko:"마트에서 뭐 하나 물어보는 게 이렇게 어려울 줄 몰랐다",en:"Didn't know asking one thing at the store would be this hard",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Overseas",g:null,ko:"해외 생활 1년차, 영어 실력은 아직 0년차",en:"1 year abroad, still year-zero English",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Overseas",g:null,ko:"아이 학교 선생님한테 전화 한 통 못 거는 부모가 되기 싫다면",en:"If you don't want to be the parent who can't call the teacher",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Test",g:null,ko:"토익 900인데 택시에서 한마디도 못 했다",en:"TOEIC 900 but couldn't say a word in the taxi",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Test",g:null,ko:"OPIc IH 받으려면 머리가 아니라 입이 기억해야 한다",en:"For OPIc IH, your mouth needs to remember — not your brain",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Test",g:null,ko:"시험까지 30일. 하루 100문장이면 3,000문장.",en:"30 days to the test. 100/day = 3,000 sentences.",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Test",g:null,ko:"문법은 아는데 입에서 안 나오는 사람을 위한 앱",en:"The app for people who know grammar but can't say it",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Test",g:null,ko:"점수는 있는데 말은 없는 사람, 스픽이 바꿔줍니다",en:"Scores but no words? Speak changes that.",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Test",g:null,ko:"스피킹 시험은 결국 얼마나 말해봤냐의 싸움",en:"Speaking tests are about how much you've practiced",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Parents",g:null,ko:"아이에게 Good morning이라도 영어로 말해주고 싶다",en:"Just want to say Good morning to my kid in English",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Parents",g:null,ko:"학원비 100만원 vs 스픽 월 만원. 아이 앞에서 직접 보여주세요",en:"1M in tutor fees vs 10K/mo Speak. Show your kids.",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Parents",g:null,ko:"엄마가 영어 하는 모습, 아이에게 최고의 교육",en:"Mom speaking English — best education for your child",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Parents",g:null,ko:"아이 영어 걱정하면서 정작 나는 안 하고 있었다",en:"Worried about kid's English while doing nothing about mine",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Parents",g:null,ko:"아이가 자기 전 영어 동화 한 편, 스픽으로 연습하고 읽어주세요",en:"Practice with Speak, read a bedtime story in English",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-Parents",g:null,ko:"부모가 영어 쓰는 환경, 아이에게 가장 좋은 영어 교육",en:"A parent who uses English — best education for kids",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
-{l:"5",sub:"T-General",g:null,ko:"영어 공부 10년, 외국인 만나면 아직도 떨린다",en:"10 years studying, still nervous with foreigners",s:"Copy OS Generated",f:"Universal",k:false},
-{l:"5",sub:"T-General",g:null,ko:"이번 새해 목표도 영어? 이번엔 진짜 되게 해줄게",en:"English again for New Year? This time for real.",s:"Copy OS Generated",f:"Universal",k:false},
-{l:"5",sub:"T-General",g:null,ko:"작심삼일이 두려운 당신을 위한 영어 앱",en:"The app for people afraid of giving up after 3 days",s:"Copy OS Generated",f:"Universal",k:false},
-{l:"5",sub:"T-General",g:null,ko:"유튜브 자막 없이 보고 싶다면, 입부터 트세요",en:"Want YouTube without subs? Start by opening your mouth.",s:"Copy OS Generated",f:"Universal",k:false},
-{l:"6",sub:"RTB-Reviews",g:null,ko:"출근길 10분씩 했더니 한 달 만에 회의에서 한마디 했어요 — 직장인 K",en:"10 min on commute, spoke in a meeting after a month — Worker K",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Reviews",g:null,ko:"AI랑 대화하는 느낌이라 부담이 없어요. 선생님 앞에선 못 했는데 — 대학생 P",en:"Feels like talking to AI, no pressure. Couldn't before a teacher — Student P",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Reviews",g:null,ko:"여행 가기 전에 2주 했는데, 공항에서 안 떨렸어요 — 여행러 M",en:"2 weeks before trip, wasn't nervous at airport — Traveler M",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Reviews",g:null,ko:"애가 옆에서 보더니 자기도 하겠다고 해요 — 학부모 J",en:"My kid watched and wants to try too — Parent J",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
-{l:"6",sub:"RTB-Reviews",g:null,ko:"6개월 했더니 넷플릭스 자막 없이 60% 알아들어요 — 자기계발러 S",en:"After 6 months, 60% Netflix without subs — Growth-seeker S",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
-{l:"7",sub:"CTA-Trial",g:null,ko:"7일 무료로 말해보기",en:"Speak free for 7 days",s:"Copy OS Generated",f:"Universal",k:false},
-{l:"7",sub:"CTA-Trial",g:null,ko:"오늘 첫 수업 무료",en:"First lesson free today",s:"Copy OS Generated",f:"Universal",k:false},
-{l:"7",sub:"CTA-Channel",g:null,ko:"영어, 오늘부터 시작 →",en:"English, starting today →",s:"Copy OS Generated",f:"Universal",k:false},
-{l:"7",sub:"CTA-Channel",g:null,ko:"3분이면 첫 수업 끝",en:"First lesson done in 3 min",s:"Copy OS Generated",f:"Universal",k:false},
+{l:"5",sub:"T-Overseas",g:null,ko:"해외에서 한마디도 못 하면 그건 여행이 아니라 생존이다",en:"If you can't say a word abroad, that's not traveling — it's surviving",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"5",sub:"T-Overseas",g:null,ko:"이민 서류는 준비했는데, 입은 준비 안 됐다면",en:"You prepped the immigration papers but not your mouth",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"5",sub:"T-Overseas",g:null,ko:"해외 살면서 영어 안 느는 진짜 이유: 말할 기회가 없어서",en:"The real reason English doesn't improve abroad: no chance to speak",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"5",sub:"T-Overseas",g:null,ko:"마트에서 뭐 하나 물어보는 게 이렇게 어려울 줄 몰랐다",en:"Didn't know asking one thing at the store would be this hard",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"5",sub:"T-Overseas",g:null,ko:"해외 생활 1년차, 영어 실력은 아직 0년차",en:"1 year abroad, still year-zero English",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"5",sub:"T-Overseas",g:null,ko:"아이 학교 선생님한테 전화 한 통 못 거는 부모가 되기 싫다면",en:"If you don't want to be the parent who can't call the teacher",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"5",sub:"T-Test",g:null,ko:"토익 900인데 택시에서 한마디도 못 했다",en:"TOEIC 900 but couldn't say a word in the taxi",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"5",sub:"T-Test",g:null,ko:"OPIc IH 받으려면 머리가 아니라 입이 기억해야 한다",en:"For OPIc IH, your mouth needs to remember — not your brain",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"5",sub:"T-Test",g:null,ko:"시험까지 30일. 하루 100문장이면 3,000문장.",en:"30 days to the test. 100/day = 3,000 sentences.",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"5",sub:"T-Test",g:null,ko:"문법은 아는데 입에서 안 나오는 사람을 위한 앱",en:"The app for people who know grammar but can't say it",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"5",sub:"T-Test",g:null,ko:"점수는 있는데 말은 없는 사람, 스픽이 바꿔줍니다",en:"Scores but no words? Speak changes that.",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"5",sub:"T-Test",g:null,ko:"스피킹 시험은 결국 얼마나 말해봤냐의 싸움",en:"Speaking tests are about how much you've practiced",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"5",sub:"T-Parents",g:null,ko:"아이에게 Good morning이라도 영어로 말해주고 싶다",en:"Just want to say Good morning to my kid in English",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"5",sub:"T-Parents",g:null,ko:"학원비 100만원 vs 스픽 월 만원. 아이 앞에서 직접 보여주세요",en:"1M in tutor fees vs 10K/mo Speak. Show your kids.",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"5",sub:"T-Parents",g:null,ko:"엄마가 영어 하는 모습, 아이에게 최고의 교육",en:"Mom speaking English — best education for your child",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"5",sub:"T-Parents",g:null,ko:"아이 영어 걱정하면서 정작 나는 안 하고 있었다",en:"Worried about kid's English while doing nothing about mine",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"5",sub:"T-Parents",g:null,ko:"아이가 자기 전 영어 동화 한 편, 스픽으로 연습하고 읽어주세요",en:"Practice with Speak, read a bedtime story in English",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"5",sub:"T-Parents",g:null,ko:"부모가 영어 쓰는 환경, 아이에게 가장 좋은 영어 교육",en:"A parent who uses English — best education for kids",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"5",sub:"T-General",g:null,ko:"영어 공부 10년, 외국인 만나면 아직도 떨린다",en:"10 years studying, still nervous with foreigners",s:"Copy OS Generated",f:"Universal",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"5",sub:"T-General",g:null,ko:"이번 새해 목표도 영어? 이번엔 진짜 되게 해줄게",en:"English again for New Year? This time for real.",s:"Copy OS Generated",f:"Universal",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"5",sub:"T-General",g:null,ko:"작심삼일이 두려운 당신을 위한 영어 앱",en:"The app for people afraid of giving up after 3 days",s:"Copy OS Generated",f:"Universal",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"5",sub:"T-General",g:null,ko:"유튜브 자막 없이 보고 싶다면, 입부터 트세요",en:"Want YouTube without subs? Start by opening your mouth.",s:"Copy OS Generated",f:"Universal",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Reviews",g:null,ko:"출근길 10분씩 했더니 한 달 만에 회의에서 한마디 했어요 — 직장인 K",en:"10 min on commute, spoke in a meeting after a month — Worker K",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Reviews",g:null,ko:"AI랑 대화하는 느낌이라 부담이 없어요. 선생님 앞에선 못 했는데 — 대학생 P",en:"Feels like talking to AI, no pressure. Couldn't before a teacher — Student P",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Reviews",g:null,ko:"여행 가기 전에 2주 했는데, 공항에서 안 떨렸어요 — 여행러 M",en:"2 weeks before trip, wasn't nervous at airport — Traveler M",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Reviews",g:null,ko:"애가 옆에서 보더니 자기도 하겠다고 해요 — 학부모 J",en:"My kid watched and wants to try too — Parent J",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"6",sub:"RTB-Reviews",g:null,ko:"6개월 했더니 넷플릭스 자막 없이 60% 알아들어요 — 자기계발러 S",en:"After 6 months, 60% Netflix without subs — Growth-seeker S",s:"Copy OS Generated",f:"TO-BE aligned",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"7",sub:"CTA-Trial",g:null,ko:"7일 무료로 말해보기",en:"Speak free for 7 days",s:"Copy OS Generated",f:"Universal",k:false,ch:"generated",promo:true,tone:"neutral"},
+{l:"7",sub:"CTA-Trial",g:null,ko:"오늘 첫 수업 무료",en:"First lesson free today",s:"Copy OS Generated",f:"Universal",k:false,ch:"generated",promo:true,tone:"neutral"},
+{l:"7",sub:"CTA-Channel",g:null,ko:"영어, 오늘부터 시작 →",en:"English, starting today →",s:"Copy OS Generated",f:"Universal",k:false,ch:"generated",promo:false,tone:"neutral"},
+{l:"7",sub:"CTA-Channel",g:null,ko:"3분이면 첫 수업 끝",en:"First lesson done in 3 min",s:"Copy OS Generated",f:"Universal",k:false,ch:"generated",promo:false,tone:"neutral"},
 ];
 
 const EVAL_PROMPT = `You are Speak's Brand Copy Evaluator. You evaluate Korean marketing copy against Speak's brand guidelines.
@@ -559,13 +559,14 @@ function krBrandCheck(t) {
 function krGenerateCopy(brief, copies) {
   const { audience, persona, intent, channel, format, promo, pain, feature } = brief;
   
-  // Map audience name to sub tag
   const audTag = audience.replace("Career / Business","T-Career").replace("Travel","T-Travel")
     .replace("Growth","T-Growth").replace("Life Overseas","T-Overseas")
     .replace("Test Prep (OPIc/TOEIC)","T-Test").replace("Parents","T-Parents").replace("General","T-General");
   
-  const pickByLevel = (l, sub, g) => copies.filter(c => c.l === l && (!sub || c.sub === sub) && (!g || c.g === g));
-  const pick = (arr, i = 0) => arr.length ? arr[i % arr.length] : null;
+  // Channel mapping for tag matching
+  const chTagMap = { paid:"paid", lp:"lp", appstore:"appstore", crm:"crm", social:"social", influencer:"social", brand:"brand" };
+  const chTag = chTagMap[channel] || "etc";
+  
   const rand = (arr) => arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
   const trim = (t, max) => {
     if (!max || !t || t.length <= max) return t;
@@ -582,116 +583,111 @@ function krGenerateCopy(brief, copies) {
   const effectivePain = pain.trim() || personaObj?.pain || "";
   const intentBias = intent || "consideration";
 
-  // === PULL DIFFERENT COPIES PER AUDIENCE/CONTEXT ===
-  const allHeroes = pickByLevel("3").filter(c => c.k);
-  const allPhilos = pickByLevel("2").filter(c => c.k);
-  const targetLines = pickByLevel("5", audTag);
-  const keyTargets = targetLines.filter(c => c.k);
-  const allTargets = targetLines.length ? targetLines : pickByLevel("5");
-  const featLines = feature ? pickByLevel("6", "RTB-Features", feature) : pickByLevel("6", "RTB-Features");
-  const dataLines = pickByLevel("6", "RTB-Tech").concat(pickByLevel("6", "RTB-Scale"));
-  const keyData = dataLines.filter(c => c.k);
-  const reviews = pickByLevel("6", "RTB-Reviews");
-  const prices = pickByLevel("6", "RTB-Price");
-  const allUsps = pickByLevel("4");
-  const keyUsps = allUsps.filter(c => c.k);
-  const ctas = pickByLevel("7");
+  // === TAG-BASED FILTERING ===
+  const byLevel = (l) => copies.filter(c => c.l === l);
+  const byLevelSub = (l, sub) => copies.filter(c => c.l === l && c.sub === sub);
+  const byChannel = (ch) => copies.filter(c => c.ch === ch);
+  const promoCopies = copies.filter(c => c.promo === true);
+  const directTone = copies.filter(c => c.tone === "direct");
+  const casualTone = copies.filter(c => c.tone === "casual");
+  const brandTone = copies.filter(c => c.tone === "brand");
   
-  // Randomize picks to avoid same result every time
-  const rHero = rand(allHeroes);
-  const rPhilo = rand(allPhilos);
-  const rTarget = rand(allTargets);
-  const rTarget2 = rand(allTargets.filter(c => c !== rTarget)) || rTarget;
+  // Channel-relevant copies
+  const channelCopies = byChannel(chTag);
+  const channelTargets = channelCopies.filter(c => c.l === "5");
+  
+  // Audience-specific
+  const targetLines = byLevelSub("5", audTag);
+  const allTargets = targetLines.length ? targetLines : byLevel("5");
+  
+  // Key resources
+  const heroes = byLevel("3").filter(c => c.k);
+  const philos = byLevel("2").filter(c => c.k);
+  const usps = byLevel("4");
+  const keyUsps = usps.filter(c => c.k);
+  const featLines = feature ? byLevelSub("6", "RTB-Features").filter(c => c.g === feature) : byLevelSub("6", "RTB-Features");
+  const dataLines = byLevelSub("6", "RTB-Tech").concat(byLevelSub("6", "RTB-Scale"));
+  const reviews = byLevelSub("6", "RTB-Reviews");
+  const prices = byLevelSub("6", "RTB-Price");
+  const ctas = byLevel("7");
+  const promoCtas = ctas.filter(c => c.promo === true || (c.sub || "").includes("Price"));
+  const generalCtas = ctas.filter(c => !c.promo && !(c.sub || "").includes("Price"));
+
+  // Smart picks — prefer channel-matched, audience-matched
+  const smartPick = (pool, fallback) => {
+    const chMatch = pool.filter(c => c.ch === chTag);
+    return rand(chMatch.length ? chMatch : pool) || fallback;
+  };
+
+  const rTarget = rand(targetLines) || rand(allTargets);
+  const rTarget2 = rand(targetLines.filter(c => c !== rTarget)) || rTarget;
+  const rHero = rand(heroes);
+  const rPhilo = rand(philos);
+  const rUsp = rand(keyUsps.length ? keyUsps : usps);
+  const rUsp2 = rand(usps.filter(c => c !== rUsp)) || rUsp;
   const rFeat = rand(featLines);
-  const rData = rand(keyData.length ? keyData : dataLines);
-  const rReview = rand(reviews);
-  const rUsp = rand(keyUsps.length ? keyUsps : allUsps);
-  const rUsp2 = rand(allUsps.filter(c => c !== rUsp)) || rUsp;
-  const rCta = rand(ctas);
-  const rCta2 = rand(ctas.filter(c => c !== rCta)) || rCta;
+  const rData = rand(dataLines);
+  const rReview = smartPick(reviews, null);
   const rPrice = rand(prices);
+  const rCta = promo ? rand(promoCtas) || rand(ctas) : rand(generalCtas) || rand(ctas);
+  const rCta2 = rand(ctas.filter(c => c !== rCta)) || rCta;
 
-  // === ARCHETYPE 1: PAIN-FIRST (most audience-sensitive) ===
-  let v1h, v1s;
-  if (effectivePain) {
-    v1h = `${effectivePain}. ${rHero?.ko || "스픽이 바꿔줄게요."}`;
-  } else if (rTarget) {
-    v1h = rTarget.ko;
-  } else {
-    v1h = rUsp?.ko || "몇 년을 공부해도 말이 안 나온다면";
-  }
-  // Sub depends on intent
-  if (intentBias === "conversion") {
-    v1s = rPrice?.ko || rCta?.ko || "지금 7일 무료로 시작하세요.";
-  } else if (intentBias === "awareness") {
-    v1s = rPhilo?.ko || "영어는 입으로 해야 늡니다.";
-  } else {
-    v1s = rUsp?.ko || rPhilo?.ko || "AI 튜터와 하루 100문장, 말이 트입니다.";
-  }
-  const v1c = rCta?.ko || "지금 시작하기";
+  // === ARCHETYPE 1: PAIN-FIRST ===
+  let v1h = effectivePain
+    ? `${effectivePain}. ${rHero?.ko || "스픽이 바꿔줄게요."}`
+    : rTarget?.ko || rUsp?.ko || "몇 년을 공부해도 말이 안 나온다면";
+  let v1s = intentBias === "conversion" 
+    ? (rPrice?.ko || rCta?.ko || "지금 7일 무료로 시작하세요.")
+    : intentBias === "awareness"
+    ? (rPhilo?.ko || "영어는 입으로 해야 늡니다.")
+    : (rUsp?.ko || "AI 튜터와 하루 100문장, 말이 트입니다.");
 
-  // === ARCHETYPE 2: DATA-LED (uses numbers, varies by feature) ===
-  const dataKo = rData?.ko || "";
-  const numMatch = dataKo.match(/[\d,.%만억배+]+/)?.[0] || "1,500만";
-  let v2h;
-  if (intentBias === "conversion") {
-    v2h = `${numMatch}이 선택한 영어 앱. 지금 시작하세요.`;
-  } else if (feature && rFeat) {
-    v2h = rFeat.ko;
-  } else {
-    v2h = rData?.ko || `${numMatch}이 선택한 이유가 있습니다.`;
-  }
-  let v2s;
-  if (rFeat && feature) {
-    v2s = rUsp2?.ko || "AI가 당신의 발음을 실시간 분석합니다.";
-  } else {
-    v2s = rFeat?.ko || rTarget?.ko || "하루 평균 100문장, AI와 실전 연습.";
-  }
-  const v2c = rCta2?.ko || "무료 체험 시작";
+  // === ARCHETYPE 2: DATA-LED ===
+  const numMatch = rData?.ko?.match(/[\d,.%만억배+]+/)?.[0] || "1,500만";
+  let v2h = feature && rFeat ? rFeat.ko : (rData?.ko || `${numMatch}이 선택한 이유가 있습니다.`);
+  let v2s = rFeat?.ko || rTarget?.ko || "하루 평균 100문장, AI와 실전 연습.";
+  if (v2h === v2s) v2s = rUsp2?.ko || "AI가 당신의 발음을 실시간 분석합니다.";
 
-  // === ARCHETYPE 3: BRAND POEM (cadence/rhythm-focused) ===
-  const poemCandidates = copies.filter(c => (c.l === "2" || c.l === "3") && c.k);
-  const rPoem1 = rand(poemCandidates);
-  const rPoem2 = rand(poemCandidates.filter(c => c !== rPoem1)) || rPoem1;
-  const v3h = rPoem1?.ko || "따라오면, 말이 된다 스픽";
-  const v3s = rPoem2?.ko || "나를 끌어주는 영어 앱";
-  const v3c = rCta?.ko || "스피킹 시작";
+  // === ARCHETYPE 3: BRAND POEM ===
+  const rPoem1 = rand(philos.length ? philos : byLevel("2"));
+  const rPoem2 = rand(heroes.length ? heroes : byLevel("3"));
+  let v3h = rPoem1?.ko || "틀려라, 트일 것이다!";
+  let v3s = rPoem2?.ko || "나를 끌어주는 영어 앱";
 
-  // === ARCHETYPE 4: PEER-VOICE (audience-specific tone) ===
+  // === ARCHETYPE 4: PEER-VOICE ===
   let v4h = rReview?.ko || rTarget2?.ko || "진짜 말이 트이더라고요";
-  // Persona-specific sub-copy
   const personaToneSubs = {
     "composed-urgent": "회의에서 더 이상 침묵 안 해도 돼요. AI로 미리 연습하면 달라요.",
     "determined": "커리어를 위한 영어, 하루 10분이면 달라집니다.",
-    "practical": "영어 메일, 콜, 회의 — 매일 쓰는 표현부터 잡으세요.",
-    "skeptical-hopeful": "이번엔 다를 수 있어요. AI니까 부담 없이, 내 속도대로.",
+    "practical": "영어 메일, 콜, 회의 — 매일 쓰는 표현부터.",
+    "skeptical-hopeful": "이번엔 다를 수 있어요. AI니까 부담 없이.",
     "cautious": "작심삼일이 두렵다면. AI가 매일 옆에서 끌어줍니다.",
     "anxious-excited": "공항에서 얼어붙지 않을 자신감, 미리 100번 연습.",
-    "adventurous": "패키지 말고 직접 대화하고 싶다면, 모든 상황을 미리 준비하세요.",
+    "adventurous": "패키지 말고 직접 대화하고 싶다면, 모든 상황을 미리.",
     "reflective": "언젠가가 아니라 오늘부터. 하루 10분, AI와 함께.",
     "aspirational": "자막 없이 보고 싶다면, 입이 먼저 트여야 합니다.",
-    "urgent-practical": "생활 영어가 급하다면. 장보기부터 병원까지, 실전 연습.",
-    "frustrated-hopeful": "해외에 살아도 영어가 안 느는 이유 — 연습량이 부족해서예요.",
+    "urgent-practical": "생활 영어가 급하다면. 장보기부터 병원까지.",
+    "frustrated-hopeful": "해외에 살아도 안 느는 이유 — 연습량이 부족해서.",
     "deadline-driven": "시험까지 한 달, 매일 100문장이면 됩니다.",
-    "analytical-frustrated": "점수는 높은데 말이 안 된다면 — 아웃풋이 부족한 거예요.",
+    "analytical-frustrated": "점수는 높은데 말이 안 된다면 — 아웃풋 부족.",
     "warm-motivated": "아이에게 영어로 말해주고 싶은 마음, 스픽이 도와줄게요.",
     "practical-caring": "학원비 아끼면서 아이 영어를 잡는 현실적인 방법."
   };
-  const v4s = personaObj ? (personaToneSubs[personaObj.tone] || rTarget?.ko || "AI니까 틀려도 괜찮아요.") : (rTarget?.ko || "AI니까 틀려도 괜찮아요.");
-  const v4c = rCta2?.ko || "7일 무료 체험";
+  let v4s = personaObj ? (personaToneSubs[personaObj.tone] || rTarget?.ko || "AI니까 틀려도 괜찮아요.") : (rTarget?.ko || "AI니까 틀려도 괜찮아요.");
 
-  // === ARCHETYPE 5: PROMO / LIFESTYLE / BRAND-FIRST (intent-sensitive) ===
+  // === ARCHETYPE 5: PROMO / LIFESTYLE / BRAND-FIRST ===
   let v5h, v5s;
   if (promo) {
-    v5h = rPrice?.ko ? `${rPrice.ko}. 지금만.` : "프리미엄 월 10,750원. 커피 한 잔 값.";
-    v5s = "7일 무료 체험 후 결정하세요.";
+    // PROMO MODE: pull from actual promo copies + prices
+    v5h = rPrice?.ko ? `${rPrice.ko}` : "프리미엄 월 10,750원. 커피 한 잔 값으로.";
+    const promoPick = rand(promoCopies);
+    v5s = promoPick?.ko || "7일 무료 체험 후 결정하세요. 부담 없이 시작.";
   } else if (intentBias === "awareness") {
     v5h = rHero?.ko || "나를 끌어주는 영어 앱";
     v5s = rPhilo?.ko || "영어는 입으로 해야 늡니다.";
   } else {
-    // Lifestyle — varies by audience
     const lifestyleMap = {
-      "T-Career": "바쁜 출근길, 10분이면 오늘 회의 영어 준비 끝.",
+      "T-Career": "바쁜 출근길 10분, 오늘 회의 영어 준비 끝.",
       "T-Travel": "비행기 타기 전, 여행 영어를 완벽하게.",
       "T-Growth": "자기 전 10분, 내일의 나를 위한 영어 습관.",
       "T-Overseas": "해외 생활 영어, 실전에서 바로 쓰는 표현부터.",
@@ -702,21 +698,22 @@ function krGenerateCopy(brief, copies) {
     v5h = lifestyleMap[audTag] || "바쁜 일상에 5분, 영어 습관을.";
     v5s = rUsp?.ko || rTarget?.ko || "하루 100문장, 양치질처럼 당연한 습관.";
   }
-  const v5c = promo ? "7일 무료 시작" : rCta?.ko || "지금 시작하기";
 
-  // === CHANNEL-SPECIFIC ADJUSTMENTS ===
+  const v5c = promo ? (rand(promoCtas)?.ko || "7일 무료 시작") : (rCta?.ko || "지금 시작하기");
+
+  // === BUILD VARIANTS ===
   const variants = [
-    { archetype: "Pain-first", headline: trim(v1h, headlineMax), sub: trim(v1s, subMax), cta: v1c, leans: "Confident + Authentic",
-      rationale: personaObj ? `"${personaObj.label}" 페인 → USP 해결. ${channel === "paid" ? "Paid에서 CTR 최적화." : channel === "crm" ? "CRM에서 개인화 톤." : ""}` : "페인 → 해결. 고전적 구조." },
-    { archetype: "Data-led", headline: trim(v2h, headlineMax), sub: trim(v2s, subMax), cta: v2c, leans: "Confident + Innovative",
-      rationale: `숫자/데이터 선행으로 신뢰 확보. ${intentBias === "conversion" ? "전환 하드셀." : "논리적 사용자에게 효과적."}` },
-    { archetype: "Brand-poem", headline: trim(v3h, headlineMax), sub: trim(v3s, subMax), cta: v3c, leans: "Authentic + Witty",
-      rationale: `감정적 공명. ${channel === "brand" || channel === "social" ? "브캠/소셜 최적." : "영상/인지도용."}` },
-    { archetype: "Peer-voice", headline: trim(v4h, headlineMax), sub: trim(v4s, subMax), cta: v4c, leans: "Authentic + Witty",
-      rationale: personaObj ? `"${personaObj.label}" 톤에 맞춘 공감 리드.` : "리뷰/후기 톤. 옆사람 느낌." },
+    { archetype: "Pain-first", headline: trim(v1h, headlineMax), sub: trim(v1s, subMax), cta: rCta?.ko || "지금 시작하기", leans: "Confident + Authentic",
+      rationale: personaObj ? `"${personaObj.label}" 페인 → 해결. ${chTag === "paid" ? "Paid CTR 최적화." : chTag === "crm" ? "CRM 개인화." : chTag === "lp" ? "LP 전환 유도." : ""}` : "페인 → 해결. 고전적 구조." },
+    { archetype: "Data-led", headline: trim(v2h, headlineMax), sub: trim(v2s, subMax), cta: rCta2?.ko || "무료 체험 시작", leans: "Confident + Innovative",
+      rationale: `숫자/데이터 신뢰. ${intentBias === "conversion" ? "전환 하드셀." : "논리적 사용자."}${feature ? " Feature: " + feature : ""}` },
+    { archetype: "Brand-poem", headline: trim(v3h, headlineMax), sub: trim(v3s, subMax), cta: rCta?.ko || "스피킹 시작", leans: "Authentic + Witty",
+      rationale: `감정 공명. ${chTag === "brand" || chTag === "social" ? "브캠/소셜 최적." : "영상/인지도용."}` },
+    { archetype: "Peer-voice", headline: trim(v4h, headlineMax), sub: trim(v4s, subMax), cta: rCta2?.ko || "7일 무료 체험", leans: "Authentic + Witty",
+      rationale: personaObj ? `"${personaObj.label}" 톤 공감 리드.` : "리뷰/후기 톤." },
     { archetype: promo ? "Promo" : intentBias === "awareness" ? "Brand-first" : "Lifestyle",
-      headline: trim(v5h, headlineMax), sub: trim(v5s, subMax), cta: v5c, leans: "Confident + Authentic",
-      rationale: promo ? "가격 소구 + RTB." : intentBias === "awareness" ? "브랜드 인지도." : `${audience} 라이프스타일 맥락.` },
+      headline: trim(v5h, headlineMax), sub: trim(v5s, subMax), cta: v5c, leans: promo ? "Promo + Authentic" : "Confident + Authentic",
+      rationale: promo ? `프로모 소구. 할인/가격 직접 노출.` : intentBias === "awareness" ? "브랜드 인지도." : `${audience} 라이프스타일.` },
   ];
 
   return variants.map(v => {
