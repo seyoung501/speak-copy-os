@@ -493,41 +493,96 @@ const KR_INTENTS = [
 
 const KR_CHANNEL_FORMATS = {
   paid: [
-    { id: "meta-static", label: "Meta / 정적 이미지", headlineMax: 25, subMax: 60, tone: "scroll-stopping" },
-    { id: "meta-video", label: "Meta / 영상 (hook)", headlineMax: 20, subMax: 0, tone: "spoken-rhythm" },
-    { id: "tiktok", label: "TikTok / Hook", headlineMax: 18, subMax: 0, tone: "native-rhythm" },
-    { id: "youtube", label: "YouTube / Pre-roll", headlineMax: 24, subMax: 50, tone: "attention-grab" },
-    { id: "naver", label: "Naver / 검색광고", headlineMax: 25, subMax: 45, tone: "keyword-driven" },
+    { id: "meta-static", label: "Meta / 정적 이미지", headlineMax: 25, subMax: 50, tone: "scroll-stopping",
+      guide: "스크롤 멈추게 하는 한 줄. Pain/숫자/질문으로 시작. 이미지 위 텍스트라 짧아야 함.",
+      structure: "headline + sub-copy + CTA 버튼" },
+    { id: "meta-video", label: "Meta / 영상 (hook 3초)", headlineMax: 15, subMax: 0, tone: "spoken-rhythm",
+      guide: "첫 3초 음성 훅. 말하듯 자연스럽게. 질문형이 효과적. 자막 기준.",
+      structure: "hook 한 문장 (음성)" },
+    { id: "tiktok", label: "TikTok / Hook", headlineMax: 15, subMax: 0, tone: "native-rhythm",
+      guide: "틱톡 네이티브 톤. Z세대 말투 OK. 호기심+공감. 영상 자막 기준.",
+      structure: "hook 한 문장 (자막)" },
+    { id: "youtube", label: "YouTube / Pre-roll", headlineMax: 24, subMax: 50, tone: "attention-grab",
+      guide: "5초 skip 전에 주목. 강한 질문/숫자. '이 영상 끝까지 보세요' 느낌.",
+      structure: "hook + supporting claim" },
+    { id: "naver", label: "Naver / 검색광고", headlineMax: 25, subMax: 45, tone: "keyword-driven",
+      guide: "검색 키워드 매칭. '영어 회화 앱' '스피킹 연습' 등 포함. 정보 전달형.",
+      structure: "제목 + 설명문" },
   ],
   lp: [
-    { id: "lp-hero", label: "LP / Hero", headlineMax: 25, subMax: 60, tone: "bold-clear" },
-    { id: "lp-section", label: "LP / Section", headlineMax: 30, subMax: 100, tone: "explanatory" },
-    { id: "lp-cta", label: "LP / CTA 영역", headlineMax: 20, subMax: 40, tone: "action-driving" },
+    { id: "lp-hero", label: "LP / Hero 섹션", headlineMax: 25, subMax: 60, tone: "bold-clear",
+      guide: "랜딩페이지 최상단. 한 문장으로 핵심 가치. 아래 스크롤 유도.",
+      structure: "대헤드라인 + 서브카피 + CTA 버튼" },
+    { id: "lp-section", label: "LP / 본문 섹션", headlineMax: 35, subMax: 120, tone: "explanatory",
+      guide: "USP나 기능 설명. 좀 더 길어도 됨. 구체적 수치/기능 포함.",
+      structure: "섹션 제목 + 설명 본문" },
+    { id: "lp-cta", label: "LP / CTA 영역", headlineMax: 20, subMax: 40, tone: "action-driving",
+      guide: "구매/가입 직전. 마지막 설득. 짧고 긴급하게.",
+      structure: "마무리 한 줄 + CTA 버튼 텍스트" },
   ],
   appstore: [
-    { id: "as-title", label: "App Store / 제목", headlineMax: 30, subMax: 0, tone: "keyword-dense" },
-    { id: "as-subtitle", label: "App Store / 부제", headlineMax: 30, subMax: 0, tone: "benefit-led" },
-    { id: "as-desc", label: "App Store / 설명", headlineMax: 80, subMax: 0, tone: "front-loaded" },
+    { id: "as-title", label: "App Store / 앱 제목", headlineMax: 30, subMax: 0, tone: "keyword-dense",
+      guide: "앱스토어 검색 최적화. '영어 회화' '스피킹' 키워드 필수. 브랜드명 포함.",
+      structure: "앱 이름 — 핵심 키워드" },
+    { id: "as-subtitle", label: "App Store / 부제", headlineMax: 30, subMax: 0, tone: "benefit-led",
+      guide: "핵심 USP 한 줄. 다운로드 결정에 직접 영향.",
+      structure: "USP 한 문장" },
+    { id: "as-desc", label: "App Store / 상세 설명", headlineMax: 80, subMax: 200, tone: "front-loaded",
+      guide: "가장 중요한 내용을 맨 앞에. '더 보기' 전에 설득 완료. 수치 포함.",
+      structure: "핵심 USP + 기능 리스트 + 수상/숫자" },
   ],
   crm: [
-    { id: "push", label: "Push 알림 (<50자)", headlineMax: 50, subMax: 0, tone: "personal-gentle" },
-    { id: "email-subject", label: "Email 제목", headlineMax: 40, subMax: 0, tone: "curiosity" },
-    { id: "kakao", label: "카카오톡 메시지", headlineMax: 100, subMax: 0, tone: "peer" },
+    { id: "push", label: "Push 알림", headlineMax: 40, subMax: 0, tone: "personal-gentle",
+      guide: "잠금화면에서 보임. 극도로 짧게. 이름 호출 느낌. 부드럽고 직접적. 이모지 1개 OK.",
+      structure: "한 문장 (40자 이내)" },
+    { id: "push-title-body", label: "Push 제목+본문", headlineMax: 20, subMax: 40, tone: "personal-gentle",
+      guide: "제목(굵게)과 본문 분리. 제목은 10~20자. 본문은 보충 설명.",
+      structure: "제목 (20자) + 본문 (40자)" },
+    { id: "email-subject", label: "Email 제목", headlineMax: 40, subMax: 0, tone: "curiosity",
+      guide: "열어보고 싶게. 호기심 유발. 숫자/질문 효과적. '[스픽]' 접두어.",
+      structure: "이메일 제목 한 줄" },
+    { id: "kakao", label: "카카오톡 / 알림톡", headlineMax: 60, subMax: 100, tone: "peer",
+      guide: "친구가 보낸 느낌. 반말/존댓말 혼합. 이모지 자연스럽게. 링크 유도.",
+      structure: "메시지 본문 + CTA 링크" },
   ],
   social: [
-    { id: "ig-caption", label: "Instagram / 캡션", headlineMax: 50, subMax: 200, tone: "conversational" },
-    { id: "ig-story", label: "Instagram / 스토리", headlineMax: 20, subMax: 0, tone: "punchy" },
-    { id: "youtube-title", label: "YouTube / 제목", headlineMax: 60, subMax: 0, tone: "curiosity-hook" },
+    { id: "ig-caption", label: "Instagram / 캡션", headlineMax: 50, subMax: 200, tone: "conversational",
+      guide: "첫 줄이 핵심(더 보기 전). 공감형. 해시태그 2-3개. 댓글 유도.",
+      structure: "첫 줄 (hook) + 본문 + 해시태그" },
+    { id: "ig-story", label: "Instagram / 스토리", headlineMax: 20, subMax: 0, tone: "punchy",
+      guide: "한 문장. 강렬하고 짧게. 스와이프업 유도. 배경 이미지 위 텍스트.",
+      structure: "한 문장 (20자 이내)" },
+    { id: "ig-reel", label: "Instagram / 릴스 자막", headlineMax: 20, subMax: 0, tone: "hook",
+      guide: "릴스 첫 프레임. 스크롤 멈추게. 질문/반전. 자막 기준.",
+      structure: "hook 한 문장" },
+    { id: "youtube-title", label: "YouTube / 제목", headlineMax: 50, subMax: 0, tone: "curiosity-hook",
+      guide: "클릭을 유도하는 제목. 숫자, 감정어, 호기심. 키워드 의식.",
+      structure: "영상 제목 (50자 이내)" },
   ],
   influencer: [
-    { id: "inf-hook", label: "인플루언서 / Hook (3초)", headlineMax: 20, subMax: 0, tone: "native" },
-    { id: "inf-script", label: "인플루언서 / 대본", headlineMax: 40, subMax: 200, tone: "natural" },
+    { id: "inf-hook", label: "인플루언서 / Hook (3초)", headlineMax: 20, subMax: 0, tone: "native",
+      guide: "자연스러운 첫 마디. 대본 같으면 안 됨. '나' 시점. 질문/고백형.",
+      structure: "첫 문장 (말하듯)" },
+    { id: "inf-talking", label: "인플루언서 / 토킹포인트", headlineMax: 50, subMax: 150, tone: "natural",
+      guide: "3-4개 핵심 포인트. 인플루언서가 자기 말로 풀 수 있게. 키워드만.",
+      structure: "포인트 1 / 포인트 2 / 포인트 3" },
+    { id: "inf-script", label: "인플루언서 / 전체 대본 (30-60초)", headlineMax: 60, subMax: 300, tone: "spoken",
+      guide: "30-60초 분량. 자연스러운 말투. 개인 경험 → 문제 → 스픽 소개 → CTA. 길게 OK.",
+      structure: "도입(공감) → 전환(스픽) → 근거(기능/효과) → CTA" },
   ],
   brand: [
-    { id: "brand-tagline", label: "브랜드 / 태그라인", headlineMax: 15, subMax: 0, tone: "memorable" },
-    { id: "brand-manifesto", label: "브랜드 / 매니페스토", headlineMax: 30, subMax: 200, tone: "spoken-poetic" },
+    { id: "brand-tagline", label: "브랜드 / 태그라인", headlineMax: 15, subMax: 0, tone: "memorable",
+      guide: "브랜드를 한 마디로. 기억에 남는. 비전 압축. 매우 짧고 강렬.",
+      structure: "태그라인 한 줄 (15자 이내)" },
+    { id: "brand-manifesto", label: "브랜드 / 매니페스토", headlineMax: 40, subMax: 200, tone: "spoken-poetic",
+      guide: "브랜드 선언문. 시적 리듬. 감정적 울림. 비전+철학. TV/영상 VO.",
+      structure: "리드 문장 + 전개 (3-4문장)" },
+    { id: "brand-slogan", label: "브랜드 / 캠페인 슬로건", headlineMax: 20, subMax: 30, tone: "campaign",
+      guide: "시즌/캠페인용 슬로건. 태그라인보다 약간 길지만 여전히 임팩트.",
+      structure: "슬로건 + 서브라인" },
   ],
 };
+
 
 // Brand check for Korean copy
 function krBrandCheck(t) {
@@ -739,28 +794,95 @@ function krGenerateCopy(brief, copies) {
       : intent === "awareness" ? (rAware?.ko || "나를 끌어주는 영어 앱.")
       : (feature && rFeat ? rFeat.ko : rUsp?.ko || "AI와 하루 100문장.");
 
-  // ARCHETYPE 2: Channel-native (채널 성격에 맞는 카피)
+  // ARCHETYPE 2: Channel×Format-native (채널+포맷에 맞는 카피)
+  const fmtId = formatObj?.id || "";
+  
   if (channel === "paid") {
-    v2h = rTarget?.ko || effectivePain || "아직도 영어 말하기 두려워?";
-    v2s = feature && rFeat ? rFeat.ko : (rUsp?.ko || "지금 시작하면 달라져요.");
+    if (fmtId === "meta-video" || fmtId === "tiktok") {
+      // 영상 Hook: 말하듯 짧게, 질문형
+      v2h = effectivePain ? effectivePain + "?" : "영어 10년 했는데 왜 아직 말이 안 될까?";
+      v2s = null; // 영상 훅은 한 줄만
+    } else if (fmtId === "naver") {
+      // 네이버 검색광고: 키워드 중심
+      v2h = "AI 영어 회화 앱 스픽 | 스피킹 특화";
+      v2s = feature && rFeat ? rFeat.ko : "하루 10분 AI 영어 회화 연습. 7일 무료.";
+    } else {
+      v2h = rTarget?.ko || effectivePain || "아직도 영어 말하기 두려워?";
+      v2s = feature && rFeat ? rFeat.ko : (rUsp?.ko || "지금 시작하면 달라져요.");
+    }
   } else if (channel === "crm") {
-    v2h = "오늘 수업 준비됐어요 :)";
-    v2s = personaObj ? personaSubs[personaObj.tone] || "하루 10분, 다시 시작해볼까요?" : "오랜만이에요. 다시 시작해볼까요?";
+    if (fmtId === "push" || fmtId === "push-title-body") {
+      // Push: 극도로 짧고 개인적
+      v2h = personaObj ? personaSubs[personaObj.tone]?.split(".")[0] || "오늘 수업 준비됐어요 😊" : "오늘 수업 준비됐어요 😊";
+      v2s = fmtId === "push" ? null : "하루 10분이면 충분해요.";
+    } else if (fmtId === "email-subject") {
+      // 이메일 제목: 호기심
+      v2h = "[스픽] " + (rTarget?.ko?.slice(0, 30) || "이번 주 영어 목표, 달성했나요?");
+      v2s = null;
+    } else {
+      // 카카오톡: 친구 톤
+      v2h = personaObj?.pain ? personaObj.pain + " 😅" : "요즘 영어 공부 어떻게 하고 있어요?";
+      v2s = feature && rFeat ? rFeat.ko : "스픽 한번 써보세요. 진짜 달라요.";
+    }
   } else if (channel === "social") {
-    v2h = rTarget?.ko || "영어, 진짜 입에서 나오게 하는 법";
-    v2s = feature && rFeat ? rFeat.ko : "써본 사람만 아는 차이 ✨";
+    if (fmtId === "ig-story" || fmtId === "ig-reel") {
+      // 스토리/릴스: 극짧
+      v2h = rTarget?.ko?.slice(0, 18) || "입에서 영어가 나온다 🔥";
+      v2s = null;
+    } else if (fmtId === "youtube-title") {
+      v2h = "영어 10년 했는데 말이 안 되는 이유 (+ 해결법)";
+      v2s = null;
+    } else {
+      // IG 캡션: 공감+길게
+      v2h = rTarget?.ko || "영어, 진짜 입에서 나오게 하는 법";
+      v2s = feature && rFeat ? rFeat.ko + " ✨" : "써본 사람만 아는 차이 ✨";
+    }
   } else if (channel === "influencer") {
-    v2h = "솔직히 저도 영어 못했거든요";
-    v2s = feature && rFeat ? rFeat.ko : (rReview?.ko || "근데 이거 쓰고 나서 진짜 달라졌어요.");
+    if (fmtId === "inf-hook") {
+      v2h = "솔직히 저도 영어 못했거든요";
+      v2s = null;
+    } else if (fmtId === "inf-script") {
+      // 전체 대본: 길게 OK
+      v2h = "솔직히 저도 영어 학원 3번 끊었거든요. " + (personaObj?.pain || "근데 이건 좀 달랐어요.");
+      v2s = (feature && rFeat ? rFeat.ko + ". " : "") + (rReview?.ko || "진짜 말이 트이더라고요.") + " 링크 올려놓을게요, 7일 무료라 부담 없이 써보세요.";
+    } else {
+      // 토킹포인트
+      v2h = "1. " + (effectivePain || "영어 말하기 어려운 이유");
+      v2s = "2. " + (feature && rFeat ? rFeat.ko : "스픽이 다른 점") + " / 3. " + (rReview?.ko?.slice(0, 25) || "실제 효과") + " / 4. 7일 무료";
+    }
   } else if (channel === "brand") {
-    v2h = rAware?.ko || "틀려라, 트일 것이다!";
-    v2s = rAware2?.ko || "나를 끌어주는 영어 앱";
+    if (fmtId === "brand-tagline") {
+      v2h = rand(awarenessPool.filter(c => c.l === "3" && c.k))?.ko?.slice(0, 15) || "나를 끌어주는 영어 앱";
+      v2s = null;
+    } else if (fmtId === "brand-manifesto") {
+      v2h = rAware?.ko || "틀려라, 트일 것이다!";
+      v2s = (rAware2?.ko || "영어는 입으로 해야 늡니다.") + " " + (rand(awarenessPool.filter(c => c.l === "2"))?.ko || "나를 끌어주는 영어 앱, 스픽.");
+    } else {
+      v2h = rAware?.ko || "올해는 트일 것이다";
+      v2s = rAware2?.ko || "나를 끌어주는 영어 앱";
+    }
   } else if (channel === "lp") {
-    v2h = rMain?.ko || rUsp?.ko || "왜 1,500만이 스픽을 선택했을까?";
-    v2s = feature && rFeat ? rFeat.ko : (rData?.ko || "하루 평균 100문장, AI와 실전 연습.");
+    if (fmtId === "lp-hero") {
+      v2h = rMain?.ko || rUsp?.ko || "왜 1,500만이 스픽을 선택했을까?";
+      v2s = feature && rFeat ? rFeat.ko : "AI와 하루 100문장. 말이 트입니다.";
+    } else if (fmtId === "lp-cta") {
+      v2h = "지금 시작하면 달라집니다.";
+      v2s = rPrice?.ko || "7일 무료 체험. 부담 없이.";
+    } else {
+      v2h = feature && rFeat ? rFeat.ko : (rUsp?.ko || "왜 스픽이 다를까?");
+      v2s = rData?.ko || "하루 평균 100문장, AI와 실전 연습.";
+    }
   } else if (channel === "appstore") {
-    v2h = "AI 영어 회화 스픽 — 스피킹 특화";
-    v2s = feature && rFeat ? rFeat.ko : (rData?.ko || "1,500만 다운로드. 올해의 앱 수상.");
+    if (fmtId === "as-title") {
+      v2h = "스픽 Speak — AI 영어 회화 스피킹";
+      v2s = null;
+    } else if (fmtId === "as-subtitle") {
+      v2h = feature && rFeat ? rFeat.ko?.slice(0, 28) : "AI 튜터와 매일 영어 말하기 연습";
+      v2s = null;
+    } else {
+      v2h = rUsp?.ko || "1,500만이 선택한 AI 영어 회화 앱";
+      v2s = (feature && rFeat ? rFeat.ko + ". " : "") + (rData?.ko || "올해의 앱 수상. 93% 발음 인식 정확도.");
+    }
   }
 
   // ARCHETYPE 3: Intent-native (인텐트 성격에 맞는 카피)
@@ -907,7 +1029,7 @@ REFERENCE COPIES for ${audience}: ${refCopies}`;
       const usr = `Channel: ${channel} / ${fObj?.label || format}
 Audience: ${audience} / Persona: ${pObj?.label || persona} (Pain: ${pObj?.pain || pain || "general"})
 Intent: ${intent}
-${fObj ? `Headline max: ${fObj.headlineMax}자, Sub max: ${fObj.subMax}자, Tone: ${fObj.tone}` : ""}
+${fObj ? `Format: ${fObj.label}\nHeadline max: ${fObj.headlineMax}자, Sub max: ${fObj.subMax}자\nTone: ${fObj.tone}\nGuide: ${fObj.guide || ""}\nStructure: ${fObj.structure || ""}` : ""}
 ${promo ? "Include pricing/promo angle." : ""}
 ${pain ? `Custom pain: ${pain}` : ""}
 
@@ -1063,10 +1185,14 @@ JSON only, no other text.`;
               </KR_FIELD>
             </div>
             {formatObj && (
-              <div style={{ marginTop: 8, padding: "8px 12px", background: "#7C3AED08", border: "1px solid #7C3AED22", borderRadius: 6, fontSize: 11, color: "#6B7280", lineHeight: 1.5, display: "flex", gap: 14, flexWrap: "wrap" }}>
-                <span><strong style={{ color: "#7C3AED", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase" }}>Tone</strong> <span style={{ color: "#1A1A1A" }}>{formatObj.tone}</span></span>
-                {formatObj.headlineMax > 0 && <span><strong style={{ color: "#7C3AED", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase" }}>Headline max</strong> <span style={{ color: "#1A1A1A" }}>{formatObj.headlineMax}자</span></span>}
-                {formatObj.subMax > 0 && <span><strong style={{ color: "#7C3AED", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase" }}>Sub max</strong> <span style={{ color: "#1A1A1A" }}>{formatObj.subMax}자</span></span>}
+              <div style={{ marginTop: 8, padding: "10px 14px", background: "#7C3AED08", border: "1px solid #7C3AED22", borderRadius: 6, fontSize: 11, color: "#6B7280", lineHeight: 1.6 }}>
+                <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 6 }}>
+                  <span><strong style={{ color: "#7C3AED", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase" }}>Tone</strong> <span style={{ color: "#1A1A1A" }}>{formatObj.tone}</span></span>
+                  {formatObj.headlineMax > 0 && <span><strong style={{ color: "#7C3AED", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase" }}>H</strong> <span style={{ color: "#1A1A1A" }}>{formatObj.headlineMax}자</span></span>}
+                  {formatObj.subMax > 0 && <span><strong style={{ color: "#7C3AED", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase" }}>Sub</strong> <span style={{ color: "#1A1A1A" }}>{formatObj.subMax}자</span></span>}
+                </div>
+                {formatObj.guide && <div style={{ color: "#374151", marginBottom: 4 }}>{formatObj.guide}</div>}
+                {formatObj.structure && <div style={{ color: "#7C3AED", fontWeight: 500 }}>구조: {formatObj.structure}</div>}
               </div>
             )}
           </div>
