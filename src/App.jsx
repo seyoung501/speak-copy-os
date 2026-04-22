@@ -842,13 +842,20 @@ function krGenerateCopy(brief, copies) {
       v2h = "솔직히 저도 영어 못했거든요";
       v2s = null;
     } else if (fmtId === "inf-script") {
-      // 전체 대본: 길게 OK
-      v2h = "솔직히 저도 영어 학원 3번 끊었거든요. " + (personaObj?.pain || "근데 이건 좀 달랐어요.");
-      v2s = (feature && rFeat ? rFeat.ko + ". " : "") + (rReview?.ko || "진짜 말이 트이더라고요.") + " 링크 올려놓을게요, 7일 무료라 부담 없이 써보세요.";
+      // 전체 대본 30-60초: 도입(공감) → 전환(스픽) → 근거(기능/효과) → CTA
+      const painLine = effectivePain || personaObj?.pain || "영어 학원 다녀봤는데 말이 안 되더라고요";
+      const featLine = feature && rFeat ? rFeat.ko : (rand(allFeat)?.ko || "AI 튜터가 실시간으로 피드백을 줘요");
+      const reviewLine = rReview?.ko || "한 달 하니까 진짜 회의에서 한마디 했어요";
+      const uspLine = rUsp?.ko || "스픽은 진짜 말하게 만들어요";
+      v2h = "[도입] 솔직히 저도 " + painLine + ". 영어 공부 몇 번을 시작했다 포기했는지 모르겠어요.";
+      v2s = "[전환] 근데 스픽이라는 앱을 써봤는데, 이건 좀 달랐어요. " + uspLine + ". [근거] " + featLine + ". 실제로 " + reviewLine + ". [CTA] 링크 올려놓을 테니까, 7일 무료라 부담 없이 한번 써보세요. 진짜 다를 거예요.";
     } else {
-      // 토킹포인트
-      v2h = "1. " + (effectivePain || "영어 말하기 어려운 이유");
-      v2s = "2. " + (feature && rFeat ? rFeat.ko : "스픽이 다른 점") + " / 3. " + (rReview?.ko?.slice(0, 25) || "실제 효과") + " / 4. 7일 무료";
+      // 토킹포인트 3-4개
+      const tpPain = effectivePain || personaObj?.pain || "영어 말하기가 어려운 이유";
+      const tpFeat = feature && rFeat ? rFeat.ko : (rand(allFeat)?.ko || "AI가 실시간 피드백");
+      const tpProof = rReview?.ko || rData?.ko || "1,500만 다운로드";
+      v2h = "1. " + tpPain;
+      v2s = "2. 스픽이 다른 이유: " + tpFeat + "\n3. 실제 효과: " + tpProof + "\n4. CTA: 7일 무료 체험, 링크는 프로필에";
     }
   } else if (channel === "brand") {
     if (fmtId === "brand-tagline") {
@@ -917,10 +924,13 @@ function krGenerateCopy(brief, copies) {
   }
 
   // === CHANNEL TRANSFORM: 채널에 맞게 글자수 + 톤 조정 ===
+  const isLongFormat = ["inf-script","inf-talking","brand-manifesto","ig-caption","as-desc","lp-section","kakao"].includes(fmtId);
   const applyChannel = (h, s) => {
     let nh = chRule.transform(h);
-    nh = trim(nh, effHMax);
-    let ns = trim(s, effSMax);
+    // 긴 포맷은 글자수 제한을 느슨하게
+    if (!isLongFormat) nh = trim(nh, effHMax);
+    else nh = trim(nh, effHMax * 2); // 긴 포맷은 2배 허용
+    let ns = isLongFormat ? s : trim(s, effSMax); // 긴 포맷은 sub 자르지 않음
     return [nh, ns];
   };
 
@@ -937,7 +947,42 @@ function krGenerateCopy(brief, copies) {
     5: promo ? "Promo" : intent === "awareness" ? "Brand-first" : intent === "conversion" ? "Price-action" : "Lifestyle"
   };
 
-  const variants = [
+  // Long-format override: 인플루언서 대본, 매니페스토 등
+  if (fmtId === "inf-script") {
+    const painLine = effectivePain || personaObj?.pain || "영어 공부 몇 번 포기했는지 모르겠어요";
+    const featLine = feature && rFeat ? rFeat.ko : (rand(allFeat)?.ko || "AI 튜터가 실시간 피드백");
+    const revLine = rReview?.ko || "한 달 하니까 진짜 달라졌어요";
+    const uspLine = rUsp?.ko || "스픽은 진짜 말하게 만들어요";
+    const ctaLine = rCta?.ko || "7일 무료 체험";
+    
+    // Pain-first 대본
+    v1h = "[도입] " + painLine + ". 다들 이런 경험 있지 않아요?";
+    v1s = "[전환] 그래서 저도 거의 포기했었는데, 스픽이라는 앱을 알게 됐어요. [근거] " + uspLine + ". " + featLine + ". [효과] " + revLine + ". [CTA] " + ctaLine + "이니까, 부담 없이 한번 써보세요.";
+    
+    // Intent-native 대본
+    if (intent === "conversion") {
+      v3h = "[도입] 솔직히 영어 앱 많잖아요. 근데 이건 진짜 달라요.";
+      v3s = "[근거] " + revLine + ". " + (rReview2?.ko || "저도 처음엔 반신반의했어요.") + " [가격] " + (rPrice?.ko || "월 만원대") + "인데, " + ctaLine + " 있어서 먼저 써보고 결정할 수 있어요. [CTA] 링크 올려놓을게요.";
+    } else {
+      v3h = "[도입] 요즘 영어 공부 어떻게 하세요?";
+      v3s = "[전환] 저는 스픽이라는 앱을 쓰고 있는데, " + uspLine + ". [근거] " + featLine + ". " + (rData?.ko || "하루 100문장 이상 말하게 돼요.") + " [CTA] 궁금하면 " + ctaLine + "으로 먼저 써보세요.";
+    }
+    
+    // Peer-voice 대본
+    v4h = "[도입] " + (rTarget?.ko || "영어, 언젠간 해야지 하면서 미루고 있었어요.");
+    v4s = "[공감] " + (personaObj ? personaSubs[personaObj.tone] : "근데 이번엔 좀 달랐어요.") + " [경험] 스픽 쓰면서 " + revLine + ". [근거] " + featLine + ". [CTA] 진짜 한번 써보세요, " + ctaLine + "이에요.";
+  }
+  
+  if (fmtId === "brand-manifesto") {
+    const p1 = rand(awarenessPool.filter(c => c.l === "2"))?.ko || "영어는 입으로 해야 늡니다.";
+    const p2 = rand(awarenessPool.filter(c => c.l === "2" && c.ko !== p1))?.ko || "틀려라, 트일 것이다.";
+    const p3 = rand(awarenessPool.filter(c => c.l === "3"))?.ko || "나를 끌어주는 영어 앱";
+    v2s = p1 + " " + p2 + " " + p3 + " 스픽.";
+    v3h = rand(awarenessPool.filter(c => c.l === "1"))?.ko || "언어 교육의 혁신";
+    v3s = p1 + " " + p2;
+  }
+
+    const variants = [
     { archetype: "Pain-first", headline: t1h, sub: t1s, cta: trim(rCta?.ko || "지금 시작하기", chRule.cta + 5),
       leans: "Confident", rationale: `${intentLabel} · ${chLabel}(${effHMax}자) · ${personaObj ? personaObj.label : audience}${feature ? " · " + featLabel : ""}` },
     { archetype: `Channel: ${chLabel}`, headline: t2h, sub: t2s, cta: trim(rCta2?.ko || "무료 체험", chRule.cta + 5),
@@ -2115,7 +2160,42 @@ function generateCopy(brief, warehouseCopies) {
     return tags.length ? `${base}` : base;
   };
 
-  const variants = [
+  // Long-format override: 인플루언서 대본, 매니페스토 등
+  if (fmtId === "inf-script") {
+    const painLine = effectivePain || personaObj?.pain || "영어 공부 몇 번 포기했는지 모르겠어요";
+    const featLine = feature && rFeat ? rFeat.ko : (rand(allFeat)?.ko || "AI 튜터가 실시간 피드백");
+    const revLine = rReview?.ko || "한 달 하니까 진짜 달라졌어요";
+    const uspLine = rUsp?.ko || "스픽은 진짜 말하게 만들어요";
+    const ctaLine = rCta?.ko || "7일 무료 체험";
+    
+    // Pain-first 대본
+    v1h = "[도입] " + painLine + ". 다들 이런 경험 있지 않아요?";
+    v1s = "[전환] 그래서 저도 거의 포기했었는데, 스픽이라는 앱을 알게 됐어요. [근거] " + uspLine + ". " + featLine + ". [효과] " + revLine + ". [CTA] " + ctaLine + "이니까, 부담 없이 한번 써보세요.";
+    
+    // Intent-native 대본
+    if (intent === "conversion") {
+      v3h = "[도입] 솔직히 영어 앱 많잖아요. 근데 이건 진짜 달라요.";
+      v3s = "[근거] " + revLine + ". " + (rReview2?.ko || "저도 처음엔 반신반의했어요.") + " [가격] " + (rPrice?.ko || "월 만원대") + "인데, " + ctaLine + " 있어서 먼저 써보고 결정할 수 있어요. [CTA] 링크 올려놓을게요.";
+    } else {
+      v3h = "[도입] 요즘 영어 공부 어떻게 하세요?";
+      v3s = "[전환] 저는 스픽이라는 앱을 쓰고 있는데, " + uspLine + ". [근거] " + featLine + ". " + (rData?.ko || "하루 100문장 이상 말하게 돼요.") + " [CTA] 궁금하면 " + ctaLine + "으로 먼저 써보세요.";
+    }
+    
+    // Peer-voice 대본
+    v4h = "[도입] " + (rTarget?.ko || "영어, 언젠간 해야지 하면서 미루고 있었어요.");
+    v4s = "[공감] " + (personaObj ? personaSubs[personaObj.tone] : "근데 이번엔 좀 달랐어요.") + " [경험] 스픽 쓰면서 " + revLine + ". [근거] " + featLine + ". [CTA] 진짜 한번 써보세요, " + ctaLine + "이에요.";
+  }
+  
+  if (fmtId === "brand-manifesto") {
+    const p1 = rand(awarenessPool.filter(c => c.l === "2"))?.ko || "영어는 입으로 해야 늡니다.";
+    const p2 = rand(awarenessPool.filter(c => c.l === "2" && c.ko !== p1))?.ko || "틀려라, 트일 것이다.";
+    const p3 = rand(awarenessPool.filter(c => c.l === "3"))?.ko || "나를 끌어주는 영어 앱";
+    v2s = p1 + " " + p2 + " " + p3 + " 스픽.";
+    v3h = rand(awarenessPool.filter(c => c.l === "1"))?.ko || "언어 교육의 혁신";
+    v3s = p1 + " " + p2;
+  }
+
+    const variants = [
     {
       archetype: "Pain-first",
       rationale: personaObj
