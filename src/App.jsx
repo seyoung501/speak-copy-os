@@ -524,26 +524,15 @@ function krBrandCheck(t) {
 // KR Copy generation — logic-based, no API needed
 function krGenerateCopy(brief, copies) {
   const { audience, persona, intent, channel, format, promo, pain, feature } = brief;
-  const pickByLevel = (l, sub, g) => copies.filter(c => c.l === l && (!sub || c.sub === sub) && (!g || c.g === g));
   
-  const personaObj = (KR_PERSONAS[audience] || []).find(p => p.id === persona) || null;
-  const personaPain = personaObj?.pain || pain || "";
-  const formatList = KR_CHANNEL_FORMATS[channel] || [];
-  const formatObj = formatList.find(f => f.id === format) || null;
-  const headlineMax = formatObj?.headlineMax || 50;
-  const subMax = formatObj?.subMax || 100;
-
-  const heroes = pickByLevel("3").filter(c => c.k);
-  const philos = pickByLevel("2").filter(c => c.k);
-  const targetLines = pickByLevel("5", audience.replace("Career / Business","T-Career").replace("Travel","T-Travel").replace("Growth","T-Growth").replace("Life Overseas","T-Overseas").replace("Test Prep (OPIc/TOEIC)","T-Test").replace("Parents","T-Parents").replace("General","T-General"));
-  const keyTargets = targetLines.filter(c => c.k);
-  const featLines = feature ? pickByLevel("6", "RTB-Features", feature) : [];
-  const dataLines = pickByLevel("6", "RTB-Tech").concat(pickByLevel("6", "RTB-Scale")).filter(c => c.k);
-  const reviews = pickByLevel("6", "RTB-Reviews").filter(c => c.k);
-  const prices = pickByLevel("6", "RTB-Price");
-  const ctas = pickByLevel("7");
-
-  const pick = (arr, i = 0) => arr[i % Math.max(1, arr.length)];
+  // Map audience name to sub tag
+  const audTag = audience.replace("Career / Business","T-Career").replace("Travel","T-Travel")
+    .replace("Growth","T-Growth").replace("Life Overseas","T-Overseas")
+    .replace("Test Prep (OPIc/TOEIC)","T-Test").replace("Parents","T-Parents").replace("General","T-General");
+  
+  const pickByLevel = (l, sub, g) => copies.filter(c => c.l === l && (!sub || c.sub === sub) && (!g || c.g === g));
+  const pick = (arr, i = 0) => arr.length ? arr[i % arr.length] : null;
+  const rand = (arr) => arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
   const trim = (t, max) => {
     if (!max || !t || t.length <= max) return t;
     const truncated = t.slice(0, max);
@@ -551,75 +540,158 @@ function krGenerateCopy(brief, copies) {
     return natural ? natural[1] : truncated + "…";
   };
 
-  const effectivePain = pain.trim() || personaPain;
+  const personaObj = (KR_PERSONAS[audience] || []).find(p => p.id === persona) || null;
+  const formatList = KR_CHANNEL_FORMATS[channel] || [];
+  const formatObj = formatList.find(f => f.id === format) || null;
+  const headlineMax = formatObj?.headlineMax || 50;
+  const subMax = formatObj?.subMax || 100;
+  const effectivePain = pain.trim() || personaObj?.pain || "";
   const intentBias = intent || "consideration";
 
-  // Archetype 1: PAIN-FIRST
-  const v1h = effectivePain
-    ? trim(`${effectivePain}. ${heroes[0]?.ko || "따라오면, 말이 된다."}`, headlineMax)
-    : trim(keyTargets[0]?.ko || "몇 년을 공부해도 말이 안 나온다면", headlineMax);
-  const v1s = trim(philos[0]?.ko || "틀려라, 트일 것이다.", subMax);
-  const v1c = pick(ctas, 0)?.ko || "지금 시작하기";
+  // === PULL DIFFERENT COPIES PER AUDIENCE/CONTEXT ===
+  const allHeroes = pickByLevel("3").filter(c => c.k);
+  const allPhilos = pickByLevel("2").filter(c => c.k);
+  const targetLines = pickByLevel("5", audTag);
+  const keyTargets = targetLines.filter(c => c.k);
+  const allTargets = targetLines.length ? targetLines : pickByLevel("5");
+  const featLines = feature ? pickByLevel("6", "RTB-Features", feature) : pickByLevel("6", "RTB-Features");
+  const dataLines = pickByLevel("6", "RTB-Tech").concat(pickByLevel("6", "RTB-Scale"));
+  const keyData = dataLines.filter(c => c.k);
+  const reviews = pickByLevel("6", "RTB-Reviews");
+  const prices = pickByLevel("6", "RTB-Price");
+  const allUsps = pickByLevel("4");
+  const keyUsps = allUsps.filter(c => c.k);
+  const ctas = pickByLevel("7");
+  
+  // Randomize picks to avoid same result every time
+  const rHero = rand(allHeroes);
+  const rPhilo = rand(allPhilos);
+  const rTarget = rand(allTargets);
+  const rTarget2 = rand(allTargets.filter(c => c !== rTarget)) || rTarget;
+  const rFeat = rand(featLines);
+  const rData = rand(keyData.length ? keyData : dataLines);
+  const rReview = rand(reviews);
+  const rUsp = rand(keyUsps.length ? keyUsps : allUsps);
+  const rUsp2 = rand(allUsps.filter(c => c !== rUsp)) || rUsp;
+  const rCta = rand(ctas);
+  const rCta2 = rand(ctas.filter(c => c !== rCta)) || rCta;
+  const rPrice = rand(prices);
 
-  // Archetype 2: DATA-LED
-  const numMatch = dataLines[0]?.ko?.match(/[\d,.%만억배+]+/)?.[0] || "1,500만";
-  const v2h = trim(
-    intentBias === "conversion"
-      ? `${numMatch}이 선택한 영어 앱. 지금 시작하세요.`
-      : `${numMatch}이 선택한 이유가 있습니다.`,
-    headlineMax
-  );
-  const v2s = trim(featLines[0]?.ko || "AI가 당신의 발음을 음소 단위로 분석합니다.", subMax);
-  const v2c = pick(ctas, 1)?.ko || "무료 체험 시작";
+  // === ARCHETYPE 1: PAIN-FIRST (most audience-sensitive) ===
+  let v1h, v1s;
+  if (effectivePain) {
+    v1h = `${effectivePain}. ${rHero?.ko || "스픽이 바꿔줄게요."}`;
+  } else if (rTarget) {
+    v1h = rTarget.ko;
+  } else {
+    v1h = rUsp?.ko || "몇 년을 공부해도 말이 안 나온다면";
+  }
+  // Sub depends on intent
+  if (intentBias === "conversion") {
+    v1s = rPrice?.ko || rCta?.ko || "지금 7일 무료로 시작하세요.";
+  } else if (intentBias === "awareness") {
+    v1s = rPhilo?.ko || "영어는 입으로 해야 늡니다.";
+  } else {
+    v1s = rUsp?.ko || rPhilo?.ko || "AI 튜터와 하루 100문장, 말이 트입니다.";
+  }
+  const v1c = rCta?.ko || "지금 시작하기";
 
-  // Archetype 3: BRAND POEM (따라오면 말이 된다 cadence)
-  const poemLines = copies.filter(c => (c.l === "2" || c.l === "3") && c.k);
-  const v3h = trim(poemLines[0]?.ko || "따라오면, 말이 된다 스픽", headlineMax);
-  const v3s = trim(poemLines[1]?.ko || "나를 끌어주는 영어 앱", subMax);
-  const v3c = pick(ctas, 0)?.ko || "스피킹 시작";
+  // === ARCHETYPE 2: DATA-LED (uses numbers, varies by feature) ===
+  const dataKo = rData?.ko || "";
+  const numMatch = dataKo.match(/[\d,.%만억배+]+/)?.[0] || "1,500만";
+  let v2h;
+  if (intentBias === "conversion") {
+    v2h = `${numMatch}이 선택한 영어 앱. 지금 시작하세요.`;
+  } else if (feature && rFeat) {
+    v2h = rFeat.ko;
+  } else {
+    v2h = rData?.ko || `${numMatch}이 선택한 이유가 있습니다.`;
+  }
+  let v2s;
+  if (rFeat && feature) {
+    v2s = rUsp2?.ko || "AI가 당신의 발음을 실시간 분석합니다.";
+  } else {
+    v2s = rFeat?.ko || rTarget?.ko || "하루 평균 100문장, AI와 실전 연습.";
+  }
+  const v2c = rCta2?.ko || "무료 체험 시작";
 
-  // Archetype 4: PEER-VOICE
-  const v4h = trim(reviews[0]?.ko || keyTargets[0]?.ko || "진짜 말이 트이더라고요", headlineMax);
-  const personaSub = personaObj ? ({
-    "composed-urgent": "회의에서 더 이상 침묵하지 않아도 됩니다. AI로 미리 연습하세요.",
-    "determined": "커리어를 위한 영어, 하루 10분이면 충분합니다.",
-    "skeptical-hopeful": "이번엔 다를 수 있습니다. AI니까 부담 없이.",
-    "anxious-excited": "공항에서 얼어붙지 않을 자신감, 스픽으로.",
+  // === ARCHETYPE 3: BRAND POEM (cadence/rhythm-focused) ===
+  const poemCandidates = copies.filter(c => (c.l === "2" || c.l === "3") && c.k);
+  const rPoem1 = rand(poemCandidates);
+  const rPoem2 = rand(poemCandidates.filter(c => c !== rPoem1)) || rPoem1;
+  const v3h = rPoem1?.ko || "따라오면, 말이 된다 스픽";
+  const v3s = rPoem2?.ko || "나를 끌어주는 영어 앱";
+  const v3c = rCta?.ko || "스피킹 시작";
+
+  // === ARCHETYPE 4: PEER-VOICE (audience-specific tone) ===
+  let v4h = rReview?.ko || rTarget2?.ko || "진짜 말이 트이더라고요";
+  // Persona-specific sub-copy
+  const personaToneSubs = {
+    "composed-urgent": "회의에서 더 이상 침묵 안 해도 돼요. AI로 미리 연습하면 달라요.",
+    "determined": "커리어를 위한 영어, 하루 10분이면 달라집니다.",
+    "practical": "영어 메일, 콜, 회의 — 매일 쓰는 표현부터 잡으세요.",
+    "skeptical-hopeful": "이번엔 다를 수 있어요. AI니까 부담 없이, 내 속도대로.",
+    "cautious": "작심삼일이 두렵다면. AI가 매일 옆에서 끌어줍니다.",
+    "anxious-excited": "공항에서 얼어붙지 않을 자신감, 미리 100번 연습.",
+    "adventurous": "패키지 말고 직접 대화하고 싶다면, 모든 상황을 미리 준비하세요.",
+    "reflective": "언젠가가 아니라 오늘부터. 하루 10분, AI와 함께.",
+    "aspirational": "자막 없이 보고 싶다면, 입이 먼저 트여야 합니다.",
+    "urgent-practical": "생활 영어가 급하다면. 장보기부터 병원까지, 실전 연습.",
+    "frustrated-hopeful": "해외에 살아도 영어가 안 느는 이유 — 연습량이 부족해서예요.",
     "deadline-driven": "시험까지 한 달, 매일 100문장이면 됩니다.",
-    "warm-motivated": "아이에게 영어로 말해주는 부모가 되세요.",
-  }[personaObj.tone] || null) : null;
-  const v4s = trim(personaSub || keyTargets[1]?.ko || philos[1]?.ko || "AI니까 틀려도 괜찮아요.", subMax);
-  const v4c = pick(ctas, 2)?.ko || "7일 무료 체험";
+    "analytical-frustrated": "점수는 높은데 말이 안 된다면 — 아웃풋이 부족한 거예요.",
+    "warm-motivated": "아이에게 영어로 말해주고 싶은 마음, 스픽이 도와줄게요.",
+    "practical-caring": "학원비 아끼면서 아이 영어를 잡는 현실적인 방법."
+  };
+  const v4s = personaObj ? (personaToneSubs[personaObj.tone] || rTarget?.ko || "AI니까 틀려도 괜찮아요.") : (rTarget?.ko || "AI니까 틀려도 괜찮아요.");
+  const v4c = rCta2?.ko || "7일 무료 체험";
 
-  // Archetype 5: PROMO / LIFESTYLE
-  const v5h = trim(
-    promo && prices[0] ? `${prices[0].ko}. 지금만.` :
-    promo ? "프리미엄 월 10,750원. 커피 한 잔 값." :
-    intentBias === "awareness" ? heroes[0]?.ko || "나를 끌어주는 영어 앱" :
-    "바쁜 일상에 5분, 영어 습관을.",
-    headlineMax
-  );
-  const v5s = trim(
-    promo ? "7일 무료 체험 후 결정하세요." :
-    keyTargets[0]?.ko || "하루 100문장, 주 1,000문장. 양치질처럼 당연한 습관.",
-    subMax
-  );
-  const v5c = promo ? "7일 무료 시작" : pick(ctas, 1)?.ko || "지금 시작하기";
+  // === ARCHETYPE 5: PROMO / LIFESTYLE / BRAND-FIRST (intent-sensitive) ===
+  let v5h, v5s;
+  if (promo) {
+    v5h = rPrice?.ko ? `${rPrice.ko}. 지금만.` : "프리미엄 월 10,750원. 커피 한 잔 값.";
+    v5s = "7일 무료 체험 후 결정하세요.";
+  } else if (intentBias === "awareness") {
+    v5h = rHero?.ko || "나를 끌어주는 영어 앱";
+    v5s = rPhilo?.ko || "영어는 입으로 해야 늡니다.";
+  } else {
+    // Lifestyle — varies by audience
+    const lifestyleMap = {
+      "T-Career": "바쁜 출근길, 10분이면 오늘 회의 영어 준비 끝.",
+      "T-Travel": "비행기 타기 전, 여행 영어를 완벽하게.",
+      "T-Growth": "자기 전 10분, 내일의 나를 위한 영어 습관.",
+      "T-Overseas": "해외 생활 영어, 실전에서 바로 쓰는 표현부터.",
+      "T-Test": "시험 전 벼락치기, 매일 100문장 루틴.",
+      "T-Parents": "아이에게 영어 동화를 읽어주는 날이 올 거예요.",
+      "T-General": "바쁜 일상에 5분, 영어 습관을 만드세요."
+    };
+    v5h = lifestyleMap[audTag] || "바쁜 일상에 5분, 영어 습관을.";
+    v5s = rUsp?.ko || rTarget?.ko || "하루 100문장, 양치질처럼 당연한 습관.";
+  }
+  const v5c = promo ? "7일 무료 시작" : rCta?.ko || "지금 시작하기";
 
+  // === CHANNEL-SPECIFIC ADJUSTMENTS ===
   const variants = [
-    { archetype: "Pain-first", rationale: personaObj ? `"${personaObj.label}"의 핵심 페인포인트를 시작점으로 USP로 연결.` : "사용자 페인 → 해결 순서. Paid에서 CTR 높은 고전적 구조.", headline: v1h, sub: v1s, cta: v1c, leans: "Confident + Authentic" },
-    { archetype: "Data-led", rationale: intentBias === "conversion" ? "숫자 + 긴급성. 전환 단계 하드셀." : "숫자 선행으로 신뢰 확보. 논리적 사용자에게 효과적.", headline: v2h, sub: v2s, cta: v2c, leans: "Confident + Innovative" },
-    { archetype: "Brand-poem", rationale: "'따라오면 말이 된다'의 리듬. 감정적 공명으로 브랜드 인지 강화. 영상/브캠 적합.", headline: v3h, sub: v3s, cta: v3c, leans: "Authentic + Witty" },
-    { archetype: "Peer-voice", rationale: personaObj ? `"${personaObj.label}" 톤에 맞춘 공감 리드.` : "리뷰 톤 재현. 선생님이 아니라 옆사람 느낌.", headline: v4h, sub: v4s, cta: v4c, leans: "Authentic + Witty" },
-    { archetype: promo ? "Promo" : intentBias === "awareness" ? "Brand-first" : "Lifestyle", rationale: promo ? "가격 소구. Authentic 유지를 위해 RTB 동반." : intentBias === "awareness" ? "Awareness용 브랜드 정의 선행." : "라이프스타일 소구. 바쁜 직장인의 일상 맥락에 밀착.", headline: v5h, sub: v5s, cta: v5c, leans: "Confident + Authentic" },
+    { archetype: "Pain-first", headline: trim(v1h, headlineMax), sub: trim(v1s, subMax), cta: v1c, leans: "Confident + Authentic",
+      rationale: personaObj ? `"${personaObj.label}" 페인 → USP 해결. ${channel === "paid" ? "Paid에서 CTR 최적화." : channel === "crm" ? "CRM에서 개인화 톤." : ""}` : "페인 → 해결. 고전적 구조." },
+    { archetype: "Data-led", headline: trim(v2h, headlineMax), sub: trim(v2s, subMax), cta: v2c, leans: "Confident + Innovative",
+      rationale: `숫자/데이터 선행으로 신뢰 확보. ${intentBias === "conversion" ? "전환 하드셀." : "논리적 사용자에게 효과적."}` },
+    { archetype: "Brand-poem", headline: trim(v3h, headlineMax), sub: trim(v3s, subMax), cta: v3c, leans: "Authentic + Witty",
+      rationale: `감정적 공명. ${channel === "brand" || channel === "social" ? "브캠/소셜 최적." : "영상/인지도용."}` },
+    { archetype: "Peer-voice", headline: trim(v4h, headlineMax), sub: trim(v4s, subMax), cta: v4c, leans: "Authentic + Witty",
+      rationale: personaObj ? `"${personaObj.label}" 톤에 맞춘 공감 리드.` : "리뷰/후기 톤. 옆사람 느낌." },
+    { archetype: promo ? "Promo" : intentBias === "awareness" ? "Brand-first" : "Lifestyle",
+      headline: trim(v5h, headlineMax), sub: trim(v5s, subMax), cta: v5c, leans: "Confident + Authentic",
+      rationale: promo ? "가격 소구 + RTB." : intentBias === "awareness" ? "브랜드 인지도." : `${audience} 라이프스타일 맥락.` },
   ];
 
   return variants.map(v => {
-    const combined = `${v.headline} ${v.sub}`;
+    const combined = `${v.headline} ${v.sub || ""}`;
     const check = krBrandCheck(combined);
     return { ...v, check };
   });
 }
+
 
 const FACTORY_CHANNELS_KR = [
   { id: "paid", label: "Paid Ad" },
