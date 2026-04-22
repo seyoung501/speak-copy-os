@@ -221,6 +221,40 @@ const D=[
 {l:"7",sub:"CTA-Price",g:null,ko:"올해 마지막 최저가, 구매하기",en:"Last lowest price — buy now",s:"SMS",f:"Universal",k:false},
 {l:"7",sub:"CTA-Channel",g:null,ko:"월 1만원대 무제한 영어 공부 시작 →",en:"Start unlimited English ₩10K/mo →",s:"Instagram",f:"Universal",k:false},
 {l:"7",sub:"CTA-Channel",g:null,ko:"지금 할인가에 스픽 시작하기→",en:"Start Speak at discount →",s:"Travel LP",f:"Universal",k:false},
+,
+
+// === BOOSTED COPIES: Weak targets + more variety (Copy OS Generated) ===
+{l:"5",sub:"T-Overseas",g:null,ko:"해외에서 한마디도 못 하면 그건 여행이 아니라 생존이다",en:"If you can't say a word abroad, that's not traveling — it's surviving",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-Overseas",g:null,ko:"이민 서류는 준비했는데, 입은 준비 안 됐다면",en:"You prepped the immigration papers but not your mouth",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-Overseas",g:null,ko:"해외 살면서 영어 안 느는 진짜 이유: 말할 기회가 없어서",en:"The real reason English doesn't improve abroad: no chance to speak",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-Overseas",g:null,ko:"마트에서 뭐 하나 물어보는 게 이렇게 어려울 줄 몰랐다",en:"Didn't know asking one thing at the store would be this hard",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-Overseas",g:null,ko:"해외 생활 1년차, 영어 실력은 아직 0년차",en:"1 year abroad, still year-zero English",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-Overseas",g:null,ko:"아이 학교 선생님한테 전화 한 통 못 거는 부모가 되기 싫다면",en:"If you don't want to be the parent who can't call the teacher",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-Test",g:null,ko:"토익 900인데 택시에서 한마디도 못 했다",en:"TOEIC 900 but couldn't say a word in the taxi",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-Test",g:null,ko:"OPIc IH 받으려면 머리가 아니라 입이 기억해야 한다",en:"For OPIc IH, your mouth needs to remember — not your brain",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-Test",g:null,ko:"시험까지 30일. 하루 100문장이면 3,000문장.",en:"30 days to the test. 100/day = 3,000 sentences.",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-Test",g:null,ko:"문법은 아는데 입에서 안 나오는 사람을 위한 앱",en:"The app for people who know grammar but can't say it",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-Test",g:null,ko:"점수는 있는데 말은 없는 사람, 스픽이 바꿔줍니다",en:"Scores but no words? Speak changes that.",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-Test",g:null,ko:"스피킹 시험은 결국 얼마나 말해봤냐의 싸움",en:"Speaking tests are about how much you've practiced",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-Parents",g:null,ko:"아이에게 Good morning이라도 영어로 말해주고 싶다",en:"Just want to say Good morning to my kid in English",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-Parents",g:null,ko:"학원비 100만원 vs 스픽 월 만원. 아이 앞에서 직접 보여주세요",en:"1M in tutor fees vs 10K/mo Speak. Show your kids.",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-Parents",g:null,ko:"엄마가 영어 하는 모습, 아이에게 최고의 교육",en:"Mom speaking English — best education for your child",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-Parents",g:null,ko:"아이 영어 걱정하면서 정작 나는 안 하고 있었다",en:"Worried about kid's English while doing nothing about mine",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-Parents",g:null,ko:"아이가 자기 전 영어 동화 한 편, 스픽으로 연습하고 읽어주세요",en:"Practice with Speak, read a bedtime story in English",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-Parents",g:null,ko:"부모가 영어 쓰는 환경, 아이에게 가장 좋은 영어 교육",en:"A parent who uses English — best education for kids",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
+{l:"5",sub:"T-General",g:null,ko:"영어 공부 10년, 외국인 만나면 아직도 떨린다",en:"10 years studying, still nervous with foreigners",s:"Copy OS Generated",f:"Universal",k:false},
+{l:"5",sub:"T-General",g:null,ko:"이번 새해 목표도 영어? 이번엔 진짜 되게 해줄게",en:"English again for New Year? This time for real.",s:"Copy OS Generated",f:"Universal",k:false},
+{l:"5",sub:"T-General",g:null,ko:"작심삼일이 두려운 당신을 위한 영어 앱",en:"The app for people afraid of giving up after 3 days",s:"Copy OS Generated",f:"Universal",k:false},
+{l:"5",sub:"T-General",g:null,ko:"유튜브 자막 없이 보고 싶다면, 입부터 트세요",en:"Want YouTube without subs? Start by opening your mouth.",s:"Copy OS Generated",f:"Universal",k:false},
+{l:"6",sub:"RTB-Reviews",g:null,ko:"출근길 10분씩 했더니 한 달 만에 회의에서 한마디 했어요 — 직장인 K",en:"10 min on commute, spoke in a meeting after a month — Worker K",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
+{l:"6",sub:"RTB-Reviews",g:null,ko:"AI랑 대화하는 느낌이라 부담이 없어요. 선생님 앞에선 못 했는데 — 대학생 P",en:"Feels like talking to AI, no pressure. Couldn't before a teacher — Student P",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
+{l:"6",sub:"RTB-Reviews",g:null,ko:"여행 가기 전에 2주 했는데, 공항에서 안 떨렸어요 — 여행러 M",en:"2 weeks before trip, wasn't nervous at airport — Traveler M",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
+{l:"6",sub:"RTB-Reviews",g:null,ko:"애가 옆에서 보더니 자기도 하겠다고 해요 — 학부모 J",en:"My kid watched and wants to try too — Parent J",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
+{l:"6",sub:"RTB-Reviews",g:null,ko:"6개월 했더니 넷플릭스 자막 없이 60% 알아들어요 — 자기계발러 S",en:"After 6 months, 60% Netflix without subs — Growth-seeker S",s:"Copy OS Generated",f:"TO-BE aligned",k:false},
+{l:"7",sub:"CTA-Trial",g:null,ko:"7일 무료로 말해보기",en:"Speak free for 7 days",s:"Copy OS Generated",f:"Universal",k:false},
+{l:"7",sub:"CTA-Trial",g:null,ko:"오늘 첫 수업 무료",en:"First lesson free today",s:"Copy OS Generated",f:"Universal",k:false},
+{l:"7",sub:"CTA-Channel",g:null,ko:"영어, 오늘부터 시작 →",en:"English, starting today →",s:"Copy OS Generated",f:"Universal",k:false},
+{l:"7",sub:"CTA-Channel",g:null,ko:"3분이면 첫 수업 끝",en:"First lesson done in 3 min",s:"Copy OS Generated",f:"Universal",k:false},
 ];
 
 const EVAL_PROMPT = `You are Speak's Brand Copy Evaluator. You evaluate Korean marketing copy against Speak's brand guidelines.
@@ -740,10 +774,55 @@ function Factory({copies, gk}) {
   const personaObj = personaList.find(p => p.id === persona);
   const formatObj = formatList.find(f => f.id === format);
 
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiResults, setAiResults] = useState(null);
+
   const generate = () => {
     const brief = { audience, persona, intent, channel, format, promo, pain: pain.trim(), feature };
     const variants = krGenerateCopy(brief, copies);
     setGenerated({ brief, variants, at: new Date().toISOString() });
+    setAiResults(null);
+    
+    // Also try Gemini AI generation for more creative results
+    const gk = (() => { try { return localStorage.getItem("gk") || ""; } catch { return ""; } })();
+    if (gk) {
+      setAiLoading(true);
+      const pObj = (KR_PERSONAS[audience] || []).find(p => p.id === persona);
+      const fObj = (KR_CHANNEL_FORMATS[channel] || []).find(f => f.id === format);
+      const refCopies = copies.filter(c => c.l === "5" && c.sub === brief.audience.replace("Career / Business","T-Career").replace("Travel","T-Travel").replace("Growth","T-Growth").replace("Life Overseas","T-Overseas").replace("Test Prep (OPIc/TOEIC)","T-Test").replace("Parents","T-Parents").replace("General","T-General")).slice(0, 5).map(c => c.ko).join(" | ");
+      const uspCopies = copies.filter(c => c.l === "4" && c.k).map(c => c.ko).join(" | ");
+      const sys = `You are Speak Korea's copywriter. Brand: "나를 끌어주는 영어 앱". Tone: Honest × Witty. Positioning: Pacer (pulls users forward).
+RULES: No exaggeration (절대/무조건/기적). No gamification jargon. No preachy tone. Outcome-led (말이 된다/입이 트인다). Concise. Peer tone.
+KEY USPs: ${uspCopies}
+REFERENCE COPIES for ${audience}: ${refCopies}`;
+      const usr = `Channel: ${channel} / ${fObj?.label || format}
+Audience: ${audience} / Persona: ${pObj?.label || persona} (Pain: ${pObj?.pain || pain || "general"})
+Intent: ${intent}
+${fObj ? `Headline max: ${fObj.headlineMax}자, Sub max: ${fObj.subMax}자, Tone: ${fObj.tone}` : ""}
+${promo ? "Include pricing/promo angle." : ""}
+${pain ? `Custom pain: ${pain}` : ""}
+
+Generate 3 creative Korean copy options. Each must feel DIFFERENT from the others.
+Return JSON array: [{"headline":"...","sub":"...","cta":"...","angle":"2-3 word label","rationale":"why this works"}]
+JSON only, no other text.`;
+      
+      fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${gk}`, {
+        method: "POST", headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({system_instruction:{parts:[{text:sys}]},contents:[{parts:[{text:usr}]}],generationConfig:{temperature:0.8,maxOutputTokens:2000,responseMimeType:"application/json"}})
+      }).then(r => r.json()).then(d => {
+        const t = d.candidates?.[0]?.content?.parts?.[0]?.text || "";
+        try {
+          const parsed = JSON.parse(t.replace(/```json|```/g, "").trim());
+          const arr = Array.isArray(parsed) ? parsed : [parsed];
+          setAiResults(arr.map(a => ({
+            archetype: `AI: ${a.angle || "Creative"}`, headline: a.headline, sub: a.sub, cta: a.cta,
+            rationale: a.rationale || "", leans: "AI Generated",
+            check: krBrandCheck(`${a.headline} ${a.sub || ""}`)
+          })));
+        } catch { setAiResults(null); }
+        setAiLoading(false);
+      }).catch(() => setAiLoading(false));
+    }
   };
 
   const toggleRemixPick = (copy) => {
@@ -913,11 +992,22 @@ function Factory({copies, gk}) {
         {/* Results */}
         {generated && <div>
           <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 16, color: "#1A1A1A" }}>
-            {generated.variants.length} archetypes — {audience} / {personaObj?.label || persona} / {intent}
+            📐 {generated.variants.length} archetypes (logic) — {audience} / {personaObj?.label || persona} / {intent}
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             {generated.variants.map((v, i) => renderVariant(v, i))}
           </div>
+          
+          {/* AI-generated results */}
+          {aiLoading && <div style={{ marginTop: 24, padding: 20, textAlign: "center", color: "#6B7280", fontSize: 13 }}>✨ AI가 추가 카피를 생성 중...</div>}
+          {aiResults && <div style={{ marginTop: 24 }}>
+            <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 16, color: "#1C49FF" }}>
+              ✨ {aiResults.length} AI creative options (Gemini)
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              {aiResults.map((v, i) => renderVariant(v, i + 10))}
+            </div>
+          </div>}
         </div>}
       </>)}
 
